@@ -3,13 +3,23 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 app.use(cors());
+
+// Serve static files from the React app
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
 
 const server = createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:5173", "http://localhost:5174"], // Support both Vite ports
+        origin: ["http://localhost:5173", "http://localhost:5174", process.env.VITE_API_URL], // Support local and production
         methods: ["GET", "POST"]
     }
 });
@@ -66,6 +76,13 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3001, () => {
-    console.log('SERVER RUNNING ON PORT 3001');
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+});
+
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+    console.log(`SERVER RUNNING ON PORT ${PORT}`);
 });

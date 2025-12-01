@@ -169,7 +169,13 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
 
     // Initialize Socket
     useEffect(() => {
-        const socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        // If VITE_API_URL is '/', it means same origin (deployed together)
+        // Otherwise use the env var or localhost fallback
+        let socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        if (socketUrl === '/') {
+            socketUrl = window.location.origin;
+        }
+
         const newSocket = io(socketUrl);
         setSocket(newSocket);
 
