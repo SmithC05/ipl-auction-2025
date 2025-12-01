@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Team, AuctionConfig } from '../types';
+import type { Team } from '../types';
 import { calculateTeamStrength, getOverseasCount } from '../utils/gameLogic';
 import TeamDetailModal from './TeamDetailModal';
 import { useAuction } from '../context/AuctionContext';

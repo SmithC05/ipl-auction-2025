@@ -13,7 +13,7 @@ interface PlayerPoolProps {
 const PlayerPool: React.FC<PlayerPoolProps> = ({ players, soldPlayers, unsoldPlayers, setsOrder, currentSet, onClose }) => {
     const [activeSet, setActiveSet] = useState<AuctionSet>(currentSet);
 
-    const getPlayerStatus = (playerId: string) => {
+    const getPlayerStatus = (playerId: number) => {
         if (soldPlayers.find(p => p.id === playerId)) return 'SOLD';
         if (unsoldPlayers.find(p => p.id === playerId)) return 'UNSOLD';
         return 'AVAILABLE';
@@ -61,9 +61,9 @@ const PlayerPool: React.FC<PlayerPoolProps> = ({ players, soldPlayers, unsoldPla
                                             <div className="font-bold text-gray-800">{player.name}</div>
                                             <div className="text-xs text-muted flex gap-2">
                                                 <span className={`font-bold ${player.role === 'BAT' ? 'text-blue-600' :
-                                                        player.role === 'BOWL' ? 'text-green-600' :
-                                                            player.role === 'AR' ? 'text-purple-600' :
-                                                                'text-yellow-600'
+                                                    player.role === 'BOWL' ? 'text-green-600' :
+                                                        player.role === 'AR' ? 'text-purple-600' :
+                                                            'text-yellow-600'
                                                     }`}>{player.role}</span>
                                                 <span>•</span>
                                                 <span>{player.nationality}</span>
