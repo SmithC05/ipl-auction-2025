@@ -33,13 +33,17 @@ io.on('connection', (socket) => {
 
     socket.on('create_room', (data) => {
         const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
+        // data can be just a callback or an object with config
+        const config = data && data.config ? data.config : null;
+
         rooms[roomId] = {
             players: [], // { socketId, username, teamId }
-            gameState: null // Auction state
+            gameState: null, // Auction state
+            config: config
         };
         socket.join(roomId);
         socket.emit('room_created', roomId);
-        console.log(`Room Created: ${roomId}`);
+        console.log(`Room Created: ${roomId} with config:`, config);
     });
 
     socket.on('join_room', ({ roomId, username }) => {

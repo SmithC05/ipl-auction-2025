@@ -44,6 +44,14 @@ export interface Bid {
   timestamp: number;
 }
 
+export interface AuctionConfig {
+  totalTeams: number;
+  budget: number;
+  maxPlayersPerTeam: number;
+  maxOverseas: number;
+  timerDuration: number; // in seconds
+}
+
 export interface AuctionState {
   teams: Team[];
   players: Player[];
@@ -62,6 +70,7 @@ export interface AuctionState {
   roomId?: string | null;
   isHost?: boolean;
   username?: string | null;
+  config: AuctionConfig;
 }
 
 export const TEAMS_CONFIG = [
@@ -77,6 +86,13 @@ export const TEAMS_CONFIG = [
   { id: 'DC', name: 'Delhi Capitals', shortName: 'DC', color: '#00008B' },
 ];
 
-export const DEFAULT_BUDGET = 100000000; // 100 Cr (represented as raw number)
+export const DEFAULT_BUDGET = 100000000; // 100 Cr
 export const MIN_SQUAD_SIZE = 12;
-export const MAX_SQUAD_SIZE = 15;
+export const MAX_SQUAD_SIZE = 25; // Updated default
+export const DEFAULT_CONFIG: AuctionConfig = {
+  totalTeams: 10,
+  budget: DEFAULT_BUDGET,
+  maxPlayersPerTeam: 25,
+  maxOverseas: 8,
+  timerDuration: 30,
+};

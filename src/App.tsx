@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AuctionProvider, useAuction } from './context/AuctionContext';
 import AuctionPanel from './components/AuctionPanel';
 import TeamPanel from './components/TeamPanel';
 import LiveLeaderboard from './components/LiveLeaderboard';
-import HelpModal from './components/HelpModal';
 import { parseCSV, compressPlayers, saveToStorage } from './utils/dataUtils';
-import { TEAMS_CONFIG } from './types';
+import { TEAMS_CONFIG, DEFAULT_CONFIG } from './types';
 import { shuffleTeams } from './utils/gameLogic';
 
 const SetupView: React.FC = () => {
@@ -13,12 +12,20 @@ const SetupView: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [joinRoomId, setJoinRoomId] = useState('');
   const [username, setUsername] = useState('');
+  const [step, setStep] = useState<'INITIAL' | 'CONFIG'>('INITIAL');
+
+  // Config State
+  const [config, setConfig] = useState(DEFAULT_CONFIG);
 
   // Helper to start auction after loading data
   const handleStart = (players: any[], roomConfig?: { roomId: string; isHost: boolean }) => {
     // In multiplayer, teams are shuffled automatically.
     // We pass empty userTeamId as manual selection is removed.
-    const teams = shuffleTeams(TEAMS_CONFIG, 4, '');
+    const teams = shuffleTeams(TEAMS_CONFIG, config.totalTeams, '');
+
+    // Apply budget from config
+    teams.forEach(t => t.budget = config.budget);
+
     dispatch({
       type: 'INIT_AUCTION',
       payload: {
@@ -27,7 +34,8 @@ const SetupView: React.FC = () => {
         userTeamId: '',
         username,
         roomId: roomConfig?.roomId,
-        isHost: roomConfig?.isHost
+        isHost: roomConfig?.isHost,
+        config: config
       }
     });
     saveToStorage('ipl_players_compressed', compressPlayers(players));
@@ -54,10 +62,15 @@ const SetupView: React.FC = () => {
       alert('Please enter your name');
       return;
     }
-    socket.emit('create_room');
+    // Go to config step
+    setStep('CONFIG');
+  };
+
+  const confirmCreateRoom = () => {
+    if (!socket) return;
+    socket.emit('create_room', { config });
     socket.once('room_created', (roomId: string) => {
       // I am the host
-      // Pass room config to handleStart to ensure it's set in INIT_AUCTION
       dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: true, username } });
       loadSampleData({ roomId, isHost: true });
     });
@@ -78,65 +91,135 @@ const SetupView: React.FC = () => {
     });
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-        <h1 className="text-3xl font-bold mb-2">IPL Auction 2025</h1>
-        <p className="text-gray-500 mb-8">Real-time Multiplayer Auction</p>
+  if (step === 'CONFIG') {
+    return (
+      <div className="container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--spacing-md)' }}>
+        <div className="card" style={{ maxWidth: '500px', width: '100%' }}>
+          <h2 className="text-xl font-bold mb-4" style={{ color: 'var(--color-primary)' }}>Auction Configuration</h2>
 
-        <div className="space-y-6">
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-800 text-left">
-            <p className="font-bold mb-1">How it works:</p>
-            <ul className="list-disc pl-4 space-y-1">
-              <li><strong>Host</strong> creates a room and starts the auction.</li>
-              <li><strong>Friends</strong> join using the Room ID.</li>
-              <li>Everyone bids in real-time!</li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <div className="text-left">
-              <label className="block text-sm font-bold mb-2">Your Name</label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                className="w-full border rounded p-3"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                maxLength={20}
-              />
-            </div>
-
-            <button
-              className="primary w-full py-3 font-bold text-lg rounded shadow-sm hover:shadow-md transition-all"
-              onClick={handleCreateRoom}
-              disabled={isLoading || !username.trim()}
-            >
-              Create New Room (Host)
-            </button>
-
-            <div className="flex items-center gap-2 my-2">
-              <div className="h-px bg-gray-300 flex-1"></div>
-              <span className="text-gray-400 text-xs font-bold">OR JOIN EXISTING</span>
-              <div className="h-px bg-gray-300 flex-1"></div>
-            </div>
-
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="ROOM ID"
-                className="flex-1 border rounded p-3 text-center uppercase font-mono tracking-widest font-bold"
-                value={joinRoomId}
-                onChange={(e) => setJoinRoomId(e.target.value.toUpperCase())}
-              />
-              <button
-                className="bg-black text-white px-6 rounded font-bold hover:bg-gray-800 transition-colors"
-                onClick={handleJoinRoom}
-                disabled={!joinRoomId || !username.trim()}
+          <div className="flex-col gap-4">
+            <div>
+              <label className="text-sm font-bold text-muted block mb-1">Total Teams</label>
+              <select
+                className="w-full p-2 border rounded"
+                value={config.totalTeams}
+                onChange={(e) => setConfig({ ...config, totalTeams: Number(e.target.value) })}
               >
-                JOIN
+                {[4, 5, 6, 7, 8, 9, 10].map(n => (
+                  <option key={n} value={n}>{n} Teams</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-muted block mb-1">Team Budget (Cr)</label>
+              <input
+                type="number"
+                className="w-full p-2 border rounded"
+                value={config.budget / 10000000}
+                onChange={(e) => setConfig({ ...config, budget: Number(e.target.value) * 10000000 })}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="text-sm font-bold text-muted block mb-1">Max Players</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border rounded"
+                  value={config.maxPlayersPerTeam}
+                  onChange={(e) => setConfig({ ...config, maxPlayersPerTeam: Number(e.target.value) })}
+                />
+              </div>
+              <div>
+                <label className="text-sm font-bold text-muted block mb-1">Max Overseas</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border rounded"
+                  value={config.maxOverseas}
+                  onChange={(e) => setConfig({ ...config, maxOverseas: Number(e.target.value) })}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-muted block mb-1">Bid Timer (Seconds)</label>
+              <input
+                type="number"
+                className="w-full p-2 border rounded"
+                value={config.timerDuration}
+                onChange={(e) => setConfig({ ...config, timerDuration: Number(e.target.value) })}
+              />
+            </div>
+
+            <div className="flex gap-2 mt-4">
+              <button
+                className="bg-gray-200 text-gray-800 flex-1"
+                onClick={() => setStep('INITIAL')}
+              >
+                Back
+              </button>
+              <button
+                className="primary flex-1"
+                onClick={confirmCreateRoom}
+              >
+                Start Auction
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'var(--spacing-md)' }}>
+      <div className="card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+        <h1 className="text-2xl" style={{ marginBottom: 'var(--spacing-sm)', color: 'var(--color-primary)' }}>IPL Auction 2025</h1>
+        <p className="text-muted" style={{ marginBottom: 'var(--spacing-xl)' }}>Real-time Multiplayer Auction</p>
+
+        <div className="flex-col gap-4">
+          <div style={{ textAlign: 'left' }}>
+            <label style={{ display: 'block', marginBottom: 'var(--spacing-xs)', fontWeight: 'bold' }}>Your Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              maxLength={20}
+              className="w-full p-2 border rounded"
+            />
+          </div>
+
+          <button
+            className="primary w-full justify-center py-3 text-lg"
+            onClick={handleCreateRoom}
+            disabled={isLoading || !username.trim()}
+          >
+            Create New Room (Host)
+          </button>
+
+          <div className="flex items-center gap-2 my-2">
+            <div className="h-px bg-gray-200 flex-1"></div>
+            <span className="text-xs font-bold text-muted">OR JOIN EXISTING</span>
+            <div className="h-px bg-gray-200 flex-1"></div>
+          </div>
+
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="ROOM ID"
+              className="flex-1 text-center uppercase tracking-widest font-bold border rounded p-2"
+              value={joinRoomId}
+              onChange={(e) => setJoinRoomId(e.target.value.toUpperCase())}
+            />
+            <button
+              className="px-6 font-bold bg-gray-800 text-white rounded hover:bg-black"
+              onClick={handleJoinRoom}
+              disabled={!joinRoomId || !username.trim()}
+            >
+              JOIN
+            </button>
           </div>
         </div>
       </div>
@@ -147,14 +230,6 @@ const SetupView: React.FC = () => {
 const MainView: React.FC = () => {
   const { state } = useAuction();
   const [activeTab, setActiveTab] = useState<'auction' | 'teams' | 'leaderboard'>('auction');
-  const [isHelpOpen, setIsHelpOpen] = useState(false);
-
-  useEffect(() => {
-    const hidden = localStorage.getItem('ipl_auction_help_hidden');
-    if (hidden !== 'true') {
-      setIsHelpOpen(true);
-    }
-  }, []);
 
   // If no players loaded, show setup
   if (state.players.length === 0) {
@@ -162,28 +237,28 @@ const MainView: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-16">
-      <header className="bg-black text-white p-4 sticky top-0 z-10 shadow-md">
-        <div className="container flex justify-between items-center">
-          <div className="flex flex-col">
-            <h1 className="font-bold text-lg">IPL Auction 2025</h1>
+    <div style={{ minHeight: '100vh', paddingBottom: '80px' }}>
+      <header style={{ background: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)', padding: 'var(--spacing-md) 0', position: 'sticky', top: 0, zIndex: 10 }}>
+        <div className="container flex-row" style={{ justifyContent: 'space-between' }}>
+          <div className="flex-col" style={{ gap: '4px' }}>
+            <h1 className="text-lg" style={{ color: 'var(--color-primary)' }}>IPL Auction 2025</h1>
             {state.roomId && (
-              <span className="text-xs bg-blue-600 px-2 py-1 rounded inline-block mt-1 font-mono">
+              <span className="badge" style={{ color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}>
                 ROOM: {state.roomId}
               </span>
             )}
           </div>
-          <div className="text-xs bg-gray-800 px-2 py-1 rounded">
+          <div className="badge" style={{ background: 'var(--color-surface-hover)' }}>
             {state.soldPlayers.length} Sold / {state.unsoldPlayers.length} Unsold
           </div>
         </div>
       </header>
 
-      <main className="container py-4">
+      <main className="container" style={{ paddingTop: 'var(--spacing-lg)' }}>
         {activeTab === 'auction' && <AuctionPanel />}
 
         {activeTab === 'teams' && (
-          <div className="space-y-4">
+          <div className="flex-col">
             {state.teams.map((team: any) => (
               <TeamPanel key={team.id} team={team} />
             ))}
@@ -193,27 +268,38 @@ const MainView: React.FC = () => {
         {activeTab === 'leaderboard' && <LiveLeaderboard teams={state.teams} />}
       </main>
 
-      <HelpModal
-        isOpen={isHelpOpen}
-        onClose={() => setIsHelpOpen(false)}
-      />
-
       {/* Mobile Bottom Nav */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around p-2 pb-safe z-40">
+      <div style={{
+        position: 'fixed', bottom: 0, left: 0, right: 0,
+        background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)',
+        display: 'flex', justifyContent: 'space-around', padding: 'var(--spacing-sm)', zIndex: 40
+      }}>
         <button
-          className={`flex-1 text-xs py-2 ${activeTab === 'auction' ? 'text-black font-bold' : 'text-gray-400 border-transparent'}`}
+          style={{
+            flex: 1, border: 'none', background: 'transparent',
+            color: activeTab === 'auction' ? 'var(--color-primary)' : 'var(--color-text-muted)',
+            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
+          }}
           onClick={() => setActiveTab('auction')}
         >
           Auction
         </button>
         <button
-          className={`flex-1 text-xs py-2 ${activeTab === 'teams' ? 'text-black font-bold' : 'text-gray-400 border-transparent'}`}
+          style={{
+            flex: 1, border: 'none', background: 'transparent',
+            color: activeTab === 'teams' ? 'var(--color-primary)' : 'var(--color-text-muted)',
+            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
+          }}
           onClick={() => setActiveTab('teams')}
         >
           Teams
         </button>
         <button
-          className={`flex-1 text-xs py-2 ${activeTab === 'leaderboard' ? 'text-black font-bold' : 'text-gray-400 border-transparent'}`}
+          style={{
+            flex: 1, border: 'none', background: 'transparent',
+            color: activeTab === 'leaderboard' ? 'var(--color-primary)' : 'var(--color-text-muted)',
+            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
+          }}
           onClick={() => setActiveTab('leaderboard')}
         >
           Leaderboard

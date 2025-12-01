@@ -15,36 +15,37 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, compact = false }) => {
         return `₹${(price / 100000).toFixed(0)} L`;
     };
 
-    const getRoleBadgeColor = (role: string) => {
+    const getRoleBadgeStyle = (role: string) => {
+        const baseStyle = { padding: '2px 8px', borderRadius: '999px', fontSize: '0.75rem', fontWeight: 'bold' };
         switch (role) {
-            case 'BAT': return 'bg-blue-100 text-blue-800';
-            case 'BOWL': return 'bg-green-100 text-green-800';
-            case 'AR': return 'bg-purple-100 text-purple-800';
-            case 'WK': return 'bg-yellow-100 text-yellow-800';
-            default: return 'bg-gray-100 text-gray-800';
+            case 'BAT': return { ...baseStyle, background: 'rgba(59, 130, 246, 0.2)', color: '#60a5fa' }; // Blue
+            case 'BOWL': return { ...baseStyle, background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80' }; // Green
+            case 'AR': return { ...baseStyle, background: 'rgba(168, 85, 247, 0.2)', color: '#c084fc' }; // Purple
+            case 'WK': return { ...baseStyle, background: 'rgba(234, 179, 8, 0.2)', color: '#facc15' }; // Yellow
+            default: return { ...baseStyle, background: 'rgba(148, 163, 184, 0.2)', color: '#94a3b8' }; // Gray
         }
     };
 
     return (
-        <div className={`card ${compact ? 'p-2' : 'p-4'} bg-white shadow-sm border border-gray-200 rounded-lg`}>
+        <div className="card" style={{ padding: compact ? 'var(--spacing-sm)' : 'var(--spacing-lg)', background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--border-radius)' }}>
             <div className="flex justify-between items-start mb-2">
                 <div>
-                    <h3 className={`font-bold ${compact ? 'text-base' : 'text-xl'}`}>{player.name}</h3>
-                    <div className="flex gap-2 mt-1">
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${getRoleBadgeColor(player.role)}`}>
+                    <h3 className={compact ? 'text-lg font-bold' : 'text-xl font-bold'} style={{ color: 'var(--color-text)' }}>{player.name}</h3>
+                    <div className="flex gap-2 mt-2">
+                        <span style={getRoleBadgeStyle(player.role)}>
                             {player.role}
                         </span>
                         {player.set && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200">
+                            <span style={{ padding: '2px 8px', borderRadius: '999px', fontSize: '0.75rem', background: 'var(--color-surface-hover)', color: 'var(--color-text-muted)', border: '1px solid var(--color-border)' }}>
                                 {player.set}
                             </span>
                         )}
                     </div>
-                    <span className="text-xs text-gray-500 block mt-1">{player.nationality}</span>
+                    <span className="text-sm text-muted" style={{ display: 'block', marginTop: '4px' }}>{player.nationality}</span>
                 </div>
                 <div className="text-right">
-                    <div className="font-bold text-lg">{formatPrice(player.basePrice)}</div>
-                    <div className="text-xs text-gray-500">Base Price</div>
+                    <div className="text-xl font-bold" style={{ color: 'var(--color-primary)' }}>{formatPrice(player.basePrice)}</div>
+                    <div className="text-sm text-muted">Base Price</div>
                 </div>
             </div>
 
@@ -53,7 +54,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, compact = false }) => {
                     <img
                         src={player.imageUrl}
                         alt={player.name}
-                        className="h-32 w-32 object-cover rounded-full border-2 border-gray-100"
+                        style={{ height: '128px', width: '128px', objectFit: 'cover', borderRadius: '50%', border: '4px solid var(--color-surface-hover)' }}
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/128x128?text=Player'; }}
                     />
@@ -62,31 +63,31 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, compact = false }) => {
 
             {!compact && (
                 <div className="grid grid-cols-3 gap-2 text-center text-sm mt-4">
-                    <div className="bg-gray-50 p-2 rounded">
+                    <div style={{ background: 'var(--color-surface-hover)', padding: '8px', borderRadius: 'var(--border-radius)' }}>
                         <div className="font-bold">{player.matches}</div>
-                        <div className="text-xs text-gray-500">Matches</div>
+                        <div className="text-xs text-muted">Matches</div>
                     </div>
                     {player.role !== 'BOWL' && (
                         <>
-                            <div className="bg-gray-50 p-2 rounded">
+                            <div style={{ background: 'var(--color-surface-hover)', padding: '8px', borderRadius: 'var(--border-radius)' }}>
                                 <div className="font-bold">{player.runs}</div>
-                                <div className="text-xs text-gray-500">Runs</div>
+                                <div className="text-xs text-muted">Runs</div>
                             </div>
-                            <div className="bg-gray-50 p-2 rounded">
+                            <div style={{ background: 'var(--color-surface-hover)', padding: '8px', borderRadius: 'var(--border-radius)' }}>
                                 <div className="font-bold">{player.sr}</div>
-                                <div className="text-xs text-gray-500">SR</div>
+                                <div className="text-xs text-muted">SR</div>
                             </div>
                         </>
                     )}
                     {(player.role === 'BOWL' || player.role === 'AR') && (
                         <>
-                            <div className="bg-gray-50 p-2 rounded">
+                            <div style={{ background: 'var(--color-surface-hover)', padding: '8px', borderRadius: 'var(--border-radius)' }}>
                                 <div className="font-bold">{player.wickets}</div>
-                                <div className="text-xs text-gray-500">Wickets</div>
+                                <div className="text-xs text-muted">Wickets</div>
                             </div>
-                            <div className="bg-gray-50 p-2 rounded">
+                            <div style={{ background: 'var(--color-surface-hover)', padding: '8px', borderRadius: 'var(--border-radius)' }}>
                                 <div className="font-bold">{player.econ}</div>
-                                <div className="text-xs text-gray-500">Econ</div>
+                                <div className="text-xs text-muted">Econ</div>
                             </div>
                         </>
                     )}

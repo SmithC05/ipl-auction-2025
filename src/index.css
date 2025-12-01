@@ -1,34 +1,50 @@
 :root {
-  --color-bg: #ffffff;
-  --color-text: #000000;
-  --color-border: #e0e0e0;
-  --color-accent: #000000;
-  --color-accent-text: #ffffff;
+  /* IPL Theme Colors */
+  --color-bg: #f0f2f5;
+  /* Light Gray/White Background */
+  --color-surface: #ffffff;
+  --color-surface-hover: #eef2f6;
+
+  --color-primary: #1e3c72;
+  /* Deep Blue */
+  --color-primary-hover: #162d55;
+  --color-primary-text: #ffffff;
+
+  --color-secondary: #ff5722;
+  /* Orange */
+  --color-secondary-hover: #e64a19;
+  --color-secondary-text: #ffffff;
+
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+
+  --color-border: #d1d5db;
+  --color-divider: #e5e7eb;
+
   --color-success: #008000;
-  --color-danger: #ff0000;
-  --color-warning: #ffa500;
-  --color-muted: #888888;
-  
+  --color-danger: #d32f2f;
+  --color-warning: #ffa000;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
-  
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-size-sm: 12px;
-  --font-size-base: 16px;
-  --font-size-lg: 20px;
-  --font-size-xl: 24px;
-  
-  --border-radius: 4px;
-}
+  --spacing-xl: 32px;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Optional: Invert for dark mode if requested, but user asked for "Minimal White/Black Theme" which usually implies high contrast. 
-       Keeping it simple for now, can add dark mode toggle later if needed. 
-       For now, let's stick to the requested theme. */
-  }
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
 }
 
 * {
@@ -41,55 +57,88 @@ body {
   font-family: var(--font-family);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
+/* Button Styles */
 button {
   cursor: pointer;
   font-family: inherit;
+  font-weight: 600;
   border: 1px solid var(--color-border);
-  background: var(--color-bg);
+  background: var(--color-surface);
   color: var(--color-text);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
   border-radius: var(--border-radius);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
 }
 
-button:active {
-  transform: translateY(1px);
+button:hover:not(:disabled) {
+  background: var(--color-surface-hover);
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 button.primary {
-  background: var(--color-accent);
-  color: var(--color-accent-text);
-  border-color: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-primary), #162d55);
+  color: var(--color-primary-text);
+  border: none;
+  box-shadow: 0 4px 6px rgba(30, 60, 114, 0.3);
+}
+
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: 0 0 15px rgba(30, 60, 114, 0.5);
 }
 
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  filter: grayscale(1);
 }
 
-input, select {
-  padding: var(--spacing-sm);
+/* Inputs */
+input,
+select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
+  color: var(--color-text);
   border-radius: var(--border-radius);
   font-family: inherit;
   font-size: var(--font-size-base);
   width: 100%;
+  transition: border-color 0.2s;
 }
 
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.2);
+}
+
+/* Layout Utilities */
 .container {
-  max-width: 600px; /* Mobile-first constraint */
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--spacing-md);
 }
 
 .card {
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
   border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
   margin-bottom: var(--spacing-md);
 }
 
@@ -105,17 +154,51 @@ input, select {
   gap: var(--spacing-md);
 }
 
-.text-sm { font-size: var(--font-size-sm); }
-.text-lg { font-size: var(--font-size-lg); font-weight: bold; }
-.text-xl { font-size: var(--font-size-xl); font-weight: bold; }
-.text-muted { color: var(--color-muted); }
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-text);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.text-sm {
+  font-size: var(--font-size-sm);
+}
+
+.text-lg {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+}
+
+.text-xl {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.text-2xl {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
 
 .badge {
   display: inline-block;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  border: 1px solid currentColor;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }

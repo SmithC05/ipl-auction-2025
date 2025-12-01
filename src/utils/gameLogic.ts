@@ -114,3 +114,16 @@ export const shuffleTeams = (teamsConfig: typeof import('../types').TEAMS_CONFIG
         totalSpent: 0
     }));
 };
+
+export const getOverseasCount = (players: Player[]): number => {
+    return players.filter(p => p.nationality !== 'India').length;
+};
+
+export const getRoleCounts = (players: Player[]) => {
+    return {
+        BAT: players.filter(p => p.role === 'BAT').length,
+        BOWL: players.filter(p => p.role === 'BOWL').length,
+        AR: players.filter(p => p.role === 'AR').length,
+        WK: players.filter(p => p.role === 'WK').length,
+    };
+};

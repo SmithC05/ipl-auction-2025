@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
-import type { AuctionState, Player, Team, Bid, AuctionSet } from '../types';
+import type { AuctionState, Player, Team, Bid, AuctionSet, AuctionConfig } from '../types';
+import { DEFAULT_CONFIG } from '../types';
 import { saveToStorage } from '../utils/dataUtils';
 import { io, Socket } from 'socket.io-client';
 
@@ -29,10 +30,11 @@ const INITIAL_STATE: AuctionState = {
     userTeamId: null,
     roomId: null,
     isHost: false,
+    config: DEFAULT_CONFIG,
 };
 
 type Action =
-    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string; roomId?: string; isHost?: boolean } }
+    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string; roomId?: string; isHost?: boolean; config?: AuctionConfig } }
     | { type: 'START_TIMER'; payload: number }
     | { type: 'TICK_TIMER' }
     | { type: 'STOP_TIMER' }
@@ -42,7 +44,8 @@ type Action =
     | { type: 'NEXT_PLAYER' }
     | { type: 'LOAD_STATE'; payload: AuctionState }
     | { type: 'CHANGE_SET'; payload: AuctionSet }
-    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string } };
+    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string } }
+    | { type: 'SET_USER_TEAM'; payload: string };
 
 const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
     switch (action.type) {
@@ -59,7 +62,10 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 username: action.payload.username || state.username || null,
                 roomId: action.payload.roomId || state.roomId || null,
                 isHost: action.payload.isHost !== undefined ? action.payload.isHost : (state.isHost || false),
+                config: action.payload.config || state.config,
             };
+        case 'SET_USER_TEAM':
+            return { ...state, userTeamId: action.payload };
         case 'START_TIMER':
             return { ...state, isTimerRunning: true, timerSeconds: action.payload };
         case 'TICK_TIMER':
@@ -136,20 +142,23 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 }
             }
 
-            const nextPlayer = availablePlayersInSet[0];
+            // Randomly select next player
+            const randomIndex = Math.floor(Math.random() * availablePlayersInSet.length);
+            const nextPlayer = availablePlayersInSet[randomIndex];
             return {
                 ...state,
                 currentPlayer: nextPlayer,
                 currentBid: nextPlayer.basePrice,
                 currentBidder: null,
-                timerSeconds: 30,
+                timerSeconds: state.config.timerDuration,
                 isTimerRunning: false,
                 auctionStatus: 'ACTIVE',
             };
+
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
-            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId, username: state.username }; // Keep local connection state
+            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId, username: state.username };
         case 'JOIN_ROOM':
             return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost, username: action.payload.username };
         default:
