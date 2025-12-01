@@ -1,0 +1,29 @@
+services:
+  # Backend Service
+  - type: web
+    name: ipl-auction-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run server
+    envVars:
+      - key: PORT
+        value: 10000
+
+  # Frontend Static Site
+  - type: static
+    name: ipl-auction-frontend
+    env: static
+    plan: free
+    buildCommand: npm run build
+    publishDir: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: ipl-auction-backend
+          property: url
