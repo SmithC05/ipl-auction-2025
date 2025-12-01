@@ -76,12 +76,35 @@ export const calculateTeamStrength = (team: Team): number => {
     return parseFloat(totalScore.toFixed(2));
 };
 
-export const shuffleTeams = (teamsConfig: typeof import('../types').TEAMS_CONFIG, count: number): Team[] => {
+export const shuffleTeams = (teamsConfig: typeof import('../types').TEAMS_CONFIG, count: number, userTeamId?: string): Team[] => {
     // Fisher-Yates shuffle
     const shuffled = [...teamsConfig];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+
+    // If user selected a team, ensure it's in the pool
+    if (userTeamId) {
+        const userTeamIndex = shuffled.findIndex(t => t.id === userTeamId);
+        if (userTeamIndex > -1) {
+            // Move user team to the front to ensure it's picked
+            [shuffled[0], shuffled[userTeamIndex]] = [shuffled[userTeamIndex], shuffled[0]];
+
+            // Shuffle the rest (from index 1 onwards)
+            for (let i = shuffled.length - 1; i > 1; i--) {
+                const j = Math.floor(Math.random() * i) + 1; // Random index from 1 to i
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+        } else {
+            // Fallback shuffle if not found (shouldn't happen)
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+        }
+    } else {
+        // Standard shuffle
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
     }
 
     return shuffled.slice(0, count).map(t => ({

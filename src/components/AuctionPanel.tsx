@@ -4,19 +4,21 @@ import PlayerCard from './PlayerCard';
 import BidHistory from './BidHistory';
 
 const AuctionPanel: React.FC = () => {
-    const { state, dispatch } = useAuction();
+    const { state, dispatch, socket } = useAuction();
     const { currentPlayer, currentBid, currentBidder, isTimerRunning, timerSeconds, bidHistory, teams } = state;
 
-    // Assume user is playing as the first team for now, or we can add a selector.
+    // Use userTeamId from state if available, otherwise fallback to first team (or handle error)
     const [myTeamId, setMyTeamId] = useState<string>('');
     const [autoBidLimit, setAutoBidLimit] = useState<number>(0);
     const [isAutoBidEnabled, setIsAutoBidEnabled] = useState(false);
 
     useEffect(() => {
-        if (teams.length > 0 && !myTeamId) {
+        if (state.userTeamId) {
+            setMyTeamId(state.userTeamId);
+        } else if (teams.length > 0 && !myTeamId) {
             setMyTeamId(teams[0].id);
         }
-    }, [teams, myTeamId]);
+    }, [teams, myTeamId, state.userTeamId]);
 
     const myTeam = teams.find((t: any) => t.id === myTeamId);
 
@@ -34,6 +36,10 @@ const AuctionPanel: React.FC = () => {
 
     const handleBid = (amount: number) => {
         if (myTeam && myTeam.budget >= amount) {
+            // If in multiplayer mode, emit bid to socket
+            if (state.roomId && socket) {
+                socket.emit('place_bid', { roomId: state.roomId, bid: { teamId: myTeam.id, amount } });
+            }
             dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
         }
     };
@@ -79,12 +85,17 @@ const AuctionPanel: React.FC = () => {
                 <p className="text-gray-500 mb-8 max-w-xs mx-auto">
                     {state.players.filter(p => p.set === state.currentSet && !state.soldPlayers.find(sp => sp.id === p.id) && !state.unsoldPlayers.find(up => up.id === p.id)).length} players remaining in this set.
                 </p>
-                <button
-                    className="primary text-lg px-8 py-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
-                    onClick={() => dispatch({ type: 'NEXT_PLAYER' })}
-                >
-                    Bring Next Player
-                </button>
+                {(!state.roomId || state.isHost) && (
+                    <button
+                        className="primary text-lg px-8 py-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                        onClick={() => dispatch({ type: 'NEXT_PLAYER' })}
+                    >
+                        Bring Next Player
+                    </button>
+                )}
+                {state.roomId && !state.isHost && (
+                    <p className="text-sm text-gray-400">Waiting for host to bring next player...</p>
+                )}
             </div>
         );
     }
@@ -153,25 +164,27 @@ const AuctionPanel: React.FC = () => {
                     <span className="text-xs text-gray-500">Cr</span>
                 </div>
 
-                {/* Auctioneer Controls */}
-                <div className="border-t border-gray-200 pt-3 mt-2">
-                    <div className="text-xs text-center text-gray-400 mb-2 uppercase tracking-wide">Auctioneer Controls</div>
-                    <div className="flex gap-2">
-                        <button
-                            className="flex-1 bg-red-50 text-red-600 border-red-200 hover:bg-red-100 font-bold py-2 rounded"
-                            onClick={handleUnsold}
-                        >
-                            UNSOLD
-                        </button>
-                        <button
-                            className="flex-1 bg-green-50 text-green-600 border-green-200 hover:bg-green-100 font-bold py-2 rounded"
-                            onClick={handleSold}
-                            disabled={!currentBidder}
-                        >
-                            SOLD
-                        </button>
+                {/* Auctioneer Controls - Only Host in Multiplayer */}
+                {(!state.roomId || state.isHost) && (
+                    <div className="border-t border-gray-200 pt-3 mt-2">
+                        <div className="text-xs text-center text-gray-400 mb-2 uppercase tracking-wide">Auctioneer Controls</div>
+                        <div className="flex gap-2">
+                            <button
+                                className="flex-1 bg-red-50 text-red-600 border-red-200 hover:bg-red-100 font-bold py-2 rounded"
+                                onClick={handleUnsold}
+                            >
+                                UNSOLD
+                            </button>
+                            <button
+                                className="flex-1 bg-green-50 text-green-600 border-green-200 hover:bg-green-100 font-bold py-2 rounded"
+                                onClick={handleSold}
+                                disabled={!currentBidder}
+                            >
+                                SOLD
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             <BidHistory history={bidHistory} />

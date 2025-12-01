@@ -57,6 +57,9 @@ export interface AuctionState {
   auctionStatus: 'IDLE' | 'ACTIVE' | 'PAUSED' | 'COMPLETED';
   currentSet: AuctionSet;
   setsOrder: AuctionSet[];
+  userTeamId?: string | null;
+  roomId?: string | null;
+  isHost?: boolean;
 }
 
 export const TEAMS_CONFIG = [

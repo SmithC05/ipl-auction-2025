@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { AuctionState, Player, Team, Bid, AuctionSet } from '../types';
-import { saveToStorage, loadFromStorage } from '../utils/dataUtils';
+import { saveToStorage } from '../utils/dataUtils';
+import { io, Socket } from 'socket.io-client';
 
 const INITIAL_SETS_ORDER: AuctionSet[] = [
     'Marquee',
@@ -25,10 +26,13 @@ const INITIAL_STATE: AuctionState = {
     auctionStatus: 'IDLE',
     currentSet: 'Marquee',
     setsOrder: INITIAL_SETS_ORDER,
+    userTeamId: null,
+    roomId: null,
+    isHost: false,
 };
 
 type Action =
-    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[] } }
+    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string } }
     | { type: 'START_TIMER'; payload: number }
     | { type: 'TICK_TIMER' }
     | { type: 'STOP_TIMER' }
@@ -37,7 +41,8 @@ type Action =
     | { type: 'UNSOLD_PLAYER'; payload: Player }
     | { type: 'NEXT_PLAYER' }
     | { type: 'LOAD_STATE'; payload: AuctionState }
-    | { type: 'CHANGE_SET'; payload: AuctionSet };
+    | { type: 'CHANGE_SET'; payload: AuctionSet }
+    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean } };
 
 const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
     switch (action.type) {
@@ -50,6 +55,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 soldPlayers: [],
                 auctionStatus: 'IDLE',
                 currentSet: 'Marquee',
+                userTeamId: action.payload.userTeamId || null,
             };
         case 'START_TIMER':
             return { ...state, isTimerRunning: true, timerSeconds: action.payload };
@@ -116,13 +122,10 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 const currentSetIndex = state.setsOrder.indexOf(state.currentSet);
                 if (currentSetIndex < state.setsOrder.length - 1) {
                     const nextSet = state.setsOrder[currentSetIndex + 1];
-                    // Recursive call effectively, but we can just return state update to change set
-                    // And user has to click "Next Player" again, or we auto-advance.
-                    // Let's auto-advance logic here:
                     return {
                         ...state,
                         currentSet: nextSet,
-                        currentPlayer: null, // UI will show "Set Changed to X"
+                        currentPlayer: null,
                         auctionStatus: 'ACTIVE'
                     };
                 } else {
@@ -143,7 +146,9 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
-            return action.payload;
+            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId }; // Keep local connection state
+        case 'JOIN_ROOM':
+            return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost };
         default:
             return state;
     }
@@ -152,36 +157,86 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
 const AuctionContext = createContext<{
     state: AuctionState;
     dispatch: React.Dispatch<Action>;
+    socket: Socket | null;
 } | null>(null);
 
 export const AuctionProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(auctionReducer, INITIAL_STATE);
+    const [socket, setSocket] = useState<Socket | null>(null);
 
+    // Initialize Socket
     useEffect(() => {
-        const savedState = loadFromStorage<AuctionState>('ipl_auction_state');
-        if (savedState) {
-            dispatch({ type: 'LOAD_STATE', payload: savedState });
-        }
+        const newSocket = io('http://localhost:3001');
+        setSocket(newSocket);
+
+        newSocket.on('connect', () => {
+            console.log('Connected to socket server');
+        });
+
+        return () => {
+            newSocket.close();
+        };
     }, []);
 
+    // Socket Event Listeners
     useEffect(() => {
-        saveToStorage('ipl_auction_state', state);
+        if (!socket) return;
+
+        socket.on('state_update', (newState: AuctionState) => {
+            // Only update if we are NOT the host (Host is the source of truth)
+            if (!state.isHost) {
+                dispatch({ type: 'LOAD_STATE', payload: newState });
+            }
+        });
+
+        socket.on('new_bid', (bid: { teamId: string; amount: number }) => {
+            // If we are host, we receive bid and update state.
+            // If we are client, we also update state to show immediate feedback?
+            // Actually, if we are client, we wait for state_update from host for consistency?
+            // But for responsiveness, let's update.
+            // However, if Host processes it differently, we might desync.
+            // For now, let's trust the bid event.
+            if (state.currentBid < bid.amount) {
+                dispatch({ type: 'PLACE_BID', payload: bid });
+            }
+        });
+
+        return () => {
+            socket.off('state_update');
+            socket.off('new_bid');
+        };
+    }, [socket, state.isHost, state.currentBid]);
+
+    // Host: Broadcast State Changes
+    useEffect(() => {
+        if (state.isHost && state.roomId && socket) {
+            // Debounce or throttle could be good, but for now direct emit
+            socket.emit('send_state_update', { roomId: state.roomId, state });
+        }
+    }, [state, socket]); // This triggers on every state change
+
+    // Local Storage Persistence (only if not in multiplayer or if host?)
+    useEffect(() => {
+        if (!state.roomId || state.isHost) {
+            saveToStorage('ipl_auction_state', state);
+        }
     }, [state]);
 
+    // Timer Logic (Only Host runs the timer)
     useEffect(() => {
         let interval: any;
-        if (state.isTimerRunning && state.timerSeconds > 0) {
+        if (state.isHost && state.isTimerRunning && state.timerSeconds > 0) {
             interval = setInterval(() => {
                 dispatch({ type: 'TICK_TIMER' });
             }, 1000);
-        } else if (state.timerSeconds === 0 && state.isTimerRunning) {
+        } else if (state.isHost && state.timerSeconds === 0 && state.isTimerRunning) {
             dispatch({ type: 'STOP_TIMER' });
         }
         return () => clearInterval(interval);
-    }, [state.isTimerRunning, state.timerSeconds]);
+    }, [state.isTimerRunning, state.timerSeconds, state.isHost]);
 
     return (
-        <AuctionContext.Provider value={{ state, dispatch }}>
+        <AuctionContext.Provider value={{ state, dispatch, socket }}>
             {children}
         </AuctionContext.Provider>
     );
