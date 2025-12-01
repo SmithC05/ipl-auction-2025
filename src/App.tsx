@@ -15,29 +15,36 @@ const SetupView: React.FC = () => {
   const [selectedTeamId, setSelectedTeamId] = useState<string>('');
   const [isMultiplayer, setIsMultiplayer] = useState(false);
   const [joinRoomId, setJoinRoomId] = useState('');
+  const [username, setUsername] = useState('');
 
   const handleStart = (players: any[]) => {
     const teams = shuffleTeams(TEAMS_CONFIG, teamCount, selectedTeamId);
-    dispatch({ type: 'INIT_AUCTION', payload: { players, teams, userTeamId: selectedTeamId } });
+    dispatch({ type: 'INIT_AUCTION', payload: { players, teams, userTeamId: selectedTeamId, username } });
     saveToStorage('ipl_players_compressed', compressPlayers(players));
   };
 
   const handleCreateRoom = () => {
-    if (!socket) return;
+    if (!socket || !username.trim()) {
+      alert('Please enter your name');
+      return;
+    }
     socket.emit('create_room');
     socket.once('room_created', (roomId: string) => {
       // I am the host
-      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: true } });
+      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: true, username } });
       // Proceed to load data as usual, INIT_AUCTION will set userTeamId
       loadSampleData();
     });
   };
 
   const handleJoinRoom = () => {
-    if (!socket || !joinRoomId) return;
-    socket.emit('join_room', joinRoomId);
+    if (!socket || !joinRoomId || !username.trim()) {
+      alert('Please enter your name and room ID');
+      return;
+    }
+    socket.emit('join_room', { roomId: joinRoomId, username });
     socket.once('room_joined', (roomId: string) => {
-      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: false } });
+      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: false, username } });
       // We don't INIT_AUCTION, we wait for state_update from host
     });
     socket.once('error', (msg: string) => {
@@ -166,10 +173,22 @@ const SetupView: React.FC = () => {
             </div>
 
             <div className="space-y-3">
+              <div className="mb-4">
+                <label className="block text-sm font-bold mb-2 text-left">Your Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  className="w-full border rounded p-2"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  maxLength={20}
+                />
+              </div>
+
               <button
                 className="primary w-full py-3 font-bold text-lg"
                 onClick={handleCreateRoom}
-                disabled={isLoading}
+                disabled={isLoading || !username.trim()}
               >
                 Create New Room (Host)
               </button>
@@ -191,7 +210,7 @@ const SetupView: React.FC = () => {
                 <button
                   className="bg-black text-white px-6 rounded font-bold"
                   onClick={handleJoinRoom}
-                  disabled={!joinRoomId}
+                  disabled={!joinRoomId || !username.trim()}
                 >
                   JOIN
                 </button>

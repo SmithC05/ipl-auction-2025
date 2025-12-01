@@ -15,7 +15,7 @@ const io = new Server(server, {
 });
 
 // Store room states
-// roomID -> { players: [], teams: [], auctionState: ... }
+// roomID -> { players: [], gameState: ... }
 const rooms = {};
 
 io.on('connection', (socket) => {
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
     socket.on('create_room', (data) => {
         const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
         rooms[roomId] = {
-            players: [], // Connected users
+            players: [], // { socketId, username, teamId }
             gameState: null // Auction state
         };
         socket.join(roomId);
@@ -32,16 +32,17 @@ io.on('connection', (socket) => {
         console.log(`Room Created: ${roomId}`);
     });
 
-    socket.on('join_room', (roomId) => {
+    socket.on('join_room', ({ roomId, username }) => {
         if (rooms[roomId]) {
             socket.join(roomId);
+            rooms[roomId].players.push({ socketId: socket.id, username, teamId: null });
             socket.emit('room_joined', roomId);
 
             // Send current state if exists
             if (rooms[roomId].gameState) {
                 socket.emit('state_update', rooms[roomId].gameState);
             }
-            console.log(`User joined room: ${roomId}`);
+            console.log(`${username} joined room: ${roomId}`);
         } else {
             socket.emit('error', 'Room not found');
         }

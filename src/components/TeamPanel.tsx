@@ -1,55 +1,53 @@
 import React from 'react';
 import type { Team } from '../types';
-import { MAX_SQUAD_SIZE } from '../types';
+import { calculateTeamStrength } from '../utils/gameLogic';
 
 interface TeamPanelProps {
     team: Team;
-    isOwner?: boolean;
 }
 
-const TeamPanel: React.FC<TeamPanelProps> = ({ team, isOwner = false }) => {
-    const formatMoney = (amount: number) => {
-        if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(2)} Cr`;
-        return `₹${(amount / 100000).toFixed(2)} L`;
-    };
-
-    const remainingBudget = team.budget;
-    const slotsFilled = team.squad.length;
-    const slotsLeft = MAX_SQUAD_SIZE - slotsFilled;
+const TeamPanel: React.FC<TeamPanelProps> = ({ team }) => {
+    const strengthScore = calculateTeamStrength(team);
 
     return (
-        <div className="card" style={{ borderLeft: `4px solid ${team.color}` }}>
-            <div className="flex justify-between items-center mb-2">
-                <h3 className="font-bold text-lg" style={{ color: team.color }}>{team.shortName}</h3>
-                {isOwner && <span className="badge bg-black text-white">YOU</span>}
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="card">
+            <div className="flex justify-between items-center mb-4">
                 <div>
-                    <div className="text-sm text-gray-500">Budget Left</div>
-                    <div className="font-bold text-xl">{formatMoney(remainingBudget)}</div>
-                </div>
-                <div className="text-right">
-                    <div className="text-sm text-gray-500">Slots Left</div>
-                    <div className="font-bold text-xl">{slotsLeft} / {MAX_SQUAD_SIZE}</div>
-                </div>
-            </div>
-
-            <div className="space-y-1">
-                <div className="text-xs font-bold text-gray-400 uppercase">Squad ({slotsFilled})</div>
-                <div className="max-h-32 overflow-y-auto text-sm">
-                    {team.squad.length === 0 ? (
-                        <div className="text-gray-400 italic">No players yet</div>
-                    ) : (
-                        team.squad.map(p => (
-                            <div key={p.id} className="flex justify-between py-1 border-b border-gray-100 last:border-0">
-                                <span>{p.name}</span>
-                                <span className="text-gray-500 text-xs">{p.role}</span>
-                            </div>
-                        ))
+                    <h3 className="font-bold text-lg">{team.name}</h3>
+                    {team.playerName && (
+                        <p className="text-xs text-gray-500">Player: {team.playerName}</p>
                     )}
                 </div>
+                <div className="text-right">
+                    <div className="text-sm text-gray-500">Budget</div>
+                    <div className="font-bold text-lg">₹{(team.budget / 10000000).toFixed(1)} Cr</div>
+                </div>
             </div>
+
+            <div className="grid grid-cols-2 gap-4 mb-4 text-sm">
+                <div>
+                    <div className="text-gray-500">Squad Size</div>
+                    <div className="font-bold">{team.squad.length}</div>
+                </div>
+                <div className="text-right">
+                    <div className="text-gray-500">Strength</div>
+                    <div className="font-bold">{strengthScore.toFixed(1)}</div>
+                </div>
+            </div>
+
+            {team.squad.length > 0 && (
+                <div className="space-y-1">
+                    <div className="text-xs font-bold text-gray-400">SQUAD</div>
+                    <div className="max-h-32 overflow-y-auto text-sm space-y-1">
+                        {team.squad.map(player => (
+                            <div key={player.id} className="flex justify-between items-center py-1 border-b border-gray-100">
+                                <span>{player.name}</span>
+                                <span className="text-xs text-gray-500">{player.role}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

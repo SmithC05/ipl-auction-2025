@@ -31,10 +31,11 @@ export interface Team {
   id: string;
   name: string;
   shortName: string;
-  color: string; // Hex code
+  color: string;
   budget: number;
   squad: Player[];
   totalSpent: number;
+  playerName?: string; // Username of the person controlling this team
 }
 
 export interface Bid {
@@ -45,12 +46,12 @@ export interface Bid {
 
 export interface AuctionState {
   teams: Team[];
-  players: Player[]; // All players
+  players: Player[];
   unsoldPlayers: Player[];
   soldPlayers: Player[];
   currentPlayer: Player | null;
   currentBid: number;
-  currentBidder: string | null; // Team ID
+  currentBidder: string | null;
   bidHistory: Bid[];
   isTimerRunning: boolean;
   timerSeconds: number;
@@ -60,6 +61,7 @@ export interface AuctionState {
   userTeamId?: string | null;
   roomId?: string | null;
   isHost?: boolean;
+  username?: string | null;
 }
 
 export const TEAMS_CONFIG = [

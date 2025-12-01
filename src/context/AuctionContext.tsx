@@ -32,7 +32,7 @@ const INITIAL_STATE: AuctionState = {
 };
 
 type Action =
-    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string } }
+    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string } }
     | { type: 'START_TIMER'; payload: number }
     | { type: 'TICK_TIMER' }
     | { type: 'STOP_TIMER' }
@@ -42,7 +42,7 @@ type Action =
     | { type: 'NEXT_PLAYER' }
     | { type: 'LOAD_STATE'; payload: AuctionState }
     | { type: 'CHANGE_SET'; payload: AuctionSet }
-    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean } };
+    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string } };
 
 const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
     switch (action.type) {
@@ -56,6 +56,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 auctionStatus: 'IDLE',
                 currentSet: 'Marquee',
                 userTeamId: action.payload.userTeamId || null,
+                username: action.payload.username || null,
             };
         case 'START_TIMER':
             return { ...state, isTimerRunning: true, timerSeconds: action.payload };
@@ -146,9 +147,9 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
-            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId }; // Keep local connection state
+            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId, username: state.username }; // Keep local connection state
         case 'JOIN_ROOM':
-            return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost };
+            return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost, username: action.payload.username };
         default:
             return state;
     }
