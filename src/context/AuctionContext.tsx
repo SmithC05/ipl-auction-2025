@@ -32,7 +32,7 @@ const INITIAL_STATE: AuctionState = {
 };
 
 type Action =
-    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string } }
+    | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string; roomId?: string; isHost?: boolean } }
     | { type: 'START_TIMER'; payload: number }
     | { type: 'TICK_TIMER' }
     | { type: 'STOP_TIMER' }
@@ -56,7 +56,9 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 auctionStatus: 'IDLE',
                 currentSet: 'Marquee',
                 userTeamId: action.payload.userTeamId || null,
-                username: action.payload.username || null,
+                username: action.payload.username || state.username || null,
+                roomId: action.payload.roomId || state.roomId || null,
+                isHost: action.payload.isHost !== undefined ? action.payload.isHost : (state.isHost || false),
             };
         case 'START_TIMER':
             return { ...state, isTimerRunning: true, timerSeconds: action.payload };
