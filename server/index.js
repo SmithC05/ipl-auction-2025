@@ -95,6 +95,11 @@ io.on('connection', (socket) => {
     });
 });
 
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
 app.get(/.*/, (req, res) => {
@@ -102,6 +107,7 @@ app.get(/.*/, (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-server.listen(PORT, () => {
-    console.log(`SERVER RUNNING ON PORT ${PORT}`);
+const HOST = '0.0.0.0'; // Bind to all network interfaces for Render
+server.listen(PORT, HOST, () => {
+    console.log(`SERVER RUNNING ON ${HOST}:${PORT}`);
 });
