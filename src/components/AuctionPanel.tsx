@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useAuction } from '../context/AuctionContext';
-import PlayerCard from './PlayerCard';
+import PlayerFlipCard from './PlayerFlipCard';
+import TickerTape from './TickerTape';
 import BidHistory from './BidHistory';
 import MyTeamStats from './MyTeamStats';
 import PlayerPool from './PlayerPool';
+import HoldToBidButton from './HoldToBidButton';
+import { useAudioStream } from '../hooks/useAudioStream';
 
 const AuctionPanel: React.FC = () => {
     const { state, dispatch, socket } = useAuction();
     const { currentPlayer, currentBid, currentBidder, isTimerRunning, timerSeconds, bidHistory, teams, config } = state;
+
+    const { isListening, isBroadcasting, startBroadcast, stopBroadcast, startListening, stopListening } = useAudioStream({
+        socket,
+        roomId: state.roomId || null,
+        isHost: state.isHost || false
+    });
 
     // Use userTeamId from state if available, otherwise fallback to first team (or handle error)
     const [myTeamId, setMyTeamId] = useState<string>('');
@@ -25,6 +34,14 @@ const AuctionPanel: React.FC = () => {
     }, [teams, myTeamId, state.userTeamId]);
 
     const myTeam = teams.find((t: any) => t.id === myTeamId);
+
+    // Dynamic Theming
+    useEffect(() => {
+        if (myTeam) {
+            document.documentElement.style.setProperty('--team-primary', myTeam.color || '#1e3c72');
+            // document.documentElement.style.setProperty('--team-secondary', myTeam.secondaryColor || '#ff5722');
+        }
+    }, [myTeam]);
 
     const handleSwitchTeam = (teamId: string) => {
         dispatch({ type: 'SET_USER_TEAM', payload: teamId });
@@ -48,13 +65,12 @@ const AuctionPanel: React.FC = () => {
         if (myTeam && myTeam.budget >= amount) {
             // If in multiplayer mode, emit bid to socket
             if (state.roomId && socket) {
-                socket.emit('place_bid', { roomId: state.roomId, bid: { teamId: myTeam.id, amount } });
+                // Optimized Payload: [roomId, teamId, amount]
+                socket.emit('place_bid', [state.roomId, myTeam.id, amount]);
             }
             dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
         }
     };
-
-
 
     const handleSold = () => {
         if (currentBidder) {
@@ -158,8 +174,30 @@ const AuctionPanel: React.FC = () => {
             {/* Mobile Sticky Header */}
             <div className="sticky top-0 z-20 bg-white shadow-md p-2 -mx-4 px-4 mb-2 flex flex-col gap-2">
                 <div className="flex justify-between items-center">
-                    <div className="text-xl font-bold">
-                        {isTimerRunning ? `⏱ 00:${timerSeconds.toString().padStart(2, '0')}` : '⏸ PAUSED'}
+                    <div className="flex items-center gap-2">
+                        <div className="text-xl font-bold">
+                            {isTimerRunning ? `⏱ 00:${timerSeconds.toString().padStart(2, '0')}` : '⏸ PAUSED'}
+                        </div>
+                        {/* Audio Controls */}
+                        {state.roomId && (
+                            <div className="flex gap-1">
+                                {state.isHost ? (
+                                    <button
+                                        onClick={isBroadcasting ? stopBroadcast : startBroadcast}
+                                        className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200'}`}
+                                    >
+                                        {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={isListening ? stopListening : startListening}
+                                        className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
+                                    >
+                                        {isListening ? '🔊 LISTENING' : '🔇 MUTED'}
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                     <div className="text-right">
                         <div className="text-xs text-muted">Current Bid</div>
@@ -198,8 +236,8 @@ const AuctionPanel: React.FC = () => {
                 </div>
             )}
 
-            {/* Main Player Card */}
-            <PlayerCard player={currentPlayer} />
+            {/* Main Player Card (3D Flip) */}
+            <PlayerFlipCard player={currentPlayer} />
 
             {/* Recent Bids (Mobile Friendly) */}
             <div className="bg-gray-50 p-2 rounded text-xs text-center text-muted">
@@ -209,14 +247,12 @@ const AuctionPanel: React.FC = () => {
             {/* Bidding Controls */}
             <div className="card sticky bottom-0 z-20 shadow-lg border-t-2 border-blue-100 mb-0">
                 <div className="grid grid-cols-2 gap-4">
-                    <button
-                        className="primary"
-                        style={{ padding: '16px', fontSize: '1.1rem' }}
-                        onClick={() => handleBid(nextBidAmount)}
+                    <HoldToBidButton
+                        amount={nextBidAmount}
+                        label={`BID ${formatMoney(nextBidAmount)}`}
                         disabled={!canAfford || currentBidder === myTeamId}
-                    >
-                        BID {formatMoney(nextBidAmount)}
-                    </button>
+                        onBid={handleBid}
+                    />
                     <div className="flex-col gap-2">
                         <button
                             onClick={() => handleBid(currentBid + 5000000)} // Jump +50L
@@ -232,8 +268,6 @@ const AuctionPanel: React.FC = () => {
                         </button>
                     </div>
                 </div>
-
-
 
                 {/* Auctioneer Controls - Only Host in Multiplayer */}
                 {(!state.roomId || state.isHost) && (
@@ -258,10 +292,13 @@ const AuctionPanel: React.FC = () => {
             </div>
 
             {/* Full History below controls */}
-            <div className="mt-4">
+            <div className="mt-4 pb-12">
                 <h3 className="text-sm font-bold text-muted mb-2">Bid History</h3>
                 <BidHistory history={bidHistory} />
             </div>
+
+            {/* Ticker Tape */}
+            <TickerTape bids={bidHistory} teams={teams} />
 
         </div>
     );

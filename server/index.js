@@ -70,9 +70,24 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('place_bid', ({ roomId, bid }) => {
-        // Broadcast bid to everyone in room including sender (to confirm)
-        io.in(roomId).emit('new_bid', bid);
+    socket.on('place_bid', (payload) => {
+        // Payload: [roomId, teamId, amount]
+        if (Array.isArray(payload)) {
+            const [roomId, teamId, amount] = payload;
+            // Broadcast bid to everyone in room including sender (to confirm)
+            // Emit as array: [teamId, amount]
+            io.in(roomId).emit('new_bid', [teamId, amount]);
+        } else {
+            // Fallback for old clients (if any)
+            const { roomId, bid } = payload;
+            io.in(roomId).emit('new_bid', bid);
+        }
+    });
+
+    // Audio Signaling (WebRTC)
+    socket.on('audio_signal', ({ roomId, type, payload }) => {
+        // Relay to everyone else in the room
+        socket.to(roomId).emit('audio_signal', { type, payload });
     });
 
     socket.on('disconnect', () => {

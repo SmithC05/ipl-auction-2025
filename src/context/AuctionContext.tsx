@@ -162,6 +162,24 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
+            // Prevent stale updates from overwriting newer local state (Optimistic UI protection)
+            const isStaleUpdate = action.payload.currentBid < state.currentBid;
+
+            if (isStaleUpdate) {
+                // Keep local bid state, but update everything else (like timer, players, etc.)
+                return {
+                    ...action.payload,
+                    currentBid: state.currentBid,
+                    currentBidder: state.currentBidder,
+                    bidHistory: state.bidHistory,
+                    // Preserve local session state
+                    roomId: state.roomId,
+                    isHost: state.isHost,
+                    userTeamId: state.userTeamId,
+                    username: state.username
+                };
+            }
+
             return {
                 ...action.payload,
                 // Preserve local session state that shouldn't be overwritten by server broadcast
@@ -170,6 +188,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 userTeamId: state.userTeamId,
                 username: state.username
             };
+
         case 'JOIN_ROOM':
             return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost, username: action.payload.username };
         default:
@@ -221,22 +240,25 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         if (!socket) return;
 
         socket.on('state_update', (newState: AuctionState) => {
-            // Only update if we are NOT the host (Host is the source of truth)
-            if (!state.isHost) {
-                dispatch({ type: 'LOAD_STATE', payload: newState });
-            }
+            dispatch({ type: 'LOAD_STATE', payload: newState });
         });
 
-        socket.on('new_bid', (bid: { teamId: string; amount: number }) => {
-            // Dispatch immediately. The reducer will handle validation (amount > currentBid).
-            dispatch({ type: 'PLACE_BID', payload: bid });
+        socket.on('new_bid', (payload: any) => {
+            let teamId, amount;
+            if (Array.isArray(payload)) {
+                [teamId, amount] = payload;
+            } else {
+                teamId = payload.teamId;
+                amount = payload.amount;
+            }
+            dispatch({ type: 'PLACE_BID', payload: { teamId, amount } });
         });
 
         return () => {
             socket.off('state_update');
             socket.off('new_bid');
         };
-    }, [socket, state.isHost]); // Removed state.currentBid dependency to prevent re-binding
+    }, [socket, state.isHost]);
 
     // Host: Broadcast State Changes
     useEffect(() => {

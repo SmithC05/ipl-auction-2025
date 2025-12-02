@@ -15,6 +15,10 @@
   --color-secondary-hover: #e64a19;
   --color-secondary-text: #ffffff;
 
+  /* Dynamic Team Colors (Default to IPL Blue) */
+  --team-primary: #1e3c72;
+  --team-secondary: #ff5722;
+
   --color-text: #1a1a1a;
   --color-text-muted: #666666;
 
@@ -78,23 +82,15 @@ button {
   gap: var(--spacing-sm);
 }
 
-button:hover:not(:disabled) {
-  background: var(--color-surface-hover);
-}
-
 button:active:not(:disabled) {
   /* No transform */
 }
 
 button.primary {
-  background: linear-gradient(135deg, var(--color-primary), #162d55);
+  background: linear-gradient(135deg, var(--team-primary), var(--color-primary-hover));
   color: var(--color-primary-text);
   border: none;
-  box-shadow: 0 4px 6px rgba(30, 60, 114, 0.3);
-}
-
-button.primary:hover:not(:disabled) {
-  filter: brightness(1.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button:disabled {
@@ -120,7 +116,7 @@ select {
 input:focus,
 select:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--team-primary);
   box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.2);
 }
 
@@ -186,7 +182,7 @@ h4 {
 }
 
 .text-primary {
-  color: var(--color-primary);
+  color: var(--team-primary);
 }
 
 .badge {
