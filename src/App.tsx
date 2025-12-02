@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuctionProvider, useAuction } from './context/AuctionContext';
 import AuctionPanel from './components/AuctionPanel';
 import TeamPanel from './components/TeamPanel';
