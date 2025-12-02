@@ -11,10 +11,9 @@ const AuctionPanel: React.FC = () => {
 
     // Use userTeamId from state if available, otherwise fallback to first team (or handle error)
     const [myTeamId, setMyTeamId] = useState<string>('');
-    const [autoBidLimit, setAutoBidLimit] = useState<number>(0);
-    const [isAutoBidEnabled, setIsAutoBidEnabled] = useState(false);
     const [isSwitchModalOpen, setIsSwitchModalOpen] = useState(false);
     const [isPoolOpen, setIsPoolOpen] = useState(false);
+    const [isStatsOpen, setIsStatsOpen] = useState(false);
 
     useEffect(() => {
         if (state.userTeamId) {
@@ -55,19 +54,7 @@ const AuctionPanel: React.FC = () => {
         }
     };
 
-    // Auto-bid logic
-    useEffect(() => {
-        if (isAutoBidEnabled && isTimerRunning && currentPlayer && myTeam) {
-            // If current bid is not mine, and current bid < limit, place bid
-            if (currentBidder !== myTeamId && currentBid < autoBidLimit && myTeam.budget >= currentBid + 200000) {
-                // Add a small delay for realism
-                const timeout = setTimeout(() => {
-                    handleBid(calculateNextBid(currentBid));
-                }, 1000);
-                return () => clearTimeout(timeout);
-            }
-        }
-    }, [currentBid, currentBidder, isTimerRunning, isAutoBidEnabled, autoBidLimit, currentPlayer, myTeam]);
+
 
     const handleSold = () => {
         if (currentBidder) {
@@ -167,40 +154,64 @@ const AuctionPanel: React.FC = () => {
     }
 
     return (
-        <div className="flex-col gap-4">
-            {myTeam && (
-                <MyTeamStats
-                    team={myTeam}
-                    config={config}
-                    onSwitchTeam={() => setIsSwitchModalOpen(true)}
-                />
-            )}
+        <div className="flex-col gap-4 relative">
+            {/* Mobile Sticky Header */}
+            <div className="sticky top-0 z-20 bg-white shadow-md p-2 -mx-4 px-4 mb-2 flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                    <div className="text-xl font-bold">
+                        {isTimerRunning ? `⏱ 00:${timerSeconds.toString().padStart(2, '0')}` : '⏸ PAUSED'}
+                    </div>
+                    <div className="text-right">
+                        <div className="text-xs text-muted">Current Bid</div>
+                        <div className="text-xl font-bold text-primary">{formatMoney(currentBid)}</div>
+                    </div>
+                </div>
 
-            {/* Timer & Status */}
-            <div className="timer-display">
-                <div className="text-xl font-bold">
-                    {isTimerRunning ? `00:${timerSeconds.toString().padStart(2, '0')}` : 'PAUSED'}
-                </div>
-                <div className="text-sm">
-                    Current Bid: <span className="text-primary font-bold text-lg" style={{ marginLeft: '8px' }}>{formatMoney(currentBid)}</span>
-                </div>
-                <button
-                    className="text-xs ml-auto px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded"
-                    onClick={() => setIsPoolOpen(true)}
-                >
-                    View Pool
-                </button>
+                {/* Current Bidder Banner */}
+                {currentBidder ? (
+                    <div className={`p-2 rounded text-center font-bold text-white ${currentBidder === myTeamId ? 'bg-green-600' : 'bg-blue-600'}`}>
+                        {currentBidder === myTeamId ? 'YOU ARE WINNING' : `${teams.find(t => t.id === currentBidder)?.name || 'Unknown'} is winning`}
+                    </div>
+                ) : (
+                    <div className="p-2 rounded text-center font-bold bg-gray-200 text-gray-500">
+                        Waiting for bid...
+                    </div>
+                )}
             </div>
+
+            {/* Collapsible Stats */}
+            {myTeam && (
+                <div className="border rounded p-2 bg-gray-50">
+                    <div className="flex justify-between items-center cursor-pointer" onClick={() => setIsStatsOpen(!isStatsOpen)}>
+                        <span className="font-bold text-sm">My Purse: {formatMoney(myTeam.budget)}</span>
+                        <span className="text-xs text-blue-600">{isStatsOpen ? 'Hide Stats' : 'Show Stats'}</span>
+                    </div>
+                    {isStatsOpen && (
+                        <div className="mt-2 pt-2 border-t">
+                            <MyTeamStats
+                                team={myTeam}
+                                config={config}
+                                onSwitchTeam={() => setIsSwitchModalOpen(true)}
+                            />
+                        </div>
+                    )}
+                </div>
+            )}
 
             {/* Main Player Card */}
             <PlayerCard player={currentPlayer} />
 
+            {/* Recent Bids (Mobile Friendly) */}
+            <div className="bg-gray-50 p-2 rounded text-xs text-center text-muted">
+                Last Bid: {bidHistory.length > 0 ? `${formatMoney(bidHistory[0].amount)} by ${teams.find(t => t.id === bidHistory[0].teamId)?.name}` : 'None'}
+            </div>
+
             {/* Bidding Controls */}
-            <div className="card">
-                <div className="grid grid-cols-2 gap-4 mb-4">
+            <div className="card sticky bottom-0 z-20 shadow-lg border-t-2 border-blue-100 mb-0">
+                <div className="grid grid-cols-2 gap-4">
                     <button
                         className="primary"
-                        style={{ padding: '20px', fontSize: '1.2rem' }}
+                        style={{ padding: '16px', fontSize: '1.1rem' }}
                         onClick={() => handleBid(nextBidAmount)}
                         disabled={!canAfford || currentBidder === myTeamId}
                     >
@@ -209,46 +220,24 @@ const AuctionPanel: React.FC = () => {
                     <div className="flex-col gap-2">
                         <button
                             onClick={() => handleBid(currentBid + 5000000)} // Jump +50L
-                            disabled={!canAfford}
+                            disabled={!canAfford || currentBidder === myTeamId}
                         >
                             +50L Jump
                         </button>
                         <button
                             onClick={() => handleBid(currentBid + 10000000)} // Jump +1Cr
-                            disabled={!canAfford}
+                            disabled={!canAfford || currentBidder === myTeamId}
                         >
                             +1Cr Jump
                         </button>
                     </div>
                 </div>
 
-                {/* Auto Bid Toggle */}
-                <div className="flex items-center gap-2 mb-4 p-2" style={{ background: 'var(--color-bg)', borderRadius: 'var(--border-radius)', border: '1px solid var(--color-border)' }}>
-                    <input
-                        type="checkbox"
-                        checked={isAutoBidEnabled}
-                        onChange={(e) => setIsAutoBidEnabled(e.target.checked)}
-                        id="auto-bid"
-                        style={{ width: 'auto' }}
-                    />
-                    <label htmlFor="auto-bid" className="text-sm font-bold" style={{ flex: 1, cursor: 'pointer' }}>Auto-Bid</label>
-                    <div className="flex items-center gap-2">
-                        <input
-                            type="number"
-                            style={{ width: '80px', padding: '4px' }}
-                            placeholder="Limit"
-                            value={autoBidLimit ? autoBidLimit / 10000000 : ''}
-                            onChange={(e) => setAutoBidLimit(parseFloat(e.target.value) * 10000000)}
-                            disabled={!isAutoBidEnabled}
-                        />
-                        <span className="text-xs text-muted">Cr</span>
-                    </div>
-                </div>
+
 
                 {/* Auctioneer Controls - Only Host in Multiplayer */}
                 {(!state.roomId || state.isHost) && (
                     <div className="mt-2" style={{ borderTop: '1px solid var(--color-border)', paddingTop: '12px' }}>
-                        <div className="text-xs text-center text-muted mb-2 uppercase" style={{ letterSpacing: '1px' }}>Auctioneer Controls</div>
                         <div className="flex gap-2">
                             <button
                                 style={{ flex: 1, borderColor: 'var(--color-danger)', color: 'var(--color-danger)' }}
@@ -268,7 +257,11 @@ const AuctionPanel: React.FC = () => {
                 )}
             </div>
 
-            <BidHistory history={bidHistory} />
+            {/* Full History below controls */}
+            <div className="mt-4">
+                <h3 className="text-sm font-bold text-muted mb-2">Bid History</h3>
+                <BidHistory history={bidHistory} />
+            </div>
 
         </div>
     );

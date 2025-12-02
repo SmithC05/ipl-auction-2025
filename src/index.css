@@ -80,11 +80,10 @@ button {
 
 button:hover:not(:disabled) {
   background: var(--color-surface-hover);
-  transform: translateY(-1px);
 }
 
 button:active:not(:disabled) {
-  transform: translateY(0);
+  /* No transform */
 }
 
 button.primary {
@@ -96,7 +95,6 @@ button.primary {
 
 button.primary:hover:not(:disabled) {
   filter: brightness(1.1);
-  box-shadow: 0 0 15px rgba(30, 60, 114, 0.5);
 }
 
 button:disabled {
