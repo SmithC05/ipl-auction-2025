@@ -189,9 +189,21 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
 
     // Initialize Socket
     useEffect(() => {
-        // Use VITE_API_URL if available (Production/Vercel), otherwise localhost
-        const socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        // Determine Socket URL
+        // 1. Explicit VITE_API_URL (e.g. for Vercel -> Render)
+        // 2. Same Origin (for Single Service Render deployment)
+        // 3. Localhost (for local dev)
+        let socketUrl = import.meta.env.VITE_API_URL;
 
+        if (!socketUrl) {
+            if (import.meta.env.PROD) {
+                socketUrl = window.location.origin;
+            } else {
+                socketUrl = 'http://localhost:3001';
+            }
+        }
+
+        console.log('Connecting to Socket URL:', socketUrl);
         const newSocket = io(socketUrl);
         setSocket(newSocket);
 
