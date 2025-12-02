@@ -15,7 +15,7 @@ const HoldToBidButton: React.FC<HoldToBidButtonProps> = ({ amount, label, disabl
     const startTimeRef = useRef<number>(0);
     const { trigger } = useHaptic();
 
-    const HOLD_DURATION = 500; // 0.5s
+    const HOLD_DURATION = 300; // 0.3s (Reduced for better UX)
 
     const startHold = (e: React.PointerEvent) => {
         if (disabled) return;
@@ -23,6 +23,7 @@ const HoldToBidButton: React.FC<HoldToBidButtonProps> = ({ amount, label, disabl
         setIsHolding(true);
         startTimeRef.current = Date.now();
         trigger('light');
+        console.log('Started holding bid button');
 
         timerRef.current = setInterval(() => {
             const elapsed = Date.now() - startTimeRef.current;
@@ -47,6 +48,7 @@ const HoldToBidButton: React.FC<HoldToBidButtonProps> = ({ amount, label, disabl
     const completeBid = () => {
         endHold();
         trigger('medium');
+        console.log('Bid hold completed, triggering onBid');
         onBid(amount);
     };
 

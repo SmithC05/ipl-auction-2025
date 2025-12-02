@@ -68,13 +68,19 @@ const AuctionPanel: React.FC = () => {
     const canAfford = myTeam ? myTeam.budget >= nextBidAmount : false;
 
     const handleBid = (amount: number) => {
+        console.log('handleBid called with amount:', amount);
         if (myTeam && myTeam.budget >= amount) {
             // If in multiplayer mode, emit bid to socket
             if (state.roomId && socket) {
+                console.log('Emitting place_bid to socket:', state.roomId, myTeam.id, amount);
                 // Optimized Payload: [roomId, teamId, amount]
                 socket.emit('place_bid', [state.roomId, myTeam.id, amount]);
+            } else {
+                console.warn('Cannot bid: No roomId or socket connection');
             }
             dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
+        } else {
+            console.warn('Cannot bid: Budget insufficient or no team selected', { myTeam, amount });
         }
     };
 
