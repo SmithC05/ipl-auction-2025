@@ -90,6 +90,22 @@ io.on('connection', (socket) => {
         socket.to(roomId).emit('audio_signal', { type, payload });
     });
 
+    socket.on('select_team', ({ roomId, teamId, playerName }) => {
+        if (rooms[roomId] && rooms[roomId].gameState) {
+            // Update team in gameState
+            const teams = rooms[roomId].gameState.teams.map(t => {
+                if (t.id === teamId) {
+                    return { ...t, playerName };
+                }
+                return t;
+            });
+            rooms[roomId].gameState.teams = teams;
+
+            // Broadcast update
+            io.to(roomId).emit('state_update', rooms[roomId].gameState);
+        }
+    });
+
     socket.on('disconnect', () => {
         console.log('User Disconnected', socket.id);
     });

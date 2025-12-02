@@ -214,7 +214,7 @@ const SetupView: React.FC = () => {
               onChange={(e) => setJoinRoomId(e.target.value.toUpperCase())}
             />
             <button
-              className="px-6 font-bold bg-gray-800 text-white rounded hover:bg-black"
+              className="px-6 font-bold primary rounded"
               onClick={handleJoinRoom}
               disabled={!joinRoomId || !username.trim()}
             >
