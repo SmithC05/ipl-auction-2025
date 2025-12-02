@@ -73,6 +73,10 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
         case 'STOP_TIMER':
             return { ...state, isTimerRunning: false };
         case 'PLACE_BID':
+            // Validation: Ignore if bid is not higher than current
+            if (action.payload.amount <= state.currentBid) {
+                return state;
+            }
             const newHistory: Bid = {
                 teamId: action.payload.teamId,
                 amount: action.payload.amount,
@@ -158,7 +162,14 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
-            return { ...action.payload, roomId: state.roomId, isHost: state.isHost, userTeamId: state.userTeamId, username: state.username };
+            return {
+                ...action.payload,
+                // Preserve local session state that shouldn't be overwritten by server broadcast
+                roomId: state.roomId,
+                isHost: state.isHost,
+                userTeamId: state.userTeamId,
+                username: state.username
+            };
         case 'JOIN_ROOM':
             return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost, username: action.payload.username };
         default:
@@ -205,22 +216,15 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
         });
 
         socket.on('new_bid', (bid: { teamId: string; amount: number }) => {
-            // If we are host, we receive bid and update state.
-            // If we are client, we also update state to show immediate feedback?
-            // Actually, if we are client, we wait for state_update from host for consistency?
-            // But for responsiveness, let's update.
-            // However, if Host processes it differently, we might desync.
-            // For now, let's trust the bid event.
-            if (state.currentBid < bid.amount) {
-                dispatch({ type: 'PLACE_BID', payload: bid });
-            }
+            // Dispatch immediately. The reducer will handle validation (amount > currentBid).
+            dispatch({ type: 'PLACE_BID', payload: bid });
         });
 
         return () => {
             socket.off('state_update');
             socket.off('new_bid');
         };
-    }, [socket, state.isHost, state.currentBid]);
+    }, [socket, state.isHost]); // Removed state.currentBid dependency to prevent re-binding
 
     // Host: Broadcast State Changes
     useEffect(() => {

@@ -19,8 +19,9 @@ const AuctionPanel: React.FC = () => {
     useEffect(() => {
         if (state.userTeamId) {
             setMyTeamId(state.userTeamId);
-        } else if (teams.length > 0 && !myTeamId) {
-            setMyTeamId(teams[0].id);
+        } else if (!myTeamId && teams.length > 0) {
+            // Force selection if not set
+            setIsSwitchModalOpen(true);
         }
     }, [teams, myTeamId, state.userTeamId]);
 
@@ -269,45 +270,6 @@ const AuctionPanel: React.FC = () => {
 
             <BidHistory history={bidHistory} />
 
-            {/* Switch Team Modal (Duplicate for when player is active) */}
-            {isSwitchModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
-                    <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden flex flex-col animate-scale-in">
-                        <div className="p-4 border-b flex justify-between items-center bg-gray-50">
-                            <h3 className="font-bold text-lg">Select Your Team</h3>
-                            <button onClick={() => setIsSwitchModalOpen(false)} className="text-2xl leading-none">&times;</button>
-                        </div>
-                        <div className="p-4 overflow-y-auto max-h-[60vh]">
-                            {teams.map(team => (
-                                <div
-                                    key={team.id}
-                                    className={`flex items-center gap-3 p-3 rounded cursor-pointer mb-2 border ${myTeamId === team.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'}`}
-                                    onClick={() => handleSwitchTeam(team.id)}
-                                >
-                                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: team.color }}></div>
-                                    <div className="flex-1">
-                                        <div className="font-bold">{team.name}</div>
-                                        <div className="text-xs text-muted">Purse: {formatMoney(team.budget)}</div>
-                                    </div>
-                                    {myTeamId === team.id && <span className="text-blue-600 font-bold">✓</span>}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Player Pool Modal (Duplicate for when player is active) */}
-            {isPoolOpen && (
-                <PlayerPool
-                    players={state.players}
-                    soldPlayers={state.soldPlayers}
-                    unsoldPlayers={state.unsoldPlayers}
-                    setsOrder={state.setsOrder}
-                    currentSet={state.currentSet}
-                    onClose={() => setIsPoolOpen(false)}
-                />
-            )}
         </div>
     );
 };
