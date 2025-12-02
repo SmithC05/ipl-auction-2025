@@ -27,7 +27,7 @@ const REAL_PLAYERS_DB = [
     { name: "Andre Russell", role: "AR", nationality: "West Indies", basePrice: 20000000, set: "Marquee" },
     { name: "Sunil Narine", role: "AR", nationality: "West Indies", basePrice: 20000000, set: "Marquee" },
     { name: "Glenn Maxwell", role: "AR", nationality: "Australia", basePrice: 20000000, set: "Marquee" },
-    { name: "David Warner", role: "BAT", nationality: "Australia", basePrice: 20000000, set: "Marquee" },
+   
 
     // BATTERS 1
     { name: "Shubman Gill", role: "BAT", nationality: "India", basePrice: 20000000, set: "Batters 1" },

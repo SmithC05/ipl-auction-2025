@@ -85,9 +85,10 @@ io.on('connection', (socket) => {
     });
 
     // Audio Signaling (WebRTC)
+    // Audio Signaling (WebRTC)
     socket.on('audio_signal', ({ roomId, type, payload }) => {
-        // Relay to everyone else in the room
-        socket.to(roomId).emit('audio_signal', { type, payload });
+        // Relay to everyone else in the room with senderId
+        socket.to(roomId).emit('audio_signal', { type, payload, senderId: socket.id });
     });
 
     socket.on('select_team', ({ roomId, teamId, playerName }) => {

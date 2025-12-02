@@ -199,21 +199,18 @@ const AuctionPanel: React.FC = () => {
                         {/* Audio Controls */}
                         {state.roomId && (
                             <div className="flex gap-1">
-                                {state.isHost ? (
-                                    <button
-                                        onClick={isBroadcasting ? stopBroadcast : startBroadcast}
-                                        className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-                                    >
-                                        {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={isListening ? stopListening : startListening}
-                                        className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-                                    >
-                                        {isListening ? '🔊 ON' : '🔇 OFF'}
-                                    </button>
-                                )}
+                                <button
+                                    onClick={isBroadcasting ? stopBroadcast : startBroadcast}
+                                    className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                >
+                                    {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
+                                </button>
+                                <button
+                                    onClick={isListening ? stopListening : startListening}
+                                    className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                >
+                                    {isListening ? '🔊 ON' : '🔇 OFF'}
+                                </button>
                             </div>
                         )}
 

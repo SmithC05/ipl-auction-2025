@@ -16,7 +16,7 @@ const TickerTape: React.FC<TickerTapeProps> = ({ bids, teams }) => {
     }).join('  •  ');
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-black text-white py-1 z-30 overflow-hidden border-t border-gray-800">
+        <div className="fixed bottom-0 left-0 right-0 bg-yellow-400 text-black py-1 z-30 overflow-hidden border-t border-yellow-500">
             <motion.div
                 className="whitespace-nowrap text-xs font-mono uppercase tracking-widest"
                 animate={{ x: [window.innerWidth, -1000] }}
