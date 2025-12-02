@@ -6,17 +6,11 @@ import BidHistory from './BidHistory';
 import MyTeamStats from './MyTeamStats';
 import PlayerPool from './PlayerPool';
 import HoldToBidButton from './HoldToBidButton';
-import { useAudioStream } from '../hooks/useAudioStream';
 
 const AuctionPanel: React.FC = () => {
     const { state, dispatch, socket } = useAuction();
     const { currentPlayer, currentBid, currentBidder, isTimerRunning, timerSeconds, bidHistory, teams, config } = state;
 
-    const { isListening, isBroadcasting, startBroadcast, stopBroadcast, startListening, stopListening } = useAudioStream({
-        socket,
-        roomId: state.roomId || null,
-        isHost: state.isHost || false
-    });
 
     // Use userTeamId from state if available, otherwise fallback to first team (or handle error)
     const [myTeamId, setMyTeamId] = useState<string>('');
@@ -135,10 +129,10 @@ const AuctionPanel: React.FC = () => {
                                 <button onClick={() => setIsSwitchModalOpen(false)} className="text-2xl leading-none">&times;</button>
                             </div>
                             <div className="p-4 overflow-y-auto max-h-[60vh]">
-                                {teams.map(team => (
+                                {teams.filter(team => !team.playerName || team.id === myTeamId).map(team => (
                                     <div
                                         key={team.id}
-                                        className={`flex items-center gap-3 p-3 rounded cursor-pointer mb-2 border ${myTeamId === team.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200 hover:bg-gray-50'}`}
+                                        className={`flex items-center gap-3 p-3 rounded cursor-pointer mb-2 border ${myTeamId === team.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
                                         onClick={() => handleSwitchTeam(team.id)}
                                     >
                                         <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: team.color }}></div>
@@ -176,28 +170,9 @@ const AuctionPanel: React.FC = () => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <div className="text-xl font-bold">
-                            {isTimerRunning ? `⏱ 00:${timerSeconds.toString().padStart(2, '0')}` : '⏸ PAUSED'}
+                            ⏱ {isTimerRunning ? timerSeconds.toString().padStart(2, '0') : '00'}s
                         </div>
-                        {/* Audio Controls */}
-                        {state.roomId && (
-                            <div className="flex gap-1">
-                                {state.isHost ? (
-                                    <button
-                                        onClick={isBroadcasting ? stopBroadcast : startBroadcast}
-                                        className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200'}`}
-                                    >
-                                        {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={isListening ? stopListening : startListening}
-                                        className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
-                                    >
-                                        {isListening ? '🔊 LISTENING' : '🔇 MUTED'}
-                                    </button>
-                                )}
-                            </div>
-                        )}
+
                     </div>
                     <div className="text-right">
                         <div className="text-xs text-muted">Current Bid</div>
