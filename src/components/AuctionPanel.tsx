@@ -190,6 +190,9 @@ const AuctionPanel: React.FC = () => {
         <div className="flex-col gap-4 relative">
             {/* Mobile Sticky Header */}
             <div className="sticky top-0 z-20 bg-white shadow-md p-2 -mx-4 px-4 mb-2 flex flex-col gap-2">
+                {/* Ticker Tape */}
+                <TickerTape bids={bidHistory} teams={teams} />
+
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                         <div className="text-xl font-bold">
@@ -313,8 +316,7 @@ const AuctionPanel: React.FC = () => {
                 <BidHistory history={bidHistory} />
             </div>
 
-            {/* Ticker Tape */}
-            <TickerTape bids={bidHistory} teams={teams} />
+
 
         </div>
     );

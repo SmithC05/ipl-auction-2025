@@ -88,6 +88,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 currentBidder: action.payload.teamId,
                 bidHistory: [newHistory, ...state.bidHistory].slice(0, 10),
                 timerSeconds: 10, // Reset timer on bid
+                isTimerRunning: true,
             };
         case 'SELL_PLAYER':
             const soldPlayer = { ...action.payload.player };
@@ -155,7 +156,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 currentBid: nextPlayer.basePrice,
                 currentBidder: null,
                 timerSeconds: state.config.timerDuration,
-                isTimerRunning: false,
+                isTimerRunning: true,
                 auctionStatus: 'ACTIVE',
             };
 
@@ -278,7 +279,23 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
                 dispatch({ type: 'TICK_TIMER' });
             }, 1000);
         } else if (state.isHost && state.timerSeconds === 0 && state.isTimerRunning) {
-            dispatch({ type: 'STOP_TIMER' });
+            if (state.currentBidder && state.currentPlayer) {
+                dispatch({
+                    type: 'SELL_PLAYER',
+                    payload: {
+                        player: state.currentPlayer,
+                        teamId: state.currentBidder,
+                        amount: state.currentBid
+                    }
+                });
+            } else if (state.currentPlayer) {
+                dispatch({
+                    type: 'UNSOLD_PLAYER',
+                    payload: state.currentPlayer
+                });
+            } else {
+                dispatch({ type: 'STOP_TIMER' });
+            }
         }
         return () => clearInterval(interval);
     }, [state.isTimerRunning, state.timerSeconds, state.isHost]);
