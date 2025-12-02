@@ -80,7 +80,12 @@ const AuctionPanel: React.FC = () => {
             }
             dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
         } else {
-            console.warn('Cannot bid: Budget insufficient or no team selected', { myTeam, amount });
+            const errorMsg = !myTeam
+                ? 'Error: You have not selected a team yet!'
+                : `Error: Insufficient budget! (Budget: ${formatMoney(myTeam.budget)}, Bid: ${formatMoney(amount)})`;
+
+            console.warn(errorMsg);
+            alert(errorMsg);
         }
     };
 

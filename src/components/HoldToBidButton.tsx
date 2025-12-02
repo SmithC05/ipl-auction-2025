@@ -61,10 +61,14 @@ const HoldToBidButton: React.FC<HoldToBidButtonProps> = ({ amount, label, disabl
     return (
         <button
             className={`relative overflow-hidden ${disabled ? 'opacity-50 cursor-not-allowed' : ''} primary`}
-            style={{ padding: '16px', fontSize: '1.1rem', touchAction: 'none', userSelect: 'none' }}
-            onPointerDown={startHold}
-            onPointerUp={endHold}
-            onPointerLeave={endHold}
+            style={{ padding: '16px', fontSize: '1.1rem', touchAction: 'manipulation', userSelect: 'none' }}
+            onClick={() => {
+                if (!disabled) {
+                    trigger('medium');
+                    console.log('Click triggered onBid');
+                    onBid(amount);
+                }
+            }}
             disabled={disabled}
         >
             {/* Background Progress */}
