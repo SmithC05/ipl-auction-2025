@@ -13,6 +13,27 @@ const SetupView: React.FC = () => {
   const [joinRoomId, setJoinRoomId] = useState('');
   const [username, setUsername] = useState('');
   const [step, setStep] = useState<'INITIAL' | 'CONFIG'>('INITIAL');
+  const [lastSession, setLastSession] = useState<{ roomId: string, username: string, isHost: boolean } | null>(null);
+
+  useEffect(() => {
+    const session = localStorage.getItem('ipl_auction_session');
+    if (session) {
+      setLastSession(JSON.parse(session));
+    }
+  }, []);
+
+  const handleRejoin = () => {
+    if (!socket || !lastSession) return;
+    socket.emit('join_room', { roomId: lastSession.roomId, username: lastSession.username });
+    socket.once('room_joined', (roomId: string) => {
+      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: lastSession.isHost, username: lastSession.username } });
+    });
+    socket.once('error', (msg: string) => {
+      alert(msg);
+      localStorage.removeItem('ipl_auction_session');
+      setLastSession(null);
+    });
+  };
 
   // Config State
   const [config, setConfig] = useState(DEFAULT_CONFIG);
@@ -72,6 +93,7 @@ const SetupView: React.FC = () => {
     socket.once('room_created', (roomId: string) => {
       // I am the host
       dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: true, username } });
+      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: true }));
       loadSampleData({ roomId, isHost: true });
     });
   };
@@ -84,6 +106,7 @@ const SetupView: React.FC = () => {
     socket.emit('join_room', { roomId: joinRoomId, username });
     socket.once('room_joined', (roomId: string) => {
       dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: false, username } });
+      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: false }));
       // We don't INIT_AUCTION, we wait for state_update from host
     });
     socket.once('error', (msg: string) => {
@@ -178,6 +201,28 @@ const SetupView: React.FC = () => {
         <h1 className="text-2xl" style={{ marginBottom: 'var(--spacing-sm)', color: 'var(--color-primary)' }}>IPL Auction 2025</h1>
         <p className="text-muted" style={{ marginBottom: 'var(--spacing-xl)' }}>Real-time Multiplayer Auction</p>
 
+        {lastSession && (
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded">
+            <p className="text-sm text-blue-800 mb-2">Found active session:</p>
+            <div className="font-bold text-lg mb-2">{lastSession.username} @ {lastSession.roomId}</div>
+            <button
+              className="w-full primary mb-2"
+              onClick={handleRejoin}
+            >
+              Rejoin Previous Session
+            </button>
+            <button
+              className="text-xs text-red-500 underline"
+              onClick={() => {
+                localStorage.removeItem('ipl_auction_session');
+                setLastSession(null);
+              }}
+            >
+              Clear Session
+            </button>
+          </div>
+        )}
+
         <div className="flex-col gap-4">
           <div style={{ textAlign: 'left' }}>
             <label style={{ display: 'block', marginBottom: 'var(--spacing-xs)', fontWeight: 'bold' }}>Your Name</label>
@@ -248,8 +293,21 @@ const MainView: React.FC = () => {
               </span>
             )}
           </div>
-          <div className="badge" style={{ background: 'var(--color-surface-hover)' }}>
-            {state.soldPlayers.length} Sold / {state.unsoldPlayers.length} Unsold
+          <div className="flex gap-2 items-center">
+            <div className="badge" style={{ background: 'var(--color-surface-hover)' }}>
+              {state.soldPlayers.length} Sold / {state.unsoldPlayers.length} Unsold
+            </div>
+            <button
+              className="px-2 py-1 text-xs bg-red-100 text-red-600 rounded border border-red-200"
+              onClick={() => {
+                if (confirm('Are you sure you want to exit?')) {
+                  localStorage.removeItem('ipl_auction_session');
+                  window.location.reload();
+                }
+              }}
+            >
+              EXIT
+            </button>
           </div>
         </div>
       </header>
