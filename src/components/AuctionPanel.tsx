@@ -152,7 +152,7 @@ const AuctionPanel: React.FC = () => {
                                 <button onClick={() => setIsSwitchModalOpen(false)} className="text-2xl leading-none">&times;</button>
                             </div>
                             <div className="p-4 overflow-y-auto max-h-[60vh]">
-                                {teams.filter(team => !team.playerName || team.id === myTeamId).map(team => (
+                                {teams.filter(team => !team.playerName || team.id === myTeamId || team.playerName === state.username).map(team => (
                                     <div
                                         key={team.id}
                                         className={`flex items-center gap-3 p-3 rounded cursor-pointer mb-2 border ${myTeamId === team.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}

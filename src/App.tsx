@@ -272,8 +272,11 @@ const SetupView: React.FC = () => {
   );
 };
 
+import { useSoundEffects } from './hooks/useSoundEffects';
+
 const MainView: React.FC = () => {
   const { state } = useAuction();
+  useSoundEffects(state);
   const [activeTab, setActiveTab] = useState<'auction' | 'teams' | 'leaderboard'>('auction');
 
   // If no players loaded, show setup
