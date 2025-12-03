@@ -6,6 +6,7 @@ import LiveLeaderboard from './components/LiveLeaderboard';
 import { parseCSV, compressPlayers, saveToStorage } from './utils/dataUtils';
 import { TEAMS_CONFIG, DEFAULT_CONFIG } from './types';
 import { shuffleTeams } from './utils/gameLogic';
+import { useSoundEffects } from './hooks/useSoundEffects';
 
 const SetupView: React.FC = () => {
   const { dispatch, socket } = useAuction();
@@ -13,7 +14,7 @@ const SetupView: React.FC = () => {
   const [joinRoomId, setJoinRoomId] = useState('');
   const [username, setUsername] = useState('');
   const [step, setStep] = useState<'INITIAL' | 'CONFIG'>('INITIAL');
-  const [lastSession, setLastSession] = useState<{ roomId: string, username: string, isHost: boolean } | null>(null);
+  const [lastSession, setLastSession] = useState<{ roomId: string, username: string, isHost: boolean, userTeamId?: string } | null>(null);
 
   useEffect(() => {
     const session = localStorage.getItem('ipl_auction_session');
@@ -26,7 +27,18 @@ const SetupView: React.FC = () => {
     if (!socket || !lastSession) return;
     socket.emit('join_room', { roomId: lastSession.roomId, username: lastSession.username });
     socket.once('room_joined', (roomId: string) => {
-      dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: lastSession.isHost, username: lastSession.username } });
+      dispatch({
+        type: 'JOIN_ROOM',
+        payload: {
+          roomId,
+          isHost: lastSession.isHost,
+          username: lastSession.username,
+          userTeamId: lastSession.userTeamId
+        }
+      });
+      if (lastSession.userTeamId) {
+        dispatch({ type: 'SET_USER_TEAM', payload: lastSession.userTeamId });
+      }
     });
     socket.once('error', (msg: string) => {
       alert(msg);
@@ -65,7 +77,7 @@ const SetupView: React.FC = () => {
   const loadSampleData = async (roomConfig?: { roomId: string; isHost: boolean }) => {
     setIsLoading(true);
     try {
-      const response = await fetch('/sample_players.csv');
+      const response = await fetch('/players_2025.csv');
       const text = await response.text();
       const players = parseCSV(text);
 
@@ -93,7 +105,7 @@ const SetupView: React.FC = () => {
     socket.once('room_created', (roomId: string) => {
       // I am the host
       dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: true, username } });
-      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: true }));
+      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: true, userTeamId: '' }));
       loadSampleData({ roomId, isHost: true });
     });
   };
@@ -106,7 +118,7 @@ const SetupView: React.FC = () => {
     socket.emit('join_room', { roomId: joinRoomId, username });
     socket.once('room_joined', (roomId: string) => {
       dispatch({ type: 'JOIN_ROOM', payload: { roomId, isHost: false, username } });
-      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: false }));
+      localStorage.setItem('ipl_auction_session', JSON.stringify({ roomId, username, isHost: false, userTeamId: '' }));
       // We don't INIT_AUCTION, we wait for state_update from host
     });
     socket.once('error', (msg: string) => {
@@ -272,10 +284,8 @@ const SetupView: React.FC = () => {
   );
 };
 
-import { useSoundEffects } from './hooks/useSoundEffects';
-
 const MainView: React.FC = () => {
-  const { state } = useAuction();
+  const { state, socket } = useAuction();
   useSoundEffects(state);
   const [activeTab, setActiveTab] = useState<'auction' | 'teams' | 'leaderboard'>('auction');
 
@@ -291,9 +301,12 @@ const MainView: React.FC = () => {
           <div className="flex-col" style={{ gap: '4px' }}>
             <h1 className="text-lg" style={{ color: 'var(--color-primary)' }}>IPL Auction 2025</h1>
             {state.roomId && (
-              <span className="badge" style={{ color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}>
-                ROOM: {state.roomId}
-              </span>
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${socket?.connected ? 'bg-green-500' : 'bg-red-500 animate-pulse'}`}></div>
+                <span className="badge" style={{ color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}>
+                  ROOM: {state.roomId}
+                </span>
+              </div>
             )}
           </div>
           <div className="flex gap-2 items-center">

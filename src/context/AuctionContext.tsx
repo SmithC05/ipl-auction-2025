@@ -44,7 +44,7 @@ type Action =
     | { type: 'NEXT_PLAYER' }
     | { type: 'LOAD_STATE'; payload: AuctionState }
     | { type: 'CHANGE_SET'; payload: AuctionSet }
-    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string } }
+    | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string; userTeamId?: string } }
     | { type: 'SET_USER_TEAM'; payload: string };
 
 const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
@@ -158,6 +158,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 timerSeconds: state.config.timerDuration,
                 isTimerRunning: true,
                 auctionStatus: 'ACTIVE',
+                bidHistory: [],
             };
 
         case 'CHANGE_SET':
@@ -191,7 +192,13 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
             };
 
         case 'JOIN_ROOM':
-            return { ...state, roomId: action.payload.roomId, isHost: action.payload.isHost, username: action.payload.username };
+            return {
+                ...state,
+                roomId: action.payload.roomId,
+                isHost: action.payload.isHost,
+                username: action.payload.username,
+                userTeamId: action.payload.userTeamId || state.userTeamId
+            };
         default:
             return state;
     }

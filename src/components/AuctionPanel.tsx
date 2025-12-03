@@ -49,6 +49,14 @@ const AuctionPanel: React.FC = () => {
         setMyTeamId(teamId);
         setIsSwitchModalOpen(false);
 
+        // Update local session
+        const session = localStorage.getItem('ipl_auction_session');
+        if (session) {
+            const parsed = JSON.parse(session);
+            parsed.userTeamId = teamId;
+            localStorage.setItem('ipl_auction_session', JSON.stringify(parsed));
+        }
+
         // Sync with server
         if (state.roomId && socket) {
             socket.emit('select_team', { roomId: state.roomId, teamId, playerName: state.username });
