@@ -21,88 +21,51 @@ const readCSV = (filename) => {
 // Main processing function
 const processData = () => {
     console.log('Reading data files...');
-    const soldPlayers = readCSV('IPL_PLAYERS.csv');
-    const unsoldPlayers = readCSV('UNSOLD_PLAYERS.csv');
+    const auctionData = readCSV('iplauction2023.csv');
     const battingStats = readCSV('Most Runs All Seasons Combine.csv');
     const bowlingStats = readCSV('Most Wickets All Seasons Combine.csv');
 
-    console.log(`Found ${soldPlayers.length} sold players and ${unsoldPlayers.length} unsold players.`);
-
-    // Create a map of active players (Name -> Details)
-    const activePlayers = new Map();
-
-    // Process Sold Players
-    soldPlayers.forEach(p => {
-        const name = p.PLAYERS || p.Player; // Handle potential header variations
-        if (!name) return;
-        activePlayers.set(name.trim(), {
-            name: name.trim(),
-            nationality: p.NATIONALITY,
-            role: p.TYPE,
-            basePrice: parseInt(p['PRICE PAID'] || '2000000'), // Use price paid as base for sold? Or default
-            team: p.TEAM,
-            status: 'SOLD'
-        });
-    });
-
-    // Process Unsold Players
-    unsoldPlayers.forEach(p => {
-        const name = p.PLAYER || p.Player;
-        if (!name) return;
-        // If already in map (e.g. sold then unsold? unlikely), skip or overwrite
-        if (!activePlayers.has(name.trim())) {
-            activePlayers.set(name.trim(), {
-                name: name.trim(),
-                nationality: p.NATIONALITY,
-                role: p.TYPE,
-                basePrice: parseInt(p['BASE PRICE'] || '2000000'),
-                team: null,
-                status: 'UNSOLD'
-            });
-        }
-    });
-
-    console.log(`Total active players: ${activePlayers.size}`);
+    console.log(`Found ${auctionData.length} players in auction data.`);
 
     // Create Stats Maps
     const battingMap = new Map();
     battingStats.forEach(p => {
-        if (p.Player) battingMap.set(p.Player.trim(), p);
+        if (p.Player) battingMap.set(p.Player.trim().toLowerCase(), p);
     });
 
     const bowlingMap = new Map();
     bowlingStats.forEach(p => {
-        if (p.Player) bowlingMap.set(p.Player.trim(), p);
+        if (p.Player) bowlingMap.set(p.Player.trim().toLowerCase(), p);
     });
 
-    // Merge and Format
     const finalPlayers = [];
     let idCounter = 1;
 
-    for (const [name, basicInfo] of activePlayers) {
-        const batStat = battingMap.get(name);
-        const bowlStat = bowlingMap.get(name);
+    auctionData.forEach(p => {
+        const name = p.name ? p.name.trim() : '';
+        if (!name) return;
 
-        // Determine Role for Set mapping
-        let set = 'Uncapped Batters';
-        const role = basicInfo.role ? basicInfo.role.toUpperCase() : 'BATTER';
-        const price = basicInfo.basePrice || 2000000;
-        const isOverseas = basicInfo.nationality === 'Overseas';
+        // Map Role
+        let role = 'BAT';
+        const style = p['player style'] ? p['player style'].toLowerCase() : '';
+        if (style.includes('batter')) role = 'BAT';
+        else if (style.includes('bowler')) role = 'BOWL';
+        else if (style.includes('allrounder')) role = 'AR';
+        else if (style.includes('wicket')) role = 'WK';
 
-        // Simple Set Logic
-        if (price >= 20000000) {
-            set = 'Marquee';
-        } else if (role.includes('BATTER')) {
-            set = isOverseas ? 'Batters 1' : 'Batters 2';
-        } else if (role.includes('BOWLER')) {
-            set = isOverseas ? 'Bowlers 1' : 'Bowlers 2';
-        } else if (role.includes('ALL-ROUNDER')) {
-            set = isOverseas ? 'All-Rounders 1' : 'All-Rounders 2';
-        } else if (role.includes('WICKET')) {
-            set = isOverseas ? 'Wicketkeepers 1' : 'Wicketkeepers 2';
-        }
+        // Map Price (Lacs to actual value)
+        // 20.0 Lacs = 2,000,000
+        let basePrice = parseFloat(p['base price (in lacs)'] || '20');
+        if (isNaN(basePrice)) basePrice = 20;
+        basePrice = basePrice * 100000;
+
+        // Nationality
+        const nationality = p.nationality === 'India' ? 'Indian' : 'Overseas';
 
         // Stats
+        const batStat = battingMap.get(name.toLowerCase());
+        const bowlStat = bowlingMap.get(name.toLowerCase());
+
         const matches = batStat ? parseInt(batStat.Mat) : (bowlStat ? parseInt(bowlStat.Mat) : 0);
         const runs = batStat ? parseInt(batStat.Runs) : 0;
         const wickets = bowlStat ? parseInt(bowlStat.Wkts) : 0;
@@ -110,25 +73,57 @@ const processData = () => {
         const sr = batStat ? parseFloat(batStat.SR) : 0.0;
         const econ = bowlStat ? parseFloat(bowlStat.Econ) : 0.0;
 
+        // Set Logic
+        let set = 'Uncapped Batters';
+
+        // High value or high stats = Marquee / Set 1
+        const isStar = basePrice >= 10000000 || matches > 50;
+
+        if (basePrice >= 200000000) { // 2 Cr+
+            set = 'Marquee';
+        } else {
+            if (role === 'BAT') {
+                if (isStar) set = nationality === 'Overseas' ? 'Batters 1' : 'Batters 2';
+                else set = 'Uncapped Batters';
+            } else if (role === 'BOWL') {
+                if (isStar) set = nationality === 'Overseas' ? 'Bowlers 1' : 'Bowlers 2';
+                else set = 'Uncapped Bowlers';
+            } else if (role === 'AR') {
+                if (isStar) set = nationality === 'Overseas' ? 'All-Rounders 1' : 'All-Rounders 2';
+                else set = 'Uncapped AR';
+            } else if (role === 'WK') {
+                if (isStar) set = nationality === 'Overseas' ? 'Wicketkeepers 1' : 'Wicketkeepers 2';
+                else set = 'Uncapped WK';
+            }
+        }
+
+        // Override for very experienced players to ensure they aren't "Uncapped"
+        if (matches > 0 && set.includes('Uncapped')) {
+            if (role === 'BAT') set = 'Batters 3';
+            else if (role === 'BOWL') set = 'Bowlers 3';
+            else if (role === 'AR') set = 'All-Rounders 3';
+            else if (role === 'WK') set = 'Wicketkeepers 2';
+        }
+
         finalPlayers.push({
             id: idCounter++,
             name: name,
-            nationality: basicInfo.nationality || 'Indian',
+            nationality: nationality,
             role: role,
-            basePrice: price,
+            basePrice: basePrice,
             matches: matches,
             runs: runs,
             wickets: wickets,
             avg: avg,
             sr: sr,
             econ: econ,
-            age: 25, // Default age as not in CSV
-            battingStyle: 'Right-hand bat', // Default
-            bowlingStyle: 'Right-arm medium', // Default
-            imageUrl: '', // Placeholder
+            age: 25, // Default
+            battingStyle: 'Right-hand bat',
+            bowlingStyle: 'Right-arm medium',
+            imageUrl: '',
             set: set
         });
-    }
+    });
 
     // Convert to CSV
     const csv = Papa.unparse(finalPlayers, {
