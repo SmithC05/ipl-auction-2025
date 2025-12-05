@@ -25,23 +25,27 @@ const INITIAL_STATE: AuctionState = {
     roomId: null,
     isHost: false,
     config: DEFAULT_CONFIG,
+    // New field for server sync
+    auctionEndTime: null,
+    serverTimeOffset: 0
 };
 
 type Action =
     | { type: 'INIT_AUCTION'; payload: { players: Player[]; teams: Team[]; userTeamId?: string; username?: string; roomId?: string; isHost?: boolean; config?: AuctionConfig } }
-    | { type: 'START_TIMER'; payload: number }
-    | { type: 'TICK_TIMER' }
+    | { type: 'START_TIMER'; payload: { duration: number; endTime?: number } }
+    | { type: 'TICK_TIMER'; payload?: number }
     | { type: 'STOP_TIMER' }
-    | { type: 'PLACE_BID'; payload: { teamId: string; amount: number } }
+    | { type: 'PLACE_BID'; payload: { teamId: string; amount: number; endTime?: number } }
     | { type: 'SELL_PLAYER'; payload: { player: Player; teamId: string; amount: number } }
     | { type: 'UNSOLD_PLAYER'; payload: Player }
     | { type: 'NEXT_PLAYER' }
-    | { type: 'LOAD_STATE'; payload: AuctionState }
+    | { type: 'LOAD_STATE'; payload: AuctionState & { endTime?: number; serverTime?: number } }
     | { type: 'CHANGE_SET'; payload: AuctionSet }
     | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string; userTeamId?: string } }
-    | { type: 'SET_USER_TEAM'; payload: string };
+    | { type: 'SET_USER_TEAM'; payload: string }
+    | { type: 'SET_OFFSET'; payload: number };
 
-const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
+const auctionReducer = (state: any, action: Action): AuctionState => {
     switch (action.type) {
         case 'INIT_AUCTION':
             const uniqueSets = Array.from(new Set(action.payload.players.map(p => p.set)));
@@ -59,15 +63,25 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 roomId: action.payload.roomId || state.roomId || null,
                 isHost: action.payload.isHost !== undefined ? action.payload.isHost : (state.isHost || false),
                 config: action.payload.config || state.config,
+                auctionEndTime: null,
+                serverTimeOffset: 0
             };
         case 'SET_USER_TEAM':
             return { ...state, userTeamId: action.payload };
         case 'START_TIMER':
-            return { ...state, isTimerRunning: true, timerSeconds: action.payload };
+            return {
+                ...state,
+                isTimerRunning: true,
+                timerSeconds: action.payload.duration,
+                auctionEndTime: action.payload.endTime || (Date.now() + action.payload.duration * 1000)
+            };
         case 'TICK_TIMER':
-            return { ...state, timerSeconds: Math.max(0, state.timerSeconds - 1) };
+            // Client-side visual tick only, using server offset
+            const now = Date.now() + (state.serverTimeOffset || 0);
+            const timeLeft = state.auctionEndTime ? Math.max(0, Math.ceil((state.auctionEndTime - now) / 1000)) : 0;
+            return { ...state, timerSeconds: timeLeft };
         case 'STOP_TIMER':
-            return { ...state, isTimerRunning: false };
+            return { ...state, isTimerRunning: false, auctionEndTime: null };
         case 'PLACE_BID':
             // Validation: Ignore if bid is not higher than current
             if (action.payload.amount <= state.currentBid) {
@@ -78,17 +92,21 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 amount: action.payload.amount,
                 timestamp: Date.now(),
             };
+
+            // If server sent an updated endTime (timer extension), use it
+            const newEndTime = action.payload.endTime || state.auctionEndTime;
+
             return {
                 ...state,
                 currentBid: action.payload.amount,
                 currentBidder: action.payload.teamId,
                 bidHistory: [newHistory, ...state.bidHistory].slice(0, 10),
-                timerSeconds: 10, // Reset timer on bid
                 isTimerRunning: true,
+                auctionEndTime: newEndTime,
             };
         case 'SELL_PLAYER':
             const soldPlayer = { ...action.payload.player };
-            const updatedTeams = state.teams.map(team => {
+            const updatedTeams = state.teams.map((team: any) => {
                 if (team.id === action.payload.teamId) {
                     return {
                         ...team,
@@ -108,6 +126,7 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 currentBidder: null,
                 isTimerRunning: false,
                 auctionStatus: 'ACTIVE',
+                auctionEndTime: null
             };
         case 'UNSOLD_PLAYER':
             return {
@@ -117,17 +136,17 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 currentBid: 0,
                 currentBidder: null,
                 isTimerRunning: false,
+                auctionEndTime: null
             };
         case 'NEXT_PLAYER':
             // Filter players by current set
-            let availablePlayersInSet = state.players.filter(p =>
+            let availablePlayersInSet = state.players.filter((p: any) =>
                 p.set === state.currentSet &&
-                !state.soldPlayers.find(sp => sp.id === p.id) &&
-                !state.unsoldPlayers.find(up => up.id === p.id) &&
+                !state.soldPlayers.find((sp: any) => sp.id === p.id) &&
+                !state.unsoldPlayers.find((up: any) => up.id === p.id) &&
                 (state.currentPlayer ? p.id !== state.currentPlayer.id : true)
             );
 
-            // If no players left in current set, move to next set
             if (availablePlayersInSet.length === 0) {
                 const currentSetIndex = state.setsOrder.indexOf(state.currentSet);
                 if (currentSetIndex < state.setsOrder.length - 1) {
@@ -143,7 +162,6 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 }
             }
 
-            // Randomly select next player
             const randomIndex = Math.floor(Math.random() * availablePlayersInSet.length);
             const nextPlayer = availablePlayersInSet[randomIndex];
             return {
@@ -152,39 +170,32 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 currentBid: nextPlayer.basePrice,
                 currentBidder: null,
                 timerSeconds: state.config.timerDuration,
-                isTimerRunning: true,
+                isTimerRunning: false,
                 auctionStatus: 'ACTIVE',
                 bidHistory: [],
+                auctionEndTime: null
             };
 
         case 'CHANGE_SET':
             return { ...state, currentSet: action.payload };
         case 'LOAD_STATE':
-            // Prevent stale updates from overwriting newer local state (Optimistic UI protection)
-            const isStaleUpdate = action.payload.currentBid < state.currentBid;
-
-            if (isStaleUpdate) {
-                // Keep local bid state, but update everything else (like timer, players, etc.)
-                return {
-                    ...action.payload,
-                    currentBid: state.currentBid,
-                    currentBidder: state.currentBidder,
-                    bidHistory: state.bidHistory,
-                    // Preserve local session state
-                    roomId: state.roomId,
-                    isHost: state.isHost,
-                    userTeamId: state.userTeamId,
-                    username: state.username
-                };
+            // Calculate offset if serverTime is provided
+            let newOffset = state.serverTimeOffset;
+            if (action.payload.serverTime) {
+                // Offset = serverTime - clientTime
+                newOffset = action.payload.serverTime - Date.now();
             }
 
             return {
                 ...action.payload,
-                // Preserve local session state that shouldn't be overwritten by server broadcast
+                // Ensure we preserve local session details if not in payload
                 roomId: state.roomId,
                 isHost: state.isHost,
                 userTeamId: state.userTeamId,
-                username: state.username
+                username: state.username,
+                // Handle endTime from server
+                auctionEndTime: action.payload.endTime || state.auctionEndTime,
+                serverTimeOffset: newOffset
             };
 
         case 'JOIN_ROOM':
@@ -209,14 +220,11 @@ const AuctionContext = createContext<{
 export const AuctionProvider = ({ children }: { children: ReactNode }) => {
     const [state, dispatch] = useReducer(auctionReducer, INITIAL_STATE);
     const [socket, setSocket] = useState<Socket | null>(null);
+    const isRemoteUpdate = React.useRef(false);
 
     // Initialize Socket
     useEffect(() => {
-        // Determine Socket URL
-        // In production (Render), the backend serves the frontend, so we connect to the same origin.
-        // In development, we connect to localhost:3001.
         let socketUrl = window.location.origin;
-
         if (!import.meta.env.PROD) {
             socketUrl = 'http://localhost:3001';
         }
@@ -238,7 +246,9 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         if (!socket) return;
 
-        socket.on('state_update', (newState: AuctionState) => {
+        socket.on('state_update', (newState: any) => {
+            // Prevent echo loop: Mark this update as remote so we don't broadcast it back
+            isRemoteUpdate.current = true;
             dispatch({ type: 'LOAD_STATE', payload: newState });
         });
 
@@ -253,55 +263,62 @@ export const AuctionProvider = ({ children }: { children: ReactNode }) => {
             dispatch({ type: 'PLACE_BID', payload: { teamId, amount } });
         });
 
+        socket.on('timer_started', ({ endTime, duration }) => {
+            dispatch({ type: 'START_TIMER', payload: { duration, endTime } });
+        });
+
+        socket.on('player_sold', (payload) => {
+            dispatch({ type: 'SELL_PLAYER', payload });
+        });
+
+        socket.on('player_unsold', (payload) => {
+            dispatch({ type: 'UNSOLD_PLAYER', payload: payload.player });
+        });
+
+        socket.on('error', (msg) => {
+            console.error("Socket Error:", msg);
+            alert(`Action Failed: ${msg}`);
+        });
+
         return () => {
             socket.off('state_update');
             socket.off('new_bid');
+            socket.off('timer_started');
+            socket.off('player_sold');
+            socket.off('player_unsold');
+            socket.off('error');
         };
-    }, [socket, state.isHost]);
+    }, [socket]);
 
     // Host: Broadcast State Changes
     useEffect(() => {
         if (state.isHost && state.roomId && socket) {
-            // Debounce or throttle could be good, but for now direct emit
+            // If this change came from the server, don't echo it back
+            if (isRemoteUpdate.current) {
+                isRemoteUpdate.current = false;
+                return;
+            }
             socket.emit('send_state_update', { roomId: state.roomId, state });
         }
-    }, [state, socket]); // This triggers on every state change
+    }, [state.players, state.teams, state.currentPlayer, state.auctionStatus, state.currentSet, socket]);
 
-    // Local Storage Persistence (only if not in multiplayer or if host?)
+    // Local Storage Persistence
     useEffect(() => {
         if (!state.roomId || state.isHost) {
             saveToStorage('ipl_auction_state', state);
         }
     }, [state]);
 
-    // Timer Logic (Only Host runs the timer)
+    // Timer Logic - Client Side Visual Only
     useEffect(() => {
         let interval: any;
-        if (state.isHost && state.isTimerRunning && state.timerSeconds > 0) {
+        if (state.isTimerRunning && state.auctionEndTime) {
             interval = setInterval(() => {
                 dispatch({ type: 'TICK_TIMER' });
-            }, 1000);
-        } else if (state.isHost && state.timerSeconds === 0 && state.isTimerRunning) {
-            if (state.currentBidder && state.currentPlayer) {
-                dispatch({
-                    type: 'SELL_PLAYER',
-                    payload: {
-                        player: state.currentPlayer,
-                        teamId: state.currentBidder,
-                        amount: state.currentBid
-                    }
-                });
-            } else if (state.currentPlayer) {
-                dispatch({
-                    type: 'UNSOLD_PLAYER',
-                    payload: state.currentPlayer
-                });
-            } else {
-                dispatch({ type: 'STOP_TIMER' });
-            }
+            }, 500);
         }
         return () => clearInterval(interval);
-    }, [state.isTimerRunning, state.timerSeconds, state.isHost]);
+    }, [state.isTimerRunning, state.auctionEndTime]);
 
     return (
         <AuctionContext.Provider value={{ state, dispatch, socket }}>

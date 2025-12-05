@@ -44,6 +44,18 @@ const AuctionPanel: React.FC = () => {
         }
     }, [myTeam]);
 
+    // Host Auto-Start Timer Logic
+    useEffect(() => {
+        if (state.isHost && state.roomId && socket && currentPlayer && !isTimerRunning && !state.auctionEndTime && state.auctionStatus === 'ACTIVE') {
+            // Small delay to ensure everyone received the player update
+            const timer = setTimeout(() => {
+                socket.emit('start_timer', { roomId: state.roomId, duration: config.timerDuration });
+            }, 1000);
+            return () => clearTimeout(timer);
+        }
+    }, [state.isHost, currentPlayer, state.auctionStatus, socket, state.roomId, config.timerDuration, isTimerRunning, state.auctionEndTime]);
+
+
     const handleSwitchTeam = (teamId: string) => {
         dispatch({ type: 'SET_USER_TEAM', payload: teamId });
         setMyTeamId(teamId);
@@ -85,8 +97,9 @@ const AuctionPanel: React.FC = () => {
                 socket.emit('place_bid', [state.roomId, myTeam.id, amount]);
             } else {
                 console.warn('Cannot bid: No roomId or socket connection');
+                // Fallback for offline usage? (Not typical for this refactor)
+                // dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
             }
-            dispatch({ type: 'PLACE_BID', payload: { teamId: myTeam.id, amount } });
         } else {
             const errorMsg = !myTeam
                 ? 'Error: You have not selected a team yet!'
@@ -98,14 +111,16 @@ const AuctionPanel: React.FC = () => {
     };
 
     const handleSold = () => {
-        if (currentBidder) {
-            dispatch({ type: 'SELL_PLAYER', payload: { player: currentPlayer!, teamId: currentBidder, amount: currentBid } });
+        // Manual override by host
+        if (state.roomId && socket && state.isHost) {
+            socket.emit('force_sell', { roomId: state.roomId });
         }
     };
 
     const handleUnsold = () => {
-        if (currentPlayer) {
-            dispatch({ type: 'UNSOLD_PLAYER', payload: currentPlayer });
+        // Manual override by host
+        if (state.roomId && socket && state.isHost) {
+            socket.emit('force_sell', { roomId: state.roomId });
         }
     };
 
@@ -203,7 +218,7 @@ const AuctionPanel: React.FC = () => {
 
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
-                        <div className="text-xl font-bold">
+                        <div className={`text-xl font-bold ${timerSeconds < 5 ? 'text-red-600 animate-pulse' : ''}`}>
                             ⏱ {isTimerRunning ? timerSeconds.toString().padStart(2, '0') : '00'}s
                         </div>
 
@@ -277,19 +292,19 @@ const AuctionPanel: React.FC = () => {
                     <HoldToBidButton
                         amount={nextBidAmount}
                         label={`BID ${formatMoney(nextBidAmount)}`}
-                        disabled={!canAfford || currentBidder === myTeamId}
+                        disabled={!canAfford || currentBidder === myTeamId || !isTimerRunning}
                         onBid={handleBid}
                     />
                     <div className="flex-col gap-2">
                         <button
                             onClick={() => handleBid(currentBid + 5000000)} // Jump +50L
-                            disabled={!canAfford || currentBidder === myTeamId}
+                            disabled={!canAfford || currentBidder === myTeamId || !isTimerRunning}
                         >
                             +50L Jump
                         </button>
                         <button
                             onClick={() => handleBid(currentBid + 10000000)} // Jump +1Cr
-                            disabled={!canAfford || currentBidder === myTeamId}
+                            disabled={!canAfford || currentBidder === myTeamId || !isTimerRunning}
                         >
                             +1Cr Jump
                         </button>

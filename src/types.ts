@@ -65,6 +65,8 @@ export interface AuctionState {
   isHost?: boolean;
   username?: string | null;
   config: AuctionConfig;
+  auctionEndTime: number | null;
+  serverTimeOffset: number;
 }
 
 export const TEAMS_CONFIG = [
