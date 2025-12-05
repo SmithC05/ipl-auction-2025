@@ -2,40 +2,59 @@ import type { Player } from '../types';
 
 export const parseCSV = (csvText: string): Player[] => {
     const lines = csvText.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
+    // Skip header
+    const dataLines = lines.slice(1);
 
-    // Expected headers: id,name,nationality,role,basePrice,matches,runs,wickets,avg,sr,econ,age,battingStyle,bowlingStyle,imageUrl,set
+    const parsePrice = (priceStr: string): number => {
+        if (!priceStr) return 0;
+        const cleanStr = priceStr.toUpperCase().replace(/,/g, '').trim();
+        if (cleanStr.includes('CR')) {
+            return parseFloat(cleanStr.replace('CR', '')) * 10000000;
+        }
+        if (cleanStr.includes('L')) {
+            return parseFloat(cleanStr.replace('L', '')) * 100000;
+        }
+        return parseFloat(cleanStr) || 0;
+    };
 
-    return lines.slice(1).map(line => {
-        const values = line.split(',').map(v => v.trim());
-        const player: any = {};
+    const mapRole = (role: string): any => {
+        const r = role.toUpperCase().trim();
+        if (r.includes('WK') || r.includes('WICKETKEEPER')) return 'WK';
+        if (r.includes('BAT') || r.includes('BATTER')) return 'BAT';
+        if (r.includes('BOWL') || r.includes('BOWLER')) return 'BOWL';
+        if (r.includes('AR') || r.includes('ALL-ROUNDER')) return 'AR';
+        return 'AR'; // Default
+    };
 
-        headers.forEach((header, index) => {
-            const value = values[index];
+    return dataLines.map((line, index) => {
+        // Split by comma, ignoring commas inside quotes
+        const values = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.trim().replace(/^"|"$/g, ''));
 
-            switch (header) {
-                case 'id':
-                case 'basePrice':
-                case 'matches':
-                case 'runs':
-                case 'wickets':
-                case 'age':
-                    player[header] = parseInt(value) || 0;
-                    break;
-                case 'avg':
-                case 'sr':
-                case 'econ':
-                    player[header] = parseFloat(value) || 0.0;
-                    break;
-                default:
-                    player[header] = value;
-            }
-        });
+        // CSV Columns:
+        // 0: Set No, 1: 2025 Set, 2: Player Name, 3: Age, 4: Country, 5: Specialism, 
+        // 6: Batting Style, 7: Bowling Style, 8: Capped?, 9: Previous Team, 
+        // 10: Base Price, 11: Matches, 12: Runs, 13: Wickets, 14: Avg (Bat), 15: SR (Bat), 16: Econ, 17: Overseas
 
-        // Default set if missing
-        if (!player.set) player.set = 'Uncapped Batters';
+        const player: Player = {
+            id: index + 1,
+            name: values[2],
+            age: parseInt(values[3]) || 0,
+            nationality: values[4],
+            role: mapRole(values[5]),
+            battingStyle: values[6],
+            bowlingStyle: values[7],
+            basePrice: parsePrice(values[10]),
+            matches: parseInt(values[11]) || 0,
+            runs: parseInt(values[12]) || 0,
+            wickets: parseInt(values[13]) || 0,
+            avg: parseFloat(values[14]) || 0,
+            sr: parseFloat(values[15]) || 0,
+            econ: parseFloat(values[16]) || 0,
+            set: values[1] || 'Uncapped',
+            imageUrl: '', // No image URL in CSV
+        };
 
-        return player as Player;
+        return player;
     });
 };
 

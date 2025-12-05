@@ -33,31 +33,39 @@ const PlayerFlipCard: React.FC<PlayerFlipCardProps> = ({ player }) => {
                     </div>
 
                     {/* Stats Grid */}
-                    <div className="grid grid-cols-3 gap-4 mb-6 bg-gray-50 p-3 rounded-lg">
-                        <div className="flex flex-col">
+                    {/* Stats Grid */}
+                    <div className="flex flex-wrap justify-center gap-4 mb-6 bg-gray-50 p-3 rounded-lg">
+                        <div className="flex flex-col min-w-[80px]">
                             <span className="text-xs text-muted uppercase font-bold">Matches</span>
                             <span className="text-lg font-bold">{player.matches}</span>
                         </div>
-                        {player.role === 'BOWL' || player.role === 'AR' ? (
+
+                        {(player.role === 'BAT' || player.role === 'WK' || player.role === 'AR') && (
                             <>
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-muted uppercase font-bold">Wickets</span>
-                                    <span className="text-lg font-bold">{player.wickets}</span>
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-muted uppercase font-bold">Economy</span>
-                                    <span className="text-lg font-bold">{player.econ}</span>
-                                </div>
-                            </>
-                        ) : (
-                            <>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col min-w-[80px]">
                                     <span className="text-xs text-muted uppercase font-bold">Runs</span>
                                     <span className="text-lg font-bold">{player.runs}</span>
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-xs text-muted uppercase font-bold">Strike Rate</span>
+                                <div className="flex flex-col min-w-[80px]">
+                                    <span className="text-xs text-muted uppercase font-bold">Avg</span>
+                                    <span className="text-lg font-bold">{player.avg}</span>
+                                </div>
+                                <div className="flex flex-col min-w-[80px]">
+                                    <span className="text-xs text-muted uppercase font-bold">SR</span>
                                     <span className="text-lg font-bold">{player.sr}</span>
+                                </div>
+                            </>
+                        )}
+
+                        {(player.role === 'BOWL' || player.role === 'AR') && (
+                            <>
+                                <div className="flex flex-col min-w-[80px]">
+                                    <span className="text-xs text-muted uppercase font-bold">Wickets</span>
+                                    <span className="text-lg font-bold">{player.wickets}</span>
+                                </div>
+                                <div className="flex flex-col min-w-[80px]">
+                                    <span className="text-xs text-muted uppercase font-bold">Econ</span>
+                                    <span className="text-lg font-bold">{player.econ}</span>
                                 </div>
                             </>
                         )}

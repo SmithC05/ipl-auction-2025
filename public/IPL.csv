@@ -1,0 +1,611 @@
+Set No,2025 Set,Player Name,Age,Country,Specialism,Batting Style,Bowling Style,Capped?,Previous Team,Base Price,Matches,Runs,Wickets,Avg (Bat),SR (Bat),Econ,Overseas
+1,M1,Virat Kohli,36,India,BAT,RHB,Right-arm Med,Capped,RCB,2 Cr,252,8004,4,38.67,131.97,8.8,No
+1,M1,Jasprit Bumrah,30,India,BOWL,RHB,Right-arm Fast,Capped,MI,2 Cr,133,56,165,6.2,102,7.3,No
+1,M1,Suryakumar Yadav,34,India,BAT,RHB,Right-arm Med,Capped,MI,2 Cr,150,3594,0,32.08,145.3,-,No
+1,M1,Hardik Pandya,31,India,AR,RHB,Right-arm Fast,Capped,MI,2 Cr,137,2525,64,28.69,146.1,8.8,No
+1,M1,Rohit Sharma,37,India,BAT,RHB,Off-break,Capped,MI,2 Cr,257,6628,15,29.72,131.1,7.99,No
+1,M1,Heinrich Klaasen,33,S. Africa,WK-BAT,RHB,Off-break,Capped,SRH,2 Cr,30,891,0,40.5,170,-,Yes
+1,M1,Ravindra Jadeja,35,India,AR,LHB,Left-arm Orth,Capped,CSK,2 Cr,240,2959,160,27.4,129,7.6,No
+1,M1,MS Dhoni,43,India,WK-BAT,RHB,Right-arm Med,Uncapped,CSK,2 Cr,264,5243,0,39.13,137.5,-,No
+1,M1,Sunil Narine,36,W. Indies,AR,LHB,Off-break,Capped,KKR,2 Cr,177,1534,180,17,165.8,6.73,Yes
+1,M1,Andre Russell,36,W. Indies,AR,RHB,Right-arm Fast,Capped,KKR,2 Cr,127,2484,105,29,174.9,9.2,Yes
+1,M1,Sanju Samson,30,India,WK-BAT,RHB,-,Capped,RR,2 Cr,167,4419,0,30.69,139,-,No
+1,M1,Rashid Khan,26,Afghan,BOWL,RHB,Leg-break,Capped,GT,2 Cr,121,545,149,12.6,155,6.7,Yes
+1,M1,Shubman Gill,25,India,BAT,RHB,Off-break,Capped,GT,2 Cr,103,3216,0,37.8,135.2,-,No
+1,M1,Jos Buttler,34,England,WK-BAT,RHB,-,Capped,RR,2 Cr,107,3582,0,38.11,147.5,-,Yes
+1,M1,Shreyas Iyer,30,India,BAT,RHB,Leg-break,Capped,KKR,2 Cr,115,3127,0,32.24,127.5,-,No
+1,M1,Rishabh Pant,27,India,WK-BAT,LHB,-,Capped,DC,2 Cr,111,3284,0,35.31,148.9,-,No
+1,M1,Kagiso Rabada,29,S. Africa,BOWL,LHB,Right-arm Fast,Capped,PBKS,2 Cr,80,186,117,10.5,105,8.41,Yes
+1,M1,Arshdeep Singh,26,India,BOWL,LHB,Left-arm Fast,Capped,PBKS,2 Cr,65,28,76,7,85,9.03,No
+1,M1,Mitchell Starc,35,Australia,BOWL,LHB,Left-arm Fast,Capped,KKR,2 Cr,41,51,51,12,108,8.2,Yes
+2,M2,Rajat Patidar,31,India,BAT,RHB,Off-break,Capped,RCB,2 Cr,27,799,0,34.74,158.9,-,No
+2,M2,Yash Dayal,26,India,BOWL,RHB,Left-arm Fast,Uncapped,RCB,2 Cr,25,1,24,-,-,9.3,No
+2,M2,Tilak Varma,22,India,BAT,LHB,Off-break,Capped,MI,2 Cr,38,1156,0,39.86,146.3,9,No
+2,M2,Pat Cummins,31,Australia,AR,RHB,Right-arm Fast,Capped,SRH,2 Cr,58,511,63,17.6,149,8.5,Yes
+2,M2,Abhishek Sharma,24,India,AR,LHB,Left-arm Orth,Capped,SRH,2 Cr,63,1377,16,25.5,155,8.9,No
+2,M2,Travis Head,30,Australia,BAT,LHB,Off-break,Capped,SRH,2 Cr,25,741,2,41.2,178,10.1,Yes
+2,M2,Nitish Kumar Reddy,21,India,AR,RHB,Right-arm Med,Uncapped,SRH,2 Cr,15,311,3,34.5,143,10.5,No
+2,M2,Ruturaj Gaikwad,27,India,BAT,RHB,-,Capped,CSK,2 Cr,66,2380,0,41.75,136.9,-,No
+2,M2,Matheesha Pathirana,21,Sri Lanka,BOWL,RHB,Right-arm Fast,Capped,CSK,2 Cr,20,0,34,-,-,7.8,Yes
+2,M2,Shivam Dube,31,India,AR,LHB,Right-arm Med,Capped,CSK,2 Cr,65,1502,5,32,150,9.5,No
+2,M2,Axar Patel,30,India,AR,LHB,Left-arm Orth,Capped,DC,2 Cr,150,1653,123,20.6,130.8,7.24,No
+2,M2,Kuldeep Yadav,29,India,BOWL,LHB,Left-arm Wrist,Capped,DC,2 Cr,87,160,87,14,85,7.9,No
+2,M2,Tristan Stubbs,24,S. Africa,BAT,RHB,Off-break,Capped,DC,2 Cr,19,400,3,33.3,165,9,Yes
+2,M2,Rinku Singh,27,India,BAT,LHB,-,Capped,KKR,2 Cr,45,893,0,30.8,143,-,No
+2,M2,Varun Chakravarthy,33,India,BOWL,RHB,Leg-break,Capped,KKR,2 Cr,70,25,83,5,50,7.5,No
+2,M2,Yashasvi Jaiswal,22,India,BAT,LHB,Leg-break,Capped,RR,2 Cr,52,1607,0,32.14,150,-,No
+2,M2,Riyan Parag,23,India,AR,RHB,Off-break,Capped,RR,2 Cr,68,1000,4,22.2,135,10,No
+2,M2,Shimron Hetmyer,27,W. Indies,BAT,LHB,-,Capped,RR,2 Cr,75,1243,0,31,155,-,Yes
+2,M2,Sandeep Sharma,31,India,BOWL,RHB,Right-arm Med,Uncapped,RR,2 Cr,127,50,137,5,80,7.8,No
+2,M2,Sai Sudharsan,23,India,BAT,LHB,Leg-break,Capped,GT,2 Cr,25,1034,0,47,139,-,No
+2,M2,Rahul Tewatia,31,India,AR,LHB,Leg-break,Capped,GT,2 Cr,93,950,32,24.5,135,9.2,No
+2,M2,Nicholas Pooran,29,W. Indies,WK-BAT,LHB,Off-break,Capped,LSG,2 Cr,76,1769,0,32.16,160,-,Yes
+2,M2,Ravi Bishnoi,24,India,BOWL,RHB,Leg-break,Capped,LSG,2 Cr,66,25,66,5,60,7.8,No
+2,M2,Yuzvendra Chahal,34,India,BOWL,RHB,Leg-break,Capped,RR,2 Cr,160,40,205,4,50,7.8,No
+2,M2,Liam Livingstone,31,England,AR,RHB,Leg-break,Capped,PBKS,2 Cr,39,939,11,27.6,162,9.5,Yes
+2,M2,David Miller,35,S. Africa,BAT,LHB,-,Capped,GT,2 Cr,130,2924,0,36.5,139,-,Yes
+2,M2,KL Rahul,32,India,WK-BAT,RHB,-,Capped,LSG,2 Cr,132,4683,0,45.47,134.6,-,No
+2,M2,Mohammed Shami,34,India,BOWL,RHB,Right-arm Fast,Capped,GT,2 Cr,110,75,127,6,85,8.4,No
+2,M2,Mohammed Siraj,31,India,BOWL,RHB,Right-arm Fast,Capped,RCB,2 Cr,93,85,93,8,80,8.6,No
+3,BA1,Abishek Porel,22,India,WK-BAT,LHB,-,Uncapped,DC,2 Cr,16,364,0,26,145,-,No
+3,BA1,Ramandeep Singh,27,India,AR,RHB,Right-arm Med,Uncapped,KKR,2 Cr,19,205,6,22.8,160,9,No
+3,BA1,Dhruv Jurel,23,India,WK-BAT,RHB,-,Capped,RR,2 Cr,27,347,0,23,151,-,No
+3,BA1,Harry Brook,26,England,BAT,RHB,Right-arm Med,Capped,DC,2 Cr,11,190,-,21.1,123.4,-,Yes
+3,BA1,Devon Conway,33,N. Zealand,BAT,LHB,-,Capped,CSK,2 Cr,23,924,-,48.6,141.3,-,Yes
+3,BA1,Jake Fraser-McGurk,22,Australia,BAT,RHB,Leg-break,Capped,DC,2 Cr,9,330,-,36.7,234,-,Yes
+3,BA1,Aiden Markram,30,S. Africa,BAT,RHB,Off-break,Capped,SRH,2 Cr,44,995,2,30.2,129.6,8,Yes
+3,BA1,Devdutt Padikkal,24,India,BAT,LHB,-,Capped,LSG,2 Cr,64,1560,-,25.2,123.6,-,No
+3,BA1,Rahul Tripathi,34,India,BAT,RHB,Right-arm Med,Capped,SRH,75 L,95,2236,-,26.6,136.9,-,No
+3,BA1,David Warner,38,Australia,BAT,LHB,Leg-break,Capped,DC,2 Cr,184,6565,-,40.5,139.8,-,Yes
+4,AL1,M Shahrukh Khan,29,India,AR,RHB,Off-break,Uncapped,GT,2 Cr,45,533,2,19,160,10,No
+4,AL1,R. Ashwin,38,India,AR,RHB,Off-break,Capped,RR,2 Cr,212,800,180,13.6,119.6,7.12,No
+4,AL1,Venkatesh Iyer,30,India,AR,LHB,Right-arm Med,Capped,KKR,2 Cr,50,1326,3,31.6,137.1,10.1,No
+4,AL1,Mitchell Marsh,33,Australia,AR,RHB,Right-arm Med,Capped,DC,2 Cr,42,666,37,19.6,126.9,8.27,Yes
+4,AL1,Glenn Maxwell,36,Australia,AR,RHB,Off-break,Capped,RCB,2 Cr,134,2771,37,24.8,156.7,8.31,Yes
+4,AL1,Harshal Patel,34,India,AR,RHB,Right-arm Med,Capped,PBKS,2 Cr,105,276,135,11,124.3,8.76,No
+4,AL1,Rachin Ravindra,25,N. Zealand,AR,LHB,Left-arm Orth,Capped,CSK,1.5 Cr,10,222,0,22.2,160.9,8.87,Yes
+4,AL1,Marcus Stoinis,35,Australia,AR,RHB,Right-arm Med,Capped,LSG,2 Cr,96,1866,43,28.3,142,9.6,Yes
+5,WK1,Jonny Bairstow,35,England,WK-BAT,RHB,-,Capped,PBKS,2 Cr,50,1607,-,33.5,145.4,-,Yes
+5,WK1,Quinton de Kock,32,S. Africa,WK-BAT,LHB,-,Capped,LSG,2 Cr,107,3157,-,31.3,134.2,-,Yes
+5,WK1,Rahmanullah Gurbaz,23,Afghan,WK-BAT,RHB,-,Capped,KKR,2 Cr,13,289,-,22.2,124.6,-,Yes
+5,WK1,Ishan Kishan,26,India,WK-BAT,LHB,-,Capped,MI,2 Cr,105,2644,-,28.4,135.9,-,No
+5,WK1,Phil Salt,28,England,WK-BAT,RHB,-,Capped,KKR,2 Cr,21,653,-,34.4,175.5,-,Yes
+5,WK1,Jitesh Sharma,31,India,WK-BAT,RHB,-,Capped,PBKS,1 Cr,40,736,-,22.3,151.1,-,No
+6,FA1,Harshit Rana,22,India,BOWL,RHB,Right-arm Fast,Uncapped,KKR,2 Cr,21,20,25,10,120,9,No
+6,FA1,Mayank Yadav,22,India,BOWL,RHB,Right-arm Fast,Uncapped,LSG,2 Cr,4,0,7,-,-,6.99,No
+6,FA1,Mohsin Khan,26,India,BOWL,LHB,Left-arm Med,Uncapped,LSG,2 Cr,24,25,27,8,100,8.5,No
+6,FA1,Khaleel Ahmed,27,India,BOWL,RHB,Left-arm Fast,Capped,DC,2 Cr,57,-,74,-,-,8.61,No
+6,FA1,Trent Boult,35,N. Zealand,BOWL,RHB,Left-arm Fast,Capped,RR,2 Cr,104,-,121,-,-,8.29,Yes
+6,FA1,Josh Hazlewood,34,Australia,BOWL,LHB,Right-arm Fast,Capped,RCB,2 Cr,27,-,35,-,-,8.06,Yes
+6,FA1,Avesh Khan,28,India,BOWL,RHB,Right-arm Fast,Capped,RR,2 Cr,63,-,74,-,-,8.87,No
+6,FA1,Prasidh Krishna,29,India,BOWL,RHB,Right-arm Fast,Capped,RR,2 Cr,51,-,49,-,-,8.92,No
+6,FA1,T. Natarajan,33,India,BOWL,LHB,Left-arm Med,Capped,SRH,2 Cr,61,-,67,-,-,8.84,No
+6,FA1,Anrich Nortje,31,S. Africa,BOWL,RHB,Right-arm Fast,Capped,DC,2 Cr,46,-,60,-,-,8.96,Yes
+7,SP1,Noor Ahmad,20,Afghan,BOWL,RHB,Left-arm Wrist,Capped,GT,2 Cr,23,-,24,-,-,8.05,Yes
+7,SP1,Rahul Chahar,25,India,BOWL,RHB,Leg-break,Capped,PBKS,1 Cr,78,-,77,-,-,7.66,No
+7,SP1,Wanindu Hasaranga,27,Sri Lanka,BOWL,RHB,Leg-break,Capped,SRH,2 Cr,26,-,35,-,-,8.13,Yes
+7,SP1,Waqar Salamkheil,23,Afghan,BOWL,RHB,Left-arm Wrist,Capped,-,75 L,0,0,0,-,-,-,Yes
+7,SP1,Maheesh Theekshana,24,Sri Lanka,BOWL,RHB,Off-break,Capped,CSK,2 Cr,27,-,25,-,-,7.66,Yes
+7,SP1,Adam Zampa,32,Australia,BOWL,RHB,Leg-break,Capped,RR,2 Cr,20,-,29,-,-,7.99,Yes
+8,UBA1,Ayush Badoni,24,India,BAT,RHB,Off-break,Uncapped,LSG,2 Cr,42,728,2,24.3,135,9,No
+8,UBA1,Shashank Singh,33,India,BAT,RHB,Right-arm Med,Uncapped,PBKS,2 Cr,24,450,0,34,160,-,No
+8,UBA1,Prabhsimran Singh,24,India,WK-BAT,RHB,-,Uncapped,PBKS,2 Cr,34,756,0,22.2,140,-,No
+8,UBA1,Yash Dhull,22,India,BAT,RHB,Off-break,Uncapped,DC,30 L,4,16,-,5.3,69.6,-,No
+8,UBA1,Abhinav Manohar,30,India,BAT,RHB,Leg-break,Uncapped,GT,30 L,19,231,-,17.8,132.8,-,No
+8,UBA1,Karun Nair,33,India,BAT,RHB,Off-break,Uncapped*,LSG,30 L,76,1496,-,23.8,127.8,-,No
+8,UBA1,A. Raghuvanshi,20,India,BAT,RHB,Left-arm Orth,Uncapped,KKR,30 L,10,163,1,16.3,155.2,11.5,No
+8,UBA1,Anmolpreet Singh,27,India,BAT,RHB,Off-break,Uncapped,SRH,30 L,24,417,-,18.9,120.5,-,No
+8,UBA1,Atharva Taide,24,India,BAT,LHB,Left-arm Orth,Uncapped,PBKS,30 L,9,199,-,24.9,137.2,-,No
+8,UBA1,Nehal Wadhera,24,India,BAT,LHB,Leg-break,Uncapped,MI,30 L,20,350,-,23.3,140,-,No
+9,UAL1,Harpreet Brar,29,India,AR,LHB,Left-arm Orth,Uncapped,PBKS,30 L,41,208,25,16,130.8,7.57,No
+9,UAL1,Naman Dhir,25,India,AR,RHB,Off-break,Uncapped,MI,30 L,7,140,0,23.3,179.5,12,No
+9,UAL1,Mahipal Lomror,25,India,AR,LHB,Left-arm Orth,Uncapped,RCB,50 L,40,527,1,18.2,138,8.83,No
+9,UAL1,Sameer Rizvi,21,India,AR,RHB,Off-break,Uncapped,CSK,30 L,8,51,0,12.8,118.6,-,No
+9,UAL1,Abdul Samad,23,India,AR,RHB,Leg-break,Uncapped,SRH,30 L,50,577,2,19.2,146.1,11.4,No
+9,UAL1,Vijay Shankar,34,India,AR,RHB,Right-arm Med,Uncapped*,GT,30 L,72,1066,9,25.4,120.9,8.76,No
+9,UAL1,Ashutosh Sharma,26,India,AR,RHB,Right-arm Med,Uncapped,PBKS,30 L,11,189,0,27,167.3,-,No
+9,UAL1,Nishant Sindhu,20,India,AR,LHB,Left-arm Orth,Uncapped,CSK,30 L,0,0,0,-,-,-,No
+9,UAL1,Utkarsh Singh,26,India,AR,LHB,Off-break,Uncapped,PBKS,30 L,0,0,0,-,-,-,No
+10,UWK1,Aryan Juyal,23,India,WK-BAT,RHB,-,Uncapped,MI,30 L,0,0,-,-,-,-,No
+10,UWK1,Kumar Kushagra,20,India,WK-BAT,RHB,-,Uncapped,DC,30 L,4,3,-,1.5,33.3,-,No
+10,UWK1,Robin Minz,22,India,WK-BAT,LHB,-,Uncapped,GT,30 L,0,0,-,-,-,-,No
+10,UWK1,Anuj Rawat,25,India,WK-BAT,LHB,-,Uncapped,RCB,30 L,24,318,-,19.9,119.1,-,No
+10,UWK1,Luvnith Sisodia,25,India,WK-BAT,LHB,-,Uncapped,RCB,30 L,0,0,-,-,-,-,No
+10,UWK1,Vishnu Vinod,31,India,Wicketkeeper,RHB,-,Uncapped,MI,30 L,6,56,-,9.33,119.15,-,No
+10,UWK1,Upendra S Yadav,28,India,Wicketkeeper,RHB,-,Uncapped,SRH,30 L,2,10,-,10,111.11,-,No
+11,UFA1,Vaibhav Arora,27,India,Bowler,RHB,Right Fast-Medium,Uncapped,KKR,30 L,20,5,18,2.5,55.55,9.37,No
+11,UFA1,Rasikh Dar,25,India,Bowler,RHB,Right Fast-Medium,Uncapped,DC,30 L,11,24,9,24,150,9.94,No
+11,UFA1,Akash Madhwal,31,India,Bowler,RHB,Right Fast-Medium,Uncapped,MI,30 L,13,4,19,4,66.66,9.71,No
+11,UFA1,Mohit Sharma,36,India,Bowler,RHB,Right Fast-Medium,Uncapped,GT,50 L,112,165,132,9.16,120.43,8.52,No
+11,UFA1,Simarjeet Singh,27,India,Bowler,RHB,Right Fast-Medium,Uncapped,CSK,30 L,10,7,9,7,116.66,8.63,No
+11,UFA1,Yash Thakur,26,India,Bowler,RHB,Right Fast-Medium,Uncapped,LSG,30 L,19,1,24,0.5,16.66,10,No
+11,UFA1,Kartik Tyagi,24,India,Bowler,RHB,Right Fast,Uncapped,GT,40 L,20,14,16,4.66,66.66,10.23,No
+11,UFA1,Vyshak Vijaykumar,28,India,Bowler,RHB,Right Fast-Medium,Uncapped,RCB,30 L,11,26,13,26,173.33,10.26,No
+12,USP1,Piyush Chawla,36,India,Bowler,LHB,Leg Spin,Uncapped,MI,50 L,192,624,192,11.14,110.44,7.96,No
+12,USP1,Shreyas Gopal,31,India,Bowler,RHB,Leg Spin,Uncapped,MI,30 L,52,201,52,13.4,112.29,8.16,No
+12,USP1,Mayank Markande,27,India,Bowler,RHB,Leg Spin,Uncapped,SRH,30 L,37,27,37,6.75,96.42,8.78,No
+12,USP1,Suyash Sharma,21,India,Bowler,RHB,Leg Spin,Uncapped,KKR,30 L,13,0,10,0,0,9.38,No
+12,USP1,Karn Sharma,37,India,Bowler,LHB,Leg Spin,Uncapped,RCB, 50 L,84,367,76,15.29,121.12,8.21,No
+12,USP1,Kumar Kartikeya Singh,27,India,Bowler,RHB,Left Slow Orthodox,Uncapped,MI,30 L,12,9,10,4.5,81.81,8.52,No
+12,USP1,Manav Suthar,22,India,Bowler,LHB,Left Slow Orthodox,Uncapped,GT,30 L,1,-,0,-,-,7.66,No
+13,BA2,Mayank Agarwal,34,India,Batter,RHB,-,Capped,SRH,1 Cr,127,2661,-,22.17,130.31,-,No
+13,BA2,Faf Du Plessis,40,South Africa,Batter,RHB,-,Capped,RCB,2 Cr,145,4571,-,35.99,136.38,-,Yes
+13,BA2,Glenn Phillips,28,New Zealand,Batter,RHB,Off Spin,Capped,SRH,2 Cr,8,111,1,18.5,144.15,11,Yes
+13,BA2,Rovman Powell,31,West Indies,Batter,RHB,Right Fast-Medium,Capped,RR,1.5 Cr,27,360,0,18.94,141.17,10.33,Yes
+13,BA2,Ajinkya Rahane,36,India,Batter,RHB,-,Capped,CSK,1.5 Cr,185,4642,1,30.14,123.42,5,No
+13,BA2,Prithvi Shaw,25,India,Batter,RHB,-,Capped,DC,75,79,1892,-,23.94,147.46,-,No
+13,BA2,Kane Williamson,34,New Zealand,Batter,RHB,Off Spin,Capped,GT,2 Cr,79,2128,0,35.46,125.62,8,Yes
+14,AL2,Sam Curran,26,England,All-Rounder,LHB,Left Fast-Medium,Capped,PBKS,2 Cr,59,883,58,23.86,137.96,9.8,Yes
+14,AL2,Marco Jansen,24,South Africa,All-Rounder,RHB,Left Fast,Capped,SRH,1.25 Cr,21,60,20,10,122.44,9.77,Yes
+14,AL2,Daryl Mitchell,33,New Zealand,All-Rounder,RHB,Right Medium,Capped,CSK,2 Cr,15,351,1,29.25,128.57,10.5,Yes
+14,AL2,Krunal Pandya,34,India,All-Rounder,LHB,Left Slow Orthodox,Capped,LSG,2 Cr,127,1647,76,21.67,133.03,7.39,No
+14,AL2,Nitish Rana,31,India,All-Rounder,LHB,Off Spin,Capped,KKR,1.5 Cr,107,2636,10,28.04,134.83,8.12,No
+14,AL2,Washington Sundar,25,India,All-Rounder,LHB,Off Spin,Capped,SRH,2 Cr,60,378,37,14.53,115.95,7.54,No
+14,AL2,Shardul Thakur,33,India,All-Rounder,RHB,Right Fast-Medium,Capped,CSK,2 Cr,95,309,94,9.96,138.56,9.17,No
+15,WK2,K.S Bharat,31,India,Wicketkeeper,RHB,-,Capped,KKR,75,11,201,-,25.12,111.04,-,No
+15,WK2,Alex Carey,33,Australia,Wicketkeeper,LHB,-,Capped,DC,1 Cr,3,32,-,10.66,110.34,-,Yes
+15,WK2,Donovan Ferreira,26,South Africa,Wicketkeeper,RHB,-,Capped,RR,75,2,7,-,3.5,58.33,-,Yes
+15,WK2,Shai Hope,31,West Indies,Wicketkeeper,RHB,-,Capped,DC,1.25 Cr,9,183,-,22.87,135.55,-,Yes
+15,WK2,Josh Inglis,30,Australia,Wicketkeeper,RHB,-,Capped,-,2 Cr,0,-,-,-,-,-,Yes
+15,WK2,Ryan Rickelton,28,South Africa,Wicketkeeper,LHB,-,Capped,-,1 Cr,0,-,-,-,-,-,Yes
+16,FA2,Deepak Chahar,32,India,Bowler,RHB,Right Fast-Medium,Capped,CSK,2 Cr,81,80,83,11.42,137.93,7.97,No
+16,FA2,Gerald Coetzee,24,South Africa,Bowler,RHB,Right Fast,Capped,MI,1.25 Cr,10,14,13,4.66,107.69,10.18,Yes
+16,FA2,Akash Deep,28,India,Bowler,RHB,Right Fast-Medium,Capped,RCB,1 Cr,8,19,7,9.5,100,11.53,No
+16,FA2,Tushar Deshpande,29,India,Bowler,LHB,Right Fast-Medium,Capped,CSK,1 Cr,36,21,42,21,123.52,9.77,No
+16,FA2,Lockie Ferguson,33,New Zealand,Bowler,RHB,Right Fast,Capped,RCB,2 Cr,45,69,46,13.8,127.77,8.94,Yes
+16,FA2,Bhuvneshwar Kumar,35,India,Bowler,RHB,Right Fast-Medium,Capped,SRH,2 Cr,176,298,181,8.05,94,7.56,No
+16,FA2,Mukesh Kumar,31,India,Bowler,RHB,Right Fast-Medium,Capped,DC,2 Cr,20,13,24,4.33,72.22,10.42,No
+17,SP2,Allah Ghazanfar,19,Afghanistan,Bowler,RHB,Off Spin,Capped,KKR,75,0,-,-,-,-,-,Yes
+17,SP2,Akeal Hosein,31,West Indies,Bowler,LHB,Left Slow Orthodox,Capped,SRH,1.5 Cr,1,16,1,16,100,7.5,Yes
+17,SP2,Keshav Maharaj,35,South Africa,Bowler,RHB,Left Slow Orthodox,Capped,RR,75,2,1,2,1,50,7.62,Yes
+17,SP2,Mujeeb Ur Rahman,24,Afghanistan,Bowler,RHB,Off Spin,Capped,KKR,2 Cr,19,12,19,4,66.66,8.18,Yes
+17,SP2,Adil Rashid,37,England,Bowler,RHB,Leg Spin,Capped,SRH,2 Cr,3,0,2,0,0,8.57,Yes
+17,SP2,Vijayakanth Viyaskanth,23,Sri Lanka,Bowler,RHB,Leg Spin,Capped,SRH,75,1,-,0,-,-,8.25,Yes
+18,UBA2,Ricky Bhui,28,India,BAT,RHB,Leg-break,Uncapped,DC,30 L,4,10,-,2.5,38.5,-,No
+18,UBA2,Swastik Chikara,19,India,BAT,RHB,Off-break,Uncapped,DC,30 L,0,0,-,-,-,-,No
+18,UBA2,Shubham Dubey,30,India,BAT,LHB,Off-break,Uncapped,RR,30 L,3,14,-,14,87.5,-,No
+18,UBA2,Madhav Kaushik,26,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+18,UBA2,Pukhraj Mann,23,India,BAT,LHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+18,UBA2,Shaik Rasheed,20,India,BAT,RHB,Leg-break,Uncapped,CSK,30 L,0,0,-,-,-,-,No
+18,UBA2,Himmat Singh,28,India,BAT,RHB,Off-break,Uncapped,RCB,30 L,0,0,-,-,-,-,No
+18,UBA2,Manan Vohra,31,India,BAT,RHB,Med-Fast,Uncapped,LSG,30 L,56,1083,-,22,130.6,-,No
+19,UAL2,Murugan Ashwin,34,India,AR,RHB,Leg-break,Uncapped,RR,30 L,44,35,35,-,-,8.01,No
+19,UAL2,Arshad Khan,26,India,AR,LHB,Left-arm Med,Uncapped,LSG,30 L,9,69,6,17.3,143.8,11.8,No
+19,UAL2,Darshan Nalkande,26,India,AR,RHB,Right-arm Fast,Uncapped,GT,30 L,14,88,7,22,146.6,10.6,No
+19,UAL2,Pradosh Paul,23,India,AR,LHB,Off-break,Uncapped,CSK,30 L,0,0,-,-,-,-,No
+19,UAL2,Lalit Yadav,27,India,AR,RHB,Off-break,Uncapped,DC,30 L,27,305,10,19.1,105.2,8.85,No
+19,UAL2,Swapnil Singh,33,India,AR,RHB,Left-arm Orth,Uncapped,RCB,30 L,14,51,7,8.5,115.9,9.04,No
+19,UAL2,Sumit Kumar,28,India,AR,RHB,Right-arm Fast,Uncapped,DC,30 L,4,6,0,3,60,12,No
+20,UWK2,Avinash Rao,26,India,WK-BAT,RHB,-,Uncapped,MI,30 L,0,0,-,-,-,-,No
+20,UWK2,Harvik Desai,25,India,WK-BAT,RHB,-,Uncapped,MI,30 L,0,0,-,-,-,-,No
+20,UWK2,Tom Kohler-Cadmore,30,England,WK-BAT,RHB,Off-break,Uncapped,RR,40 L,4,48,-,16,88.9,-,Yes
+20,UWK2,B.R. Sharath,28,India,WK-BAT,RHB,-,Uncapped,GT,30 L,0,0,-,-,-,-,No
+20,UWK2,Gurnoor Brar,24,India,WK-BAT,LHB,Right-arm Fast,Uncapped,PBKS,30 L,1,-,0,-,-,12,No
+21,UFA2,Mukesh Choudhary,28,India,BOWL,LHB,Left-arm Fast,Uncapped,CSK,30 L,16,-,17,-,-,9.94,No
+21,UFA2,Sakib Hussain,19,India,BOWL,RHB,Right-arm Fast,Uncapped,KKR,30 L,1,-,0,-,-,10.5,No
+21,UFA2,Vaibhav Suryavanshi,13,India,BAT,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+21,UFA2,Vidwath Kaverappa,25,India,BOWL,RHB,Right-arm Fast,Uncapped,PBKS,30 L,1,-,0,-,-,11,No
+21,UFA2,Kuldeep Sen,28,India,BOWL,RHB,Right-arm Fast,Uncapped,RR,30 L,12,-,14,-,-,9.63,No
+21,UFA2,Sushant Mishra,23,India,BOWL,LHB,Left-arm Fast,Uncapped,GT,30 L,1,-,0,-,-,11,No
+21,UFA2,Arjun Tendulkar,25,India,BOWL,LHB,Left-arm Fast,Uncapped,MI,30 L,5,13,3,13,144.4,9.37,No
+22,USP2,Zeeshan Ansari,24,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+22,USP2,Prince Choudhary,25,India,BOWL,RHB,Off-break,Uncapped,PBKS,30 L,0,0,-,-,-,-,No
+22,USP2,Himanshu Sharma,26,India,BOWL,RHB,Leg-break,Uncapped,RCB,30 L,2,-,0,-,-,10.5,No
+22,USP2,M. Siddharth,26,India,BOWL,LHB,Left-arm Orth,Uncapped,LSG,30 L,5,-,3,-,-,8.63,No
+22,USP2,Digvesh Singh,24,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+22,USP2,Prashant Solanki,24,India,BOWL,RHB,Leg-break,Uncapped,CSK,30 L,4,-,2,-,-,7,No
+22,USP2,Jhatavedh Subramanyan,25,India,BOWL,RHB,Leg-break,Uncapped,SRH,30 L,0,0,-,-,-,-,No
+23,BA3,Finn Allen,25,N. Zealand,BAT,RHB,-,Capped,RCB,2 Cr,0,0,-,-,-,-,Yes
+23,BA3,Dewald Brevis,21,S. Africa,BAT,RHB,Leg-break,Capped,MI,75 L,16,455,1,28.4,153.2,16,Yes
+23,BA3,Ben Duckett,30,England,BAT,LHB,-,Capped,-,2 Cr,0,0,-,-,-,-,Yes
+23,BA3,Manish Pandey,35,India,BAT,RHB,-,Capped,KKR,75 L,174,3942,-,29.4,121.5,-,No
+23,BA3,Sherfane Rutherford,26,W. Indies,BAT,LHB,Right-arm Fast,Capped,KKR,1.5 Cr,14,160,0,14.5,116.8,-,Yes
+23,BA3,Ashton Turner,31,Australia,BAT,RHB,Off-break,Capped,LSG,1 Cr,5,7,-,1.4,46.6,-,Yes
+23,BA3,James Vince,33,England,BAT,RHB,Right-arm Med,Capped,-,2 Cr,0,0,-,-,-,-,Yes
+24,AL3,Gus Atkinson,26,England,AR,RHB,Right-arm Fast,Capped,KKR,2 Cr,0,0,-,-,-,-,Yes
+24,AL3,Moeen Ali,37,England,AR,LHB,Off-break,Capped,CSK,2 Cr,73,1167,41,22.8,143,7.08,Yes
+24,AL3,Tim David,28,Australia,AR,RHB,Off-break,Capped,MI,2 Cr,50,846,0,27.3,170,-,Yes
+24,AL3,Will Jacks,26,England,AR,RHB,Off-break,Capped,RCB,2 Cr,21,463,8,27.2,152.8,9.57,Yes
+24,AL3,Azmatullah Omarzai,24,Afghan,AR,RHB,Right-arm Med,Capped,GT,1.5 Cr,16,99,12,12.4,133.8,9.69,Yes
+24,AL3,Romario Shepherd,30,W. Indies,AR,RHB,Right-arm Fast,Capped,MI,1.5 Cr,18,185,10,26.4,212.6,11.6,Yes
+25,WK3,Tom Banton,26,England,WK-BAT,RHB,-,Capped,-,2 Cr,2,18,-,9,72,-,Yes
+25,WK3,Sam Billings,33,England,WK-BAT,RHB,-,Capped,-,1.5 Cr,30,503,-,19.4,129.6,-,Yes
+25,WK3,Jordan Cox,24,England,WK-BAT,RHB,-,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+25,WK3,Ben McDermott,29,Australia,WK-BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+25,WK3,Kusal Mendis,29,Sri Lanka,WK-BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+25,WK3,Kusal Perera,34,Sri Lanka,WK-BAT,LHB,-,Capped,-,75 L,2,14,-,7,60.9,-,Yes
+25,WK3,Tim Seifert,30,N. Zealand,WK-BAT,RHB,-,Capped,-,1.25 Cr,3,26,-,8.7,113,-,Yes
+26,FA3,Nandre Burger,29,S. Africa,BOWL,LHB,Left-arm Fast,Capped,RR,1.25 Cr,6,-,7,-,-,8.53,Yes
+26,FA3,Umran Malik,25,India,BOWL,RHB,Right-arm Fast,Capped,SRH,75 L,26,-,29,-,-,9.4,No
+26,FA3,Mustafizur Rahman,29,Bangladesh,BOWL,LHB,Left-arm Fast,Capped,CSK,2 Cr,60,-,65,-,-,8.13,Yes
+26,FA3,Naveen-ul-Haq,25,Afghan,BOWL,RHB,Right-arm Med,Capped,LSG,2 Cr,18,-,25,-,-,9.16,Yes
+26,FA3,Nuwan Thushara,30,Sri Lanka,BOWL,RHB,Right-arm Med,Capped,MI,75 L,8,-,9,-,-,9.43,Yes
+26,FA3,Jaydev Unadkat,33,India,BOWL,RHB,Left-arm Fast,Capped,SRH,1 Cr,112,-,110,-,-,8.86,No
+26,FA3,Umesh Yadav,37,India,BOWL,RHB,Right-arm Fast,Capped,GT,2 Cr,148,-,144,-,-,8.5,No
+27,SP3,Tanveer Sangha,23,Australia,BOWL,RHB,Leg-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+27,SP3,Zahir Khan,26,Afghan,BOWL,LHB,Left-arm Wrist,Capped,-,75 L,0,0,-,-,-,-,Yes
+27,SP3,Nasum Ahmed,30,Bangladesh,BOWL,LHB,Left-arm Orth,Capped,-,75 L,0,0,-,-,-,-,Yes
+27,SP3,Ish Sodhi,32,N. Zealand,BOWL,RHB,Leg-break,Capped,-,75 L,8,-,9,-,-,6.7,Yes
+27,SP3,Tabraiz Shamsi,34,S. Africa,BOWL,RHB,Left-arm Wrist,Capped,-,2 Cr,5,-,3,-,-,9.05,Yes
+27,SP3,Jeffrey Vandersay,34,Sri Lanka,BOWL,RHB,Leg-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+28,UBA3,Sachin Baby,36,India,BAT,LHB,Off-break,Uncapped,SRH,30 L,20,144,2,16,122,4.8,No
+28,UBA3,Priyam Garg,24,India,BAT,RHB,Right-arm Med,Uncapped,DC,30 L,23,273,-,15,113.3,-,No
+28,UBA3,Hannan (Harnoor),21,India,BAT,LHB,Off-break,Uncapped,PBKS,30 L,0,0,-,-,-,-,No
+28,UBA3,Sameer Rizvi,21,India,BAT,RHB,Off-break,Uncapped,CSK,30 L,8,51,-,12.8,118.6,-,No
+28,UBA3,Shashwat Rawat,23,India,BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+28,UBA3,Avneesh Sudha,23,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+28,UBA3,Apoorv Wankhade,33,India,BAT,RHB,-,Uncapped,KKR,30 L,0,0,-,-,-,-,No
+29,UAL3,Yudhvir Charak,27,India,AR,RHB,Right-arm Med,Uncapped,LSG,30 L,5,1,4,1,25,10.8,No
+29,UAL3,Rishi Dhawan,35,India,AR,RHB,Right-arm Med,Uncapped,PBKS,30 L,39,210,25,19.1,112.3,8.08,No
+29,UAL3,Rajvardhan Hangargekar,22,India,AR,RHB,Right-arm Fast,Uncapped,CSK,30 L,2,0,3,-,-,10,No
+29,UAL3,Tanush Kotian,26,India,AR,RHB,Off-break,Uncapped,RR,30 L,1,0,0,0,0,-,No
+29,UAL3,Arshin Kulkarni,20,India,AR,RHB,Right-arm Med,Uncapped,LSG,30 L,2,9,0,4.5,112.5,-,No
+29,UAL3,Shams Mulani,28,India,AR,LHB,Left-arm Orth,Uncapped,MI,30 L,0,0,-,-,-,-,No
+29,UAL3,Shivam Singh,29,India,AR,RHB,Off-break,Uncapped,PBKS,30 L,0,0,-,-,-,-,No
+29,UAL3,Lalit Yadav,28,India,AR,RHB,Off-break,Uncapped,DC,30 L,27,305,10,19.1,105.2,8.85,No
+30,UWK3,M. Azharuddeen,31,India,WK-BAT,RHB,-,Uncapped,RCB,30 L,0,0,-,-,-,-,No
+30,UWK3,L.R. Chethan,24,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+30,UWK3,Aryaman S Dhaliwal,22,India,WK-BAT,RHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+30,UWK3,Urvil Patel,26,India,WK-BAT,RHB,-,Uncapped,GT,30 L,0,0,-,-,-,-,No
+30,UWK3,Sanskar Rawat,19,India,WK-BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+30,UWK3,Bipin Saurabh,25,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+30,UWK3,Tanay Thyagarajan,29,India,WK-BAT,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+31,UFA3,Money Grewal,24,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+31,UFA3,Ashwani Kumar,23,India,BOWL,RHB,Left-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+31,UFA3,Ishan Porel,26,India,BOWL,RHB,Right-arm Fast,Uncapped,PBKS,30 L,1,-,1,-,-,9.75,No
+31,UFA3,Abhilash Shetty,26,India,BOWL,LHB,Left-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+31,UFA3,Akash Singh,22,India,BOWL,RHB,Left-arm Fast,Uncapped,CSK,30 L,10,-,9,-,-,9.54,No
+31,UFA3,Gurjapneet Singh,26,India,BOWL,RHB,Left-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+31,UFA3,Basil Thampi,31,India,BOWL,RHB,Right-arm Fast,Uncapped,MI,30 L,25,32,22,32,91.4,9.74,No
+32,USP3,Murugan Ashwin,34,India,BOWL,RHB,Leg-break,Uncapped,RR,30 L,44,35,35,3.9,70,8.01,No
+32,USP3,Shreyas Chavan,21,India,BOWL,LHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+32,USP3,Chintal Gandhi,30,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+32,USP3,Raghav Goyal,23,India,BOWL,LHB,Left-arm Wrist,Uncapped,MI,30 L,1,-,0,-,-,8.25,No
+32,USP3,Jagadeesha Suchith,31,India,BOWL,LHB,Left-arm Orth,Uncapped,SRH,30 L,22,70,19,17.5,114.8,8.6,No
+32,USP3,Roshan Waghsare,21,India,BOWL,RHB,Left-arm Wrist,Uncapped,-,30 L,0,0,-,-,-,-,No
+32,USP3,Bailapudi Yeswanth,20,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+33,BA4,Sediqullah Atal,23,Afghan,BAT,LHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+33,BA4,Matthew Breetzke,26,S. Africa,BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+33,BA4,Mark Chapman,30,N. Zealand,BAT,LHB,Left-arm Orth,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+33,BA4,Brandon King,30,W. Indies,BAT,RHB,Off-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+33,BA4,Evin Lewis,33,W. Indies,BAT,LHB,-,Capped,LSG,2 Cr,27,654,-,24.2,137.1,-,Yes
+33,BA4,Pathum Nissanka,26,Sri Lanka,BAT,RHB,Right-arm Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+33,BA4,Bhanuka Rajapaksa,33,Sri Lanka,BAT,LHB,-,Capped,PBKS,75 L,13,277,-,23.1,145,-,Yes
+33,BA4,Steve Smith,35,Australia,BAT,RHB,-,Capped,DC,2 Cr,103,2485,-,34.5,128,-,Yes
+34,AL4,Gus Atkinson,27,England,AR,RHB,Right-arm Fast,Capped,KKR,2 Cr,0,0,-,-,-,-,Yes
+34,AL4,Tom Curran,30,England,AR,RHB,Right-arm Med,Capped,RCB,2 Cr,13,127,13,25.4,118.7,10.8,Yes
+34,AL4,K. Gowtham,36,India,AR,RHB,Off-break,Capped,LSG,1 Cr,37,247,21,14.5,166.9,8.26,No
+34,AL4,Mohammad Nabi,40,Afghan,AR,RHB,Off-break,Capped,MI,1.5 Cr,24,200,15,14.3,140.8,7.31,Yes
+34,AL4,Gulbadin Naib,33,Afghan,AR,RHB,Right-arm Med,Capped,DC,1 Cr,2,19,0,19,126.6,12,Yes
+34,AL4,Sikandar Raza,38,Zimbabwe,AR,RHB,Off-break,Capped,PBKS,1.25 Cr,9,182,3,26,133.8,10.1,Yes
+34,AL4,Mitchell Santner,33,N. Zealand,AR,LHB,Left-arm Orth,Capped,CSK,2 Cr,18,75,15,18.8,97.4,6.88,Yes
+34,AL4,Jayant Yadav,35,India,AR,RHB,Off-break,Capped,GT,75 L,20,40,8,10,111.1,6.85,No
+35,WK4,Johnson Charles,36,W. Indies,WK-BAT,RHB,Off-break,Capped,KKR,75 L,0,0,-,-,-,-,Yes
+35,WK4,Litton Das,30,Bangladesh,WK-BAT,RHB,-,Capped,KKR,75 L,1,4,-,4,100,-,Yes
+35,WK4,Andre Fletcher,37,W. Indies,WK-BAT,RHB,Leg-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+35,WK4,Tom Latham,33,N. Zealand,WK-BAT,LHB,-,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+35,WK4,Ollie Pope,27,England,WK-BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+35,WK4,Kyle Verreynne,27,S. Africa,WK-BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+36,FA4,Fazalhaq Farooqi,24,Afghan,BOWL,RHB,Left-arm Med,Capped,SRH,2 Cr,12,-,6,-,-,10.3,Yes
+36,FA4,Richard Gleeson,37,England,BOWL,RHB,Right-arm Fast,Capped,CSK,75 L,3,-,2,-,-,9.71,Yes
+36,FA4,Matt Henry,33,N. Zealand,BOWL,RHB,Right-arm Fast,Capped,LSG,2 Cr,6,-,2,-,-,10.6,Yes
+36,FA4,Alzarri Joseph,28,W. Indies,BOWL,RHB,Right-arm Fast,Capped,RCB,2 Cr,22,-,21,-,-,9.55,Yes
+36,FA4,Kwena Maphaka,18,S. Africa,BOWL,LHB,Left-arm Fast,Capped,MI,75 L,4,-,2,-,-,13,Yes
+36,FA4,Kuldeep Sen,28,India,BOWL,RHB,Right-arm Fast,Capped,RR,75 L,12,-,14,-,-,9.63,No
+36,FA4,Reece Topley,31,England,BOWL,RHB,Left-arm Fast,Capped,RCB,75 L,6,-,5,-,-,11.1,Yes
+36,FA4,Lizaad Williams,31,S. Africa,BOWL,LHB,Right-arm Fast,Capped,DC,75 L,2,-,1,-,-,12,Yes
+36,FA4,Luke Wood,29,England,BOWL,LHB,Left-arm Fast,Capped,MI,75 L,2,-,1,-,-,15.5,Yes
+37,UBA4,Sachin Dhas,20,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+37,UBA4,Leus du Plooy,30,England,BAT,LHB,-,Uncapped,-,50 L,0,0,-,-,-,-,Yes
+37,UBA4,Ashwin Hebbar,29,India,BAT,RHB,Right-arm Med,Uncapped,DC,30 L,0,0,-,-,-,-,No
+37,UBA4,Rohan Kunnummal,26,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+37,UBA4,Ayush Pandey,24,India,BAT,LHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+37,UBA4,Akshat Raghuwanshi,21,India,BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+37,UBA4,Shoun Roger,22,India,BAT,RHB,Off-break,Uncapped,-,40 L,0,0,-,-,-,-,No
+37,UBA4,Virat Singh,27,India,BAT,LHB,Off-break,Uncapped,SRH,30 L,3,15,-,7.5,57.7,-,No
+38,UAL4,Priyansh Arya,23,India,AR,LHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+38,UAL4,Manoj Bhandage,26,India,AR,LHB,Right-arm Med,Uncapped,RCB,30 L,0,0,-,-,-,-,No
+38,UAL4,Pravin Dubey,31,India,AR,RHB,Leg-break,Uncapped,DC,30 L,4,23,1,-,69.6,9,No
+38,UAL4,Ajay Mandal,29,India,AR,LHB,Left-arm Orth,Uncapped,CSK,30 L,0,0,-,-,-,-,No
+38,UAL4,Prerak Mankad,30,India,AR,RHB,Right-arm Med,Uncapped,LSG,30 L,6,97,0,32.3,132.9,-,No
+38,UAL4,Vipraj Nigam,20,India,AR,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+38,UAL4,Vicky Ostwal,22,India,AR,RHB,Left-arm Orth,Uncapped,DC,30 L,0,0,-,-,-,-,No
+38,UAL4,Shivalik Sharma,26,India,AR,LHB,Leg-break,Uncapped,MI,30 L,0,0,-,-,-,-,No
+39,UWK4,Salil Arora,22,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+39,UWK4,Dinesh Bana,20,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+39,UWK4,Ajitesh Guruswamy,22,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+39,UWK4,Narayan Jagadeesan,29,India,WK-BAT,RHB,-,Uncapped,KKR,30 L,13,162,-,18,110.2,-,No
+39,UWK4,Shrijith Krishnan,28,India,WK-BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+39,UWK4,Michael Pepper,26,England,WK-BAT,RHB,-,Uncapped,-,50 L,0,0,-,-,-,-,Yes
+39,UWK4,Vishnu Solanki,32,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+40,UFA4,K.M. Asif,31,India,BOWL,RHB,Right-arm Fast,Uncapped,RR,30 L,7,-,7,-,-,10.4,No
+40,UFA4,Akhil Chaudhary,22,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+40,UFA4,Himanshu Chauhan,22,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+40,UFA4,Arpit Guleria,27,India,BOWL,RHB,Right-arm Fast,Uncapped,LSG,30 L,0,0,-,-,-,-,No
+40,UFA4,Nishanth Saranu,20,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+40,UFA4,Kuldip Yadav,28,India,BOWL,LHB,Left-arm Fast,Uncapped,RR,30 L,3,-,2,-,-,9.71,No
+40,UFA4,Prithviraj Yarra,27,India,BOWL,LHB,Left-arm Fast,Uncapped,KKR,30 L,2,-,1,-,-,11.4,No
+41,USP4,Shubham Agrawal,31,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+41,USP4,Jass Inder Baidwan,28,India,BOWL,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+41,USP4,Jasmer Dhankhar,26,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+41,USP4,Pulkit Narang,30,India,BOWL,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+41,USP4,Saumy Pandey,20,India,BOWL,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+41,USP4,Mohit Rathee,26,India,BOWL,RHB,Leg-break,Uncapped,PBKS,30 L,1,1,0,-,-,14.5,No
+41,USP4,Himanshu Singh,21,India,BOWL,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+42,BA5,Towhid Hridoy,24,Bangladesh,BAT,RHB,Off-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+42,BA5,Mikyle Louis,24,W. Indies,BAT,RHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+42,BA5,Harry Tector,25,Ireland,BAT,RHB,Off-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+42,BA5,Rassie van der Dussen,36,S. Africa,BAT,RHB,Leg-break,Capped,RR,2 Cr,3,22,-,11,91.7,-,Yes
+42,BA5,Will Young,32,N. Zealand,BAT,RHB,-,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+42,BA5,Najibullah Zadran,32,Afghan,BAT,LHB,-,Capped,-,75 L,0,0,-,-,-,-,Yes
+42,BA5,Ibrahim Zadran,24,Afghan,BAT,RHB,Right-arm Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+43,AL5,Sean Abbott,33,Australia,AR,RHB,Right-arm Med,Capped,SRH,2 Cr,3,22,1,7.3,122.2,11.6,Yes
+43,AL5,Jacob Bethell,21,England,AR,LHB,Left-arm Orth,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+43,AL5,Brydon Carse,29,England,AR,RHB,Right-arm Fast,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+43,AL5,Aaron Hardie,26,Australia,AR,RHB,Right-arm Med,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+43,AL5,Sarfaraz Khan,27,India,AR,RHB,Right-arm Med,Capped,DC,75 L,50,585,0,22.5,130.6,18,No
+43,AL5,Kyle Mayers,32,W. Indies,AR,LHB,Right-arm Med,Capped,LSG,1.5 Cr,13,379,0,29.2,144.1,8.43,Yes
+43,AL5,Kamindu Mendis,26,Sri Lanka,AR,LHB,Ambidextrous*,Capped,-,75 L,0,0,-,-,-,-,Yes
+43,AL5,Matthew Short,29,Australia,AR,RHB,Off-break,Capped,PBKS,75 L,6,117,0,19.5,127.2,6.25,Yes
+44,FA5,Jason Behrendorff,34,Australia,BOWL,RHB,Left-arm Fast,Capped,MI,1.5 Cr,17,-,19,-,-,9.05,Yes
+44,FA5,Dushmantha Chameera,33,Sri Lanka,BOWL,RHB,Right-arm Fast,Capped,KKR,75 L,12,-,9,-,-,8.73,Yes
+44,FA5,Nathan Ellis,30,Australia,BOWL,RHB,Right-arm Med,Capped,PBKS,1.25 Cr,17,-,19,-,-,8.67,Yes
+44,FA5,Shamar Joseph,25,W. Indies,BOWL,LHB,Right-arm Fast,Capped,LSG,75 L,1,-,0,-,-,11.8,Yes
+44,FA5,Josh Little,25,Ireland,BOWL,RHB,Left-arm Med,Capped,GT,75 L,11,-,11,-,-,8.92,Yes
+44,FA5,Shivam Mavi,26,India,BOWL,RHB,Right-arm Med,Capped,LSG,75 L,32,51,30,5.7,91.1,8.71,No
+44,FA5,Jhye Richardson,28,Australia,BOWL,RHB,Right-arm Fast,Capped,DC,1.5 Cr,4,17,3,5.7,65.4,10.5,Yes
+44,FA5,Navdeep Saini,32,India,BOWL,RHB,Right-arm Fast,Capped,RR,75 L,32,-,23,-,-,8.94,No
+45,UBA5,Tanmay Agarwal,29,India,BAT,LHB,Leg-break,Uncapped,SRH,30 L,0,0,-,-,-,-,No
+45,UBA5,Amandeep Khare,27,India,BAT,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+45,UBA5,Ayush Mhatre,17,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+45,UBA5,Salman Nizar,27,India,BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+45,UBA5,Aniket Verma,23,India,BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+45,UBA5,Sumeet Verma,34,India,BAT,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+45,UBA5,Manan Vohra,31,India,BAT,RHB,-,Uncapped,LSG,30 L,56,1083,0,22,130.6,-,No
+45,UBA5,Samarth Vyas,29,India,BAT,RHB,Leg-break,Uncapped,SRH,30 L,0,0,-,-,-,-,No
+46,UAL5,Raj Angad Bawa,22,India,AR,LHB,Right-arm Med,Uncapped,PBKS,30 L,5,19,1,9.5,105.6,11.2,No
+46,UAL5,Emanjot Chahal,20,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+46,UAL5,Musheer Khan,20,India,AR,RHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+46,UAL5,Manvanth Kumar L,21,India,AR,LHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+46,UAL5,Mayank Rawat,25,India,AR,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+46,UAL5,Suryansh Shedge,22,India,AR,RHB,Right-arm Med,Uncapped,LSG,30 L,0,0,-,-,-,-,No
+46,UAL5,Hrithik Shokeen,24,India,AR,RHB,Off-break,Uncapped,MI,30 L,13,66,3,22,124.5,9.84,No
+46,UAL5,Sonu Yadav,25,India,AR,RHB,Right-arm Med,Uncapped,RCB,30 L,0,0,-,-,-,-,No
+47,UWK5,S. Rithik Easwaran,23,India,WK-BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+47,UWK5,Anmol Malhotra,29,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+47,UWK5,Pradosh Paul,24,India,WK-BAT,LHB,Off-break,Uncapped,CSK,30 L,0,0,-,-,-,-,No
+47,UWK5,Karteek Sharma,23,India,WK-BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+47,UWK5,Akash Singh,29,India,WK-BAT,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+47,UWK5,Tejasvi Singh,22,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+47,UWK5,Siddharth Yadav,21,India,WK-BAT,LHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+48,UFA5,Saurabh Dubey,27,India,BOWL,RHB,Left-arm Med,Uncapped,SRH,30 L,0,0,-,-,-,-,No
+48,UFA5,Aaqib Khan,21,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+48,UFA5,Kulwant Khejroliya,33,India,BOWL,LHB,Left-arm Med,Uncapped,KKR,30 L,9,-,7,-,-,9.78,No
+48,UFA5,Ankit Rajpoot,31,India,BOWL,RHB,Right-arm Med,Uncapped,LSG,30 L,29,-,24,-,-,9.23,No
+48,UFA5,Divesh Sharma,23,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+48,UFA5,Naman Tiwari,19,India,BOWL,LHB,Left-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+48,UFA5,Prince Yadav,23,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Kunal Singh Chibb,28,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Yuvraj Chudasama,29,India,BOWL,LHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Deepak Devadiga,25,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Ramesh Prasad,31,India,BOWL,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Shivam Shukla,29,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Himanshu Singh,27,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+49,USP5,Tejpreet Singh,24,India,BOWL,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+50,AL6,Qais Ahmad,24,Afghan,AR,RHB,Leg-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+50,AL6,Charith Asalanka,27,Sri Lanka,AR,LHB,Off-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+50,AL6,Michael Bracewell,34,N. Zealand,AR,LHB,Off-break,Capped,RCB,1.5 Cr,5,58,6,29,123.4,8.63,Yes
+50,AL6,Gudakesh Motie,30,W. Indies,AR,LHB,Left-arm Orth,Capped,-,75 L,0,0,-,-,-,-,Yes
+50,AL6,Daniel Mousley,23,England,AR,LHB,Off-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+50,AL6,Jamie Overton,31,England,AR,RHB,Right-arm Fast,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+50,AL6,Dunith Wellalage,22,Sri Lanka,AR,LHB,Left-arm Orth,Capped,-,75 L,0,0,-,-,-,-,Yes
+51,FA6,Ottneil Baartman,32,S. Africa,BOWL,RHB,Right-arm Med,Capped,DC,75 L,0,0,-,-,-,-,Yes
+51,FA6,Xavier Bartlett,26,Australia,BOWL,RHB,Right-arm Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+51,FA6,Dilshan Madushanka,24,Sri Lanka,BOWL,RHB,Left-arm Fast,Capped,MI,75 L,0,0,-,-,-,-,Yes
+51,FA6,Adam Milne,32,N. Zealand,BOWL,RHB,Right-arm Fast,Capped,CSK,2 Cr,10,-,7,-,-,9.62,Yes
+51,FA6,Lungi Ngidi,29,S. Africa,BOWL,RHB,Right-arm Fast,Capped,DC,75 L,14,-,25,-,-,8.29,Yes
+51,FA6,William O'Rourke,23,N. Zealand,BOWL,RHB,Right-arm Fast,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+51,FA6,Chetan Sakariya,27,India,BOWL,LHB,Left-arm Med,Uncapped*,KKR,75 L,19,-,20,-,-,8.44,No
+51,FA6,Sandeep Warrier,34,India,BOWL,RHB,Right-arm Med,Capped,GT,75 L,10,-,8,-,-,9.04,No
+52,UBA6,Musaif Ajaz,22,India,BAT,RHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Agni Chopra,26,India,BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Abhimanyu Easwaran,29,India,BAT,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Sudip Gharami,26,India,BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Shubham Khajuria,29,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Akhil Rawat,24,India,BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+52,UBA6,Prateek Yadav,26,India,BAT,LHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+53,UAL6,Abdul Bazith,26,India,AR,RHB,Off-break,Uncapped,RR,30 L,1,1,0,-,100,-,No
+53,UAL6,K.C Cariappa,30,India,AR,RHB,Leg-break,Uncapped,RR,30 L,11,24,8,8,114.2,9.67,No
+53,UAL6,Yuvraj Chaudhary,23,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+53,UAL6,Aman Khan,28,India,AR,RHB,Right-arm Med,Uncapped,DC,30 L,11,110,0,11,113.4,13,No
+53,UAL6,Sumit Kumar,29,India,AR,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+53,UAL6,Kamlesh Nagarkoti,25,India,AR,RHB,Right-arm Fast,Uncapped,DC,30 L,12,22,5,5.5,66.6,9.5,No
+53,UAL6,Hardik Raj,19,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+53,UAL6,Harsh Tyagi,25,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+54,UWK6,M. Ajnas,27,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+54,UWK6,Unmukt Chand,32,USA,WK-BAT,RHB,-,Associate,MI (2016),30 L,21,300,-,15,100,-,Yes
+54,UWK6,Tejasvi Dahiya,22,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+54,UWK6,Sumit Ghadigaonkar,32,India,WK-BAT,RHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+54,UWK6,Baba Indrajith,30,India,WK-BAT,RHB,Off-break,Uncapped,KKR,30 L,3,21,-,7,70,-,No
+54,UWK6,Muhammed Khan,24,India,WK-BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+54,UWK6,Bhagmender Lather,27,India,WK-BAT,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+55,UFA6,Baltej Dhanda,34,India,BOWL,RHB,Right-arm Med,Uncapped,PBKS,30 L,0,0,-,-,-,-,No
+55,UFA6,Ali Khan,34,USA,BOWL,RHB,Right-arm Fast,Associate,KKR (2020),30 L,0,0,-,-,-,-,Yes
+55,UFA6,Ravi Kumar,21,India,BOWL,LHB,Left-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+55,UFA6,Vineet Panwar,26,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+55,UFA6,Vidyadhar Patil,24,India,BOWL,RHB,Right-arm Med,Uncapped,SRH,30 L,0,0,-,-,-,-,No
+55,UFA6,Aradhya Shukla,20,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+55,UFA6,Abhinanda Singh,21,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+56,AL7,Cooper Connolly,21,Australia,AR,LHB,Left-arm Orth,Capped,-,75 L,0,0,-,-,-,-,Yes
+56,AL7,Dushan Hemantha,30,Sri Lanka,AR,RHB,Leg-break,Capped,-,75 L,0,0,-,-,-,-,Yes
+56,AL7,Jason Holder,33,W. Indies,AR,RHB,Right-arm Med,Capped,LSG/RR,2 Cr,46,259,53,12.3,123.9,8.57,Yes
+56,AL7,Karim Janat,26,Afghan,AR,RHB,Right-arm Med,Capped,KKR,75 L,0,0,-,-,-,-,Yes
+56,AL7,Jimmy Neesham,34,N. Zealand,AR,LHB,Right-arm Med,Capped,PBKS/MI/RR,1.5 Cr,12,61,8,8.7,92.4,9.2,Yes
+56,AL7,Daniel Sams,32,Australia,AR,RHB,Left-arm Fast,Capped,LSG/MI/DC,1.5 Cr,16,44,14,4.9,100,8.72,Yes
+56,AL7,Will Sutherland,25,Australia,AR,RHB,Right-arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+57,FA7,Taskin Ahmed,30,Bangladesh,BOWL,LHB,Right-arm Fast,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+57,FA7,Ben Dwarshuis,30,Australia,BOWL,LHB,Left-arm Fast,Capped,DC,75 L,0,0,-,-,-,-,Yes
+57,FA7,Obed McCoy,28,W. Indies,BOWL,LHB,Left-arm Fast,Capped,RR,1.25 Cr,8,8,11,8,160,9.32,Yes
+57,FA7,Riley Meredith,28,Australia,BOWL,RHB,Right-arm Fast,Capped,MI/PBKS,1.5 Cr,18,0,19,-,-,9.46,Yes
+57,FA7,Lance Morris,27,Australia,BOWL,RHB,Right-arm Fast,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+57,FA7,Olly Stone,31,England,BOWL,RHB,Right-arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+57,FA7,Daniel Worrall,33,England,BOWL,RHB,Right-arm Med,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+58,UBA7,Pyla Avinash,24,India,BAT,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+58,UBA7,Kiran Chormale,19,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+58,UBA7,Ashish Dahariya,20,India,BAT,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+58,UBA7,Tushar Raheja,24,India,BAT,LHB,-,Uncapped,-,30 L,0,0,-,-,-,-,No
+58,UBA7,Sarthak Ranjan,28,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+58,UBA7,Abhijeet Tomar,30,India,BAT,RHB,Off-break,Uncapped,KKR,30 L,1,4,-,4,50,-,No
+59,UAL7,Krish Bhagat,20,India,AR,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Sohraab Dhaliwal,33,India,AR,RHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Harsh Dubey,22,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Ramakrish Ghosh,27,India,AR,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Raj Limbani,20,India,AR,LHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Ninad Rathva,26,India,AR,LHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+59,UAL7,Vivrant Sharma,25,India,AR,LHB,Leg-break,Uncapped,SRH,30 L,3,69,0,23,129,-,No
+59,UAL7,Shiva Singh,25,India,AR,RHB,Left-arm Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Sayed Irfan Aftab,21,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Anirudh Chowdhary,25,India,BOWL,LHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Anshuman Hooda,24,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Siddharth Kaul,34,India,BOWL,RHB,Right-arm Med,Uncapped*,RCB/SRH/DC,40 L,55,-,58,-,-,8.63,No
+60,UFA7,Prashant S Painkra,22,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Venkata Penmetsa,25,India,BOWL,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+60,UFA7,Yeddala Reddy,25,India,BOWL,RHB,Right-arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+61,AL8,Zak Foulkes,22,N. Zealand,AR,RHB,Right-arm Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+61,AL8,Chris Green,31,Australia,AR,RHB,Off-break,Capped,KKR,1 Cr,1,0,0,-,-,8.47,Yes
+61,AL8,Shakib Al Hasan,38,Bangladesh,AR,LHB,Left-arm Orth,Capped,KKR,1 Cr,71,793,63,19.8,124.5,7.44,Yes
+61,AL8,Mehidy H. Miraz,27,Bangladesh,AR,RHB,Off-break,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+61,AL8,Wiaan Mulder,27,S. Africa,AR,RHB,Right-arm Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+61,AL8,Dwaine Pretorius,36,S. Africa,AR,RHB,Right-arm Med,Capped,CSK,75 L,7,44,6,11,157.1,9.52,Yes
+61,AL8,Dasun Shanaka,33,Sri Lanka,AR,RHB,Right-arm Med,Capped,GT,75 L,3,26,0,8.7,81.3,-,Yes
+62,FA8,Shoriful Islam,23,Bangladesh,BOWL,LHB,Left-arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+62,FA8,Blessing Muzarabani,28,Zimbabwe,BOWL,RHB,Right-arm Fast,Capped,LSG,75 L,0,0,-,-,-,-,Yes
+62,FA8,Matthew Potts,26,England,BOWL,RHB,Right-arm Fast,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+62,FA8,Tanzim H. Sakib,22,Bangladesh,BOWL,RHB,Right-arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+62,FA8,Ben Sears,27,N. Zealand,BOWL,RHB,Right-arm Fast,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+62,FA8,Tim Southee,36,N. Zealand,BOWL,RHB,Right-arm Fast,Capped,KKR,1.5 Cr,54,120,47,9.2,112.1,8.67,Yes
+62,FA8,John Turner,23,England,BOWL,RHB,Right-arm Fast,Capped,-,1.5 Cr,0,0,-,-,-,-,Yes
+63,UBA8,Joshua Brown,31,Australia,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+63,UBA8,Oliver Davies,24,Australia,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+63,UBA8,Bevan John Jacobs,22,N. Zealand,BAT,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+63,UBA8,Atharva Kale,25,India,BAT,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+63,UBA8,Abhishek Nair,20,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+63,UBA8,Vishwanath Singh,26,India,BAT,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+64,UAL8,Nasir Lone,27,India,AR,RHB,Right-arm Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+64,UAL8,Brandon McMullen,25,Scotland,AR,RHB,Right-arm Med,Associate,-,30 L,0,0,-,-,-,-,Yes
+64,UAL8,S. Midhun,30,India,AR,RHB,Leg-break,Uncapped,RR,30 L,0,0,-,-,-,-,No
+64,UAL8,Abid Mushtaq,28,India,AR,LHB,Left-arm Orth,Uncapped,RR,30 L,0,0,-,-,-,-,No
+64,UAL8,Mahesh Pithiya,23,India,AR,RHB,Off-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+64,UAL8,Maramreddy Reddy,22,India,AR,RHB,Leg-break,Uncapped,-,30 L,0,0,-,-,-,-,No
+64,UAL8,Atit Sheth,29,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+64,UAL8,Jonty Sidhu,27,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+65,UFA8,Mohit Avasthi,32,India,Bowler,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+65,UFA8,Faridoon Dawoodzai,19,Afghanistan,Bowler,LHB,Left Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+65,UFA8,Praful Hinge,23,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+65,UFA8,Pankaj Jaswal,29,India,Bowler,RHB,Right Arm Fast,Uncapped,MI,30 L,0,0,-,-,-,-,No
+65,UFA8,Vijay Kumar,19,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+65,UFA8,Ashok Sharma,22,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+65,UFA8,Mujtaba Yousuf,22,India,Bowler,LHB,Left Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+66,AL9,Ashton Agar,31,Australia,All-Rounder,LHB,Left Arm Orth,Capped,-,125 L,0,0,-,-,-,-,Yes
+66,AL9,Roston Chase,33,West Indies,All-Rounder,RHB,Right Arm Off Spin,Capped,-,75 L,0,0,-,-,-,-,Yes
+66,AL9,Junior Dala,35,South Africa,All-Rounder,RHB,Right Arm Fast,Capped,DC,75 L,1,-,0,-,-,11.3,Yes
+66,AL9,Mahedi Hasan,30,Bangladesh,All-Rounder,RHB,Right Arm Off Spin,Capped,-,75 L,0,0,-,-,-,-,Yes
+66,AL9,Nangeyalia Kharote,20,Afghanistan,All-Rounder,RHB,Left Arm Slow Orth,Capped,-,75 L,0,0,-,-,-,-,Yes
+66,AL9,Dan Lawrence,27,England,All-Rounder,RHB,Right Arm Off Spin,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+66,AL9,Nathan Smith,26,New Zealand,All-Rounder,RHB,Right Arm Fast Med,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+67,FA9,James Anderson,42,England,Bowler,LHB,Right Arm Fast Med,Capped,-,1.25 Cr,0,0,-,-,-,-,Yes
+67,FA9,Kyle Jamieson,30,New Zealand,Bowler,RHB,Right Arm Fast,Capped,"RCB, CSK",1.5 Cr,9,65,9,16.2,118.2,9.6,Yes
+67,FA9,Chris Jordan,36,England,Bowler,RHB,Right Arm Fast,Capped,"RCB, SRH, PBKS",2 Cr,34,75,30,9.3,115.3,9.48,Yes
+67,FA9,Hasan Mahmud,28,Bangladesh,Bowler,RHB,Right Arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+67,FA9,Tymal Mills,32,England,Bowler,RHB,Left Arm Fast,Capped,"RCB, MI",2  Cr,10,-,11,-,-,9.78,Yes
+67,FA9,David Payne,34,England,Bowler,RHB,Left Arm Fast Med,Capped,-,1 Cr,0,0,-,-,-,-,Yes
+67,FA9,Nahid Rana,22,Bangladesh,Bowler,RHB,Right Arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+68,UBA9,Prayas Ray Barman,22,India,Batter,RHB,Right Arm Off Spin,Uncapped,-,30 L,1,19,0,19,95,14,No
+68,UBA9,Jafar Jamal,35,India,Batter,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+68,UBA9,Ayaz Khan,22,India,Batter,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+68,UBA9,Kaushik Maity,25,India,Batter,RHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+68,UBA9,Rituraj Sharma,22,India,Batter,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+68,UBA9,Vaibhav Suryavanshi,14,India,Batter,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Kartik Chadha,21,India,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Writtick Chatterjee,32,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,PBKS,30 L,0,0,-,-,-,-,No
+69,UAL9,Prerit Dutta,26,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Rajneesh Gurbani,32,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Shubhang Hegde,24,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Saransh Jain,32,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+69,UAL9,Ripal Patel,29,India,All-Rounder,RHB,Right Arm Medium,Uncapped,DC,30 L,9,80,-,16,115.9,-,No
+69,UAL9,Akash Vashisht,30,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,RR,30 L,0,0,-,-,-,-,No
+70,UFA9,Anirudh Kanwar,31,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Shubham Kapse,30,India,Bowler,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Atif Mushtaq,22,India,Bowler,LHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Dipesh Parwani,25,India,Bowler,LHB,Left Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Manish Reddy,26,India,Bowler,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Chetan Sharma,19,India,Bowler,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+70,UFA9,Avinash Singh,26,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+72,AL10,Alick Athanaze,26,West Indies,All-Rounder,LHB,Right Arm Off Spin,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,AL10,Hilton Cartwright,33,Australia,All-Rounder,RHB,Right Arm Fast Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,AL10,Dominic Drakes,27,West Indies,All-Rounder,LHB,Left Arm Fast,Capped,GT,1.25 Cr,0,0,-,-,-,-,Yes
+72,FA10,Daryn Dupavillon,30,South Africa,Bowler,RHB,Right Arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,AL10,Matthew Forde,22,West Indies,All-Rounder,RHB,Right Arm Fast Med,Capped,-,125 L,0,0,-,-,-,-,Yes
+72,AL10,Patrick Kruger,30,South Africa,All-Rounder,RHB,Right Arm Fast Med,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,FA10,Lahiru Kumara,28,Sri Lanka,Bowler,LHB,Right Arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,AL10,Michael Neser,35,Australia,All-Rounder,RHB,Right Arm Fast Med,Capped,PBKS,75 L,1,0,0,-,-,15.5,Yes
+72,FA10,Richard Ngarava,27,Zimbabwe,Bowler,LHB,Left Arm Fast,Capped,-,75 L,0,0,-,-,-,-,Yes
+72,FA10,Wayne Parnell,35,South Africa,Bowler,LHB,Left Arm Fast Med,Capped,"PWI, DC, RCB",1 Cr,33,65,35,6.5,81.2,7.78,Yes
+72,AL10,Keemo Paul,27,West Indies,All-Rounder,RHB,Right Arm Fast Med,Capped,DC,1.25 Cr,8,18,9,3.6,75,8.72,Yes
+72,FA10,Odean Smith,28,West Indies,Bowler,RHB,Right Arm Medium,Capped,"PBKS, GT",75 L,6,51,6,17,115.9,11.8,Yes
+72,FA10,Andrew Tye,38,Australia,Bowler,RHB,Right Arm Fast Med,Capped,"GL, PBKS, RR",75 L,30,13,42,6.5,81.2,8.59,Yes
+73,UAL10,Ajay Ahlawat,27,India,All-Rounder,LHB,Left Arm Fast,Uncapped,-,40 L,0,0,-,-,-,-,No
+73,UAL10,Corbin Bosch,30,South Africa,All-Rounder,RHB,Right Arm Fast,Uncapped,RR,30 L,0,0,-,-,-,-,Yes
+73,UAL10,Mayank Gusain,23,India,All-Rounder,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+73,UAL10,Mukhtar Hussain,26,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+73,UAL10,Girinath Reddy,26,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+73,UAL10,Jalaj Saxena,38,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,"MI, RCB, DC",40 L,1,-,0,-,-,9,No
+73,UAL10,Yajas Sharma,19,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+73,UAL10,Sanjay Yadav,29,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,"KKR, SRH, MI",30 L,1,0,0,0,0,11.5,No
+74,UFA10,Vishal Godara,22,India,Bowler,LHB,Right Arm Medium,Uncapped,-,30 L,0,0,-,-,-,-,No
+74,UFA10,Eshan Malinga,24,Sri Lanka,Bowler,LHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+74,UFA10,Samarth Nagraj,19,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+74,UFA10,Abhishek Saini,26,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+74,UFA10,Dumindu Sewmina,20,Sri Lanka,Bowler,RHB,Right Arm Medium,Uncapped,-,30 L,0,0,-,-,-,-,Yes
+74,UFA10,Pradyumai Singh,23,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+74,UFA10,Vasu Vats,22,India,Bowler,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Umang Kumar,24,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Mohamed Ali,20,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Atharva Ankolekar,24,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Vaisakh Chandran,28,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Auqib Dar,28,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Rohit Rayudu,30,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Uday Saharan,20,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+75,UAL11,Ayush Vartak,20,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+76,UAL12,Baba Aparajith,30,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,RPS,30 L,0,0,-,-,-,-,No
+76,UAL12,Sumit Kum Beniwal,25,India,All-Rounder,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+76,UAL12,Nishunk Birla,20,India,All-Rounder,RHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+76,UAL12,Digvijay Deshmukh,26,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,MI,30 L,0,0,-,-,-,-,No
+76,UAL12,Lakshay Jain,22,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+76,UAL12,Duan Jansen,24,South Africa,All-Rounder,RHB,Left Arm Fast,Uncapped,-,30 L,1,-,1,-,-,13.2,Yes
+76,UAL12,Kritagya Singh,24,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+76,UAL12,P. Vignesh,20,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Sabhay Chadha,26,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Ben Howell,36,England,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,PBKS,50 L,0,0,-,-,-,-,Yes
+77,UAL13,Hemanth Kumar,20,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Rohan Rana,23,India,All-Rounder,RHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Bharat Sharma,29,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Pratham Singh,32,India,All-Rounder,LHB,Right Arm Off Spin,Uncapped,"GL, KKR",30 L,0,0,-,-,-,-,No
+77,UAL13,Tripurana Vijay,23,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+77,UAL13,Ravi Yadav,27,India,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Arjun Azad,23,India,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Abhay Choudhary,22,India,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Gaurav Gambhir,37,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Shubham Garhwal,29,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Tejasvi Jaiswal,28,India,All-Rounder,LHB,Right Arm Fast,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Sairaj Patil,28,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Madhav Tiwari,21,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+78,UAL14,Kamal Tripathi,26,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Prashant Chauhan,24,India,All-Rounder,LHB,Left Arm Slow Orth,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Yash Dabas,20,India,All-Rounder,RHB,Right Arm Fast Med,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Dhruv Kaushik,24,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Khrievitso Kense,21,India,All-Rounder,RHB,Right Arm Leg Spin,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Akash Parkar,30,India,All-Rounder,RHB,Right Arm Medium,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Vignesh Puthur,24,India,All-Rounder,RHB,Left Arm Slow Unorth,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Tripuresh Singh,22,India,All-Rounder,RHB,Right Arm Medium,Uncapped,-,30 L,0,0,-,-,-,-,No
+79,UAL15,Vijay Yadav,23,India,All-Rounder,RHB,Right Arm Off Spin,Uncapped,-,30 L,0,0,-,-,-,-,No

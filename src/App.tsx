@@ -77,7 +77,7 @@ const SetupView: React.FC = () => {
   const loadSampleData = async (roomConfig?: { roomId: string; isHost: boolean }) => {
     setIsLoading(true);
     try {
-      const response = await fetch('/players_2025.csv');
+      const response = await fetch('/IPL.csv');
       const text = await response.text();
       const players = parseCSV(text);
 

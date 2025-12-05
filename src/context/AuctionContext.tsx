@@ -5,13 +5,7 @@ import { DEFAULT_CONFIG } from '../types';
 import { saveToStorage } from '../utils/dataUtils';
 import { io, Socket } from 'socket.io-client';
 
-const INITIAL_SETS_ORDER: AuctionSet[] = [
-    'Marquee',
-    'Batters 1', 'All-Rounders 1', 'Wicketkeepers 1', 'Bowlers 1',
-    'Batters 2', 'All-Rounders 2', 'Wicketkeepers 2', 'Bowlers 2',
-    'Uncapped Batters', 'Uncapped AR', 'Uncapped WK', 'Uncapped Bowlers',
-    'Batters 3', 'All-Rounders 3', 'Bowlers 3'
-];
+const INITIAL_SETS_ORDER: AuctionSet[] = [];
 
 const INITIAL_STATE: AuctionState = {
     teams: [],
@@ -25,7 +19,7 @@ const INITIAL_STATE: AuctionState = {
     isTimerRunning: false,
     timerSeconds: 0,
     auctionStatus: 'IDLE',
-    currentSet: 'Marquee',
+    currentSet: '',
     setsOrder: INITIAL_SETS_ORDER,
     userTeamId: null,
     roomId: null,
@@ -50,6 +44,7 @@ type Action =
 const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
     switch (action.type) {
         case 'INIT_AUCTION':
+            const uniqueSets = Array.from(new Set(action.payload.players.map(p => p.set)));
             return {
                 ...state,
                 teams: action.payload.teams,
@@ -57,7 +52,8 @@ const auctionReducer = (state: AuctionState, action: Action): AuctionState => {
                 unsoldPlayers: [],
                 soldPlayers: [],
                 auctionStatus: 'IDLE',
-                currentSet: 'Marquee',
+                currentSet: uniqueSets[0] || '',
+                setsOrder: uniqueSets,
                 userTeamId: action.payload.userTeamId || null,
                 username: action.payload.username || state.username || null,
                 roomId: action.payload.roomId || state.roomId || null,

@@ -19,13 +19,7 @@ export interface Player {
   set: AuctionSet;
 }
 
-export type AuctionSet =
-  | 'Marquee'
-  | 'Batters 1' | 'Batters 2' | 'Batters 3'
-  | 'Bowlers 1' | 'Bowlers 2' | 'Bowlers 3'
-  | 'All-Rounders 1' | 'All-Rounders 2' | 'All-Rounders 3'
-  | 'Wicketkeepers 1' | 'Wicketkeepers 2'
-  | 'Uncapped Batters' | 'Uncapped Bowlers' | 'Uncapped AR' | 'Uncapped WK';
+export type AuctionSet = string;
 
 export interface Team {
   id: string;
