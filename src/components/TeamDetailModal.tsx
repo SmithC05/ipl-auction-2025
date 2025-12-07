@@ -28,9 +28,9 @@ const TeamDetailModal: React.FC<TeamDetailModalProps> = ({ team, config, onClose
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
+                        className="px-4 py-2 text-sm font-bold text-gray-600 hover:bg-gray-200 rounded-lg transition-colors"
                     >
-                        &times;
+                        Close
                     </button>
                 </div>
 
@@ -86,9 +86,9 @@ const TeamDetailModal: React.FC<TeamDetailModalProps> = ({ team, config, onClose
                                 <div key={player.id} className="flex justify-between items-center p-2 bg-gray-50 rounded border border-gray-100">
                                     <div className="flex items-center gap-2">
                                         <span className={`text-xs font-bold px-1.5 py-0.5 rounded ${player.role === 'BAT' ? 'bg-blue-100 text-blue-700' :
-                                                player.role === 'BOWL' ? 'bg-green-100 text-green-700' :
-                                                    player.role === 'AR' ? 'bg-purple-100 text-purple-700' :
-                                                        'bg-yellow-100 text-yellow-700'
+                                            player.role === 'BOWL' ? 'bg-green-100 text-green-700' :
+                                                player.role === 'AR' ? 'bg-purple-100 text-purple-700' :
+                                                    'bg-yellow-100 text-yellow-700'
                                             }`}>{player.role}</span>
                                         <span className="font-medium text-gray-800">{player.name}</span>
                                         {player.nationality !== 'India' && (

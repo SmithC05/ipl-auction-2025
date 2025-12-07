@@ -410,9 +410,9 @@ const MainView: React.FC = () => {
                         <motion.button
                           whileTap={{ scale: 0.95 }}
                           onClick={() => setShowAnalysisModal(true)}
-                          className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-bold shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2"
+                          className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-black rounded-lg font-bold shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2"
                         >
-                          <span>✨</span> View Deep Squad Analysis
+                          <span>View Deep Squad Analysis</span>
                         </motion.button>
                       </div>
                     ))
@@ -438,6 +438,8 @@ const MainView: React.FC = () => {
           {showAnalysisModal && userTeam && (
             <TeamAnalysisModal
               team={userTeam}
+              config={state.config}
+              availablePlayers={[...state.players, ...state.unsoldPlayers]}
               onClose={() => setShowAnalysisModal(false)}
             />
           )}
