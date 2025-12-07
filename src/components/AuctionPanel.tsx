@@ -7,6 +7,7 @@ import MyTeamStats from './MyTeamStats';
 import PlayerPool from './PlayerPool';
 import HoldToBidButton from './HoldToBidButton';
 import { useAudioStream } from '../hooks/useAudioStream';
+import { motion } from 'framer-motion';
 
 const AuctionPanel: React.FC = () => {
     const { state, dispatch, socket } = useAuction();
@@ -232,36 +233,42 @@ const AuctionPanel: React.FC = () => {
                 {/* Ticker Tape */}
                 <TickerTape bids={bidHistory} teams={teams} />
 
-                <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                        <div className={`text-xl font-bold ${timerSeconds < 5 ? 'text-red-600 animate-pulse' : ''}`}>
-                            ⏱ {isTimerRunning ? timerSeconds.toString().padStart(2, '0') : '00'}s
-                        </div>
-
-                        {/* Audio Controls */}
-                        {state.roomId && (
-                            <div className="flex gap-1">
-                                <button
-                                    onClick={isBroadcasting ? stopBroadcast : startBroadcast}
-                                    className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-                                >
-                                    {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
-                                </button>
-                                <button
-                                    onClick={isListening ? stopListening : startListening}
-                                    className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'}`}
-                                >
-                                    {isListening ? '🔊 ON' : '🔇 OFF'}
-                                </button>
+                <TickerTape bids={bidHistory} teams={teams} />
+                <motion.div
+                    key={currentPlayer ? currentPlayer.id : 'no-player'}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                >
+                    <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                            <div className={`text-xl font-bold ${timerSeconds < 5 ? 'text-red-600 animate-pulse' : ''}`}>
+                                ⏱ {isTimerRunning ? timerSeconds.toString().padStart(2, '0') : '00'}s
                             </div>
-                        )}
+                            {state.roomId && (
+                                <div className="flex gap-1">
+                                    <button
+                                        onClick={isBroadcasting ? stopBroadcast : startBroadcast}
+                                        className={`px-2 py-1 text-xs rounded ${isBroadcasting ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                    >
+                                        {isBroadcasting ? '🎙 ON AIR' : '🎙 OFF'}
+                                    </button>
+                                    <button
+                                        onClick={isListening ? stopListening : startListening}
+                                        className={`px-2 py-1 text-xs rounded ${isListening ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-800'}`}
+                                    >
+                                        {isListening ? '🔊 ON' : '🔇 OFF'}
+                                    </button>
+                                </div>
+                            )}
 
+                        </div>
+                        <div className="text-right">
+                            <div className="text-xs text-muted">Current Bid</div>
+                            <div className="text-xl font-bold text-primary">{formatMoney(currentBid)}</div>
+                        </div>
                     </div>
-                    <div className="text-right">
-                        <div className="text-xs text-muted">Current Bid</div>
-                        <div className="text-xl font-bold text-primary">{formatMoney(currentBid)}</div>
-                    </div>
-                </div>
+                </motion.div>
 
                 {/* Current Bidder Banner */}
                 {currentBidder ? (
@@ -295,7 +302,14 @@ const AuctionPanel: React.FC = () => {
             )}
 
             {/* Main Player Card (3D Flip) */}
-            <PlayerFlipCard player={currentPlayer} />
+            <motion.div
+                key={currentPlayer ? currentPlayer.id : 'card'}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: "spring", duration: 0.5 }}
+            >
+                <PlayerFlipCard player={currentPlayer} />
+            </motion.div>
 
             {/* Recent Bids (Mobile Friendly) */}
             <div className="bg-gray-50 p-2 rounded text-xs text-center text-muted">
@@ -312,18 +326,20 @@ const AuctionPanel: React.FC = () => {
                         onBid={handleBid}
                     />
                     <div className="flex-col gap-2">
-                        <button
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => handleBid(currentBid + 5000000)} // Jump +50L
                             disabled={!canAfford || currentBidder === myTeamId || !isTimerRunning}
                         >
                             +50L Jump
-                        </button>
-                        <button
+                        </motion.button>
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
                             onClick={() => handleBid(currentBid + 10000000)} // Jump +1Cr
                             disabled={!canAfford || currentBidder === myTeamId || !isTimerRunning}
                         >
                             +1Cr Jump
-                        </button>
+                        </motion.button>
                     </div>
                 </div>
 

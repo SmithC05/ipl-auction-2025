@@ -7,6 +7,8 @@ import LeaderboardModal from './components/LeaderboardModal';
 import WinnerRevealModal from './components/WinnerRevealModal';
 import TeamAnalysisModal from './components/TeamAnalysisModal';
 import MyTeamStats from './components/MyTeamStats';
+import AnimatedBackground from './components/AnimatedBackground';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { parseCSV, compressPlayers, saveToStorage } from './utils/dataUtils';
 import { TEAMS_CONFIG, DEFAULT_CONFIG } from './types';
@@ -304,8 +306,9 @@ const MainView: React.FC = () => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', paddingBottom: '80px' }}>
-      <header style={{ background: 'var(--color-surface)', borderBottom: '1px solid var(--color-border)', padding: 'var(--spacing-md) 0', position: 'sticky', top: 0, zIndex: 10 }}>
+    <div style={{ minHeight: '100vh', paddingBottom: '80px', position: 'relative' }}>
+      <AnimatedBackground />
+      <header style={{ background: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(10px)', borderBottom: '1px solid var(--color-border)', padding: 'var(--spacing-md) 0', position: 'sticky', top: 0, zIndex: 10 }}>
         <div className="container flex-row" style={{ justifyContent: 'space-between' }}>
           <div className="flex-col" style={{ gap: '4px' }}>
             <h1 className="text-lg" style={{ color: 'var(--color-primary)' }}>IPL Auction 2025</h1>
@@ -359,42 +362,69 @@ const MainView: React.FC = () => {
       ) : (
         <>
           <main className="container" style={{ paddingTop: 'var(--spacing-lg)' }}>
-            {activeTab === 'auction' && <AuctionPanel />}
+            <AnimatePresence mode="wait">
+              {activeTab === 'auction' && (
+                <motion.div
+                  key="auction"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <AuctionPanel />
+                </motion.div>
+              )}
 
-            {activeTab === 'teams' && (
-              <div className="flex-col">
-                {state.teams.map((team: any) => (
-                  <TeamPanel
-                    key={team.id}
-                    team={team}
-                    onClick={() => setSelectedTeamForDetails(team)}
-                  />
-                ))}
-              </div>
-            )}
+              {activeTab === 'teams' && (
+                <motion.div
+                  key="teams"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex-col"
+                >
+                  {state.teams.map((team: any) => (
+                    <TeamPanel
+                      key={team.id}
+                      team={team}
+                      onClick={() => setSelectedTeamForDetails(team)}
+                    />
+                  ))}
+                </motion.div>
+              )}
 
-            {activeTab === 'analysis' && (
-              <div className="flex-col gap-4">
-                {state.userTeamId ? (
-                  state.teams.filter((t: any) => t.id === state.userTeamId).map((team: any) => (
-                    <div key={team.id} className="flex flex-col gap-4">
-                      <MyTeamStats team={team} config={state.config} />
-                      <button
-                        onClick={() => setShowAnalysisModal(true)}
-                        className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-bold shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2"
-                      >
-                        <span>✨</span> View Deep Squad Analysis
-                      </button>
+              {activeTab === 'analysis' && (
+                <motion.div
+                  key="analysis"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex-col gap-4"
+                >
+                  {state.userTeamId ? (
+                    state.teams.filter((t: any) => t.id === state.userTeamId).map((team: any) => (
+                      <div key={team.id} className="flex flex-col gap-4">
+                        <MyTeamStats team={team} config={state.config} />
+                        <motion.button
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => setShowAnalysisModal(true)}
+                          className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-bold shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2"
+                        >
+                          <span>✨</span> View Deep Squad Analysis
+                        </motion.button>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="card text-center p-8 bg-white/80 backdrop-blur-sm">
+                      <p className="text-muted">You haven't selected a team yet.</p>
+                      <p className="text-sm">Go to the Auction tab to select your team.</p>
                     </div>
-                  ))
-                ) : (
-                  <div className="card text-center p-8">
-                    <p className="text-muted">You haven't selected a team yet.</p>
-                    <p className="text-sm">Go to the Auction tab to select your team.</p>
-                  </div>
-                )}
-              </div>
-            )}
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </main >
 
           {selectedTeamForDetails && (
@@ -445,7 +475,7 @@ const MainView: React.FC = () => {
           </div>
         </>
       )}
-    </div>
+    </div >
   );
 };
 
