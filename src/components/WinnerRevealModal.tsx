@@ -76,15 +76,15 @@ const WinnerRevealModal: React.FC<WinnerRevealModalProps> = ({ teams, revealStep
             );
         }
         return (
-            <div className="text-2xl text-center p-8 animate-pulse">
+            <div className="text-2xl text-center p-8 animate-pulse text-black">
                 The Auction is Complete!<br />
-                <span className="text-sm text-muted">Waiting for results...</span>
+                <span className="text-sm text-gray-600">Waiting for results...</span>
             </div>
         );
     };
 
     return (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black bg-opacity-95 text-white">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-white/95 text-black">
             <div className="w-full max-w-2xl flex flex-col items-center justify-center min-h-[60vh]">
                 {getRevealContent()}
 
@@ -93,14 +93,14 @@ const WinnerRevealModal: React.FC<WinnerRevealModalProps> = ({ teams, revealStep
                         {revealStep < 3 ? (
                             <button
                                 onClick={onNextReveal}
-                                className="bg-white text-black px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-lg shadow-white/20"
+                                className="bg-gray-100 text-black border-2 border-black px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-lg shadow-black/10"
                             >
                                 {revealStep === 0 ? 'Reveal 3rd Place' : revealStep === 1 ? 'Reveal Runner Up' : 'Reveal CHAMPION'}
                             </button>
                         ) : (
                             <button
                                 onClick={onClose}
-                                className="bg-transparent border border-white/30 text-white hover:bg-white/10 px-6 py-2 rounded"
+                                className="bg-transparent border border-black/30 text-black hover:bg-black/10 px-6 py-2 rounded"
                             >
                                 Show Full Standings
                             </button>
@@ -111,7 +111,7 @@ const WinnerRevealModal: React.FC<WinnerRevealModalProps> = ({ teams, revealStep
                 {!isHost && revealStep >= 3 && (
                     <button
                         onClick={onClose}
-                        className="mt-12 bg-transparent border border-white/30 text-white hover:bg-white/10 px-6 py-2 rounded"
+                        className="mt-12 bg-transparent border border-black/30 text-black hover:bg-black/10 px-6 py-2 rounded"
                     >
                         View Full Standings
                     </button>
