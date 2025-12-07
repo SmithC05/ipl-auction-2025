@@ -17,6 +17,7 @@ export interface Player {
   bowlingStyle: string;
   imageUrl?: string;
   set: AuctionSet;
+  originalTeam?: string; // For chemistry calculations
 }
 
 export type AuctionSet = string;
@@ -67,6 +68,7 @@ export interface AuctionState {
   config: AuctionConfig;
   auctionEndTime: number | null;
   serverTimeOffset: number;
+  revealStep: number; // 0=None, 1=3rd, 2=2nd, 3=1st, 4=All
 }
 
 export const TEAMS_CONFIG = [

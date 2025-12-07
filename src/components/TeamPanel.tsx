@@ -1,16 +1,18 @@
 import React from 'react';
 import type { Team } from '../types';
-import { calculateTeamStrength } from '../utils/gameLogic';
+
 
 interface TeamPanelProps {
     team: Team;
 }
 
-const TeamPanel: React.FC<TeamPanelProps> = ({ team }) => {
-    const strengthScore = calculateTeamStrength(team);
+const TeamPanel: React.FC<TeamPanelProps & { onClick?: () => void }> = ({ team, onClick }) => {
 
     return (
-        <div className="card">
+        <div
+            className={`card ${onClick ? 'cursor-pointer hover:shadow-lg transition-shadow' : ''}`}
+            onClick={onClick}
+        >
             <div className="flex justify-between items-center mb-4">
                 <div>
                     <h3 className="text-lg font-bold" style={{ color: 'var(--color-primary)' }}>{team.name}</h3>
@@ -29,10 +31,7 @@ const TeamPanel: React.FC<TeamPanelProps> = ({ team }) => {
                     <div className="text-muted">Squad Size</div>
                     <div className="font-bold">{team.squad.length}</div>
                 </div>
-                <div className="text-right">
-                    <div className="text-muted">Strength</div>
-                    <div className="font-bold">{strengthScore.toFixed(1)}</div>
-                </div>
+                {/* Strength Hidden as per request */}
             </div>
 
             {team.squad.length > 0 && (

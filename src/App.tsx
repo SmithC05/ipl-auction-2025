@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { AuctionProvider, useAuction } from './context/AuctionContext';
 import AuctionPanel from './components/AuctionPanel';
 import TeamPanel from './components/TeamPanel';
-import LiveLeaderboard from './components/LiveLeaderboard';
+import TeamDetailModal from './components/TeamDetailModal';
+import LeaderboardModal from './components/LeaderboardModal';
+import WinnerRevealModal from './components/WinnerRevealModal';
+import TeamAnalysisModal from './components/TeamAnalysisModal';
+import MyTeamStats from './components/MyTeamStats';
+
 import { parseCSV, compressPlayers, saveToStorage } from './utils/dataUtils';
 import { TEAMS_CONFIG, DEFAULT_CONFIG } from './types';
 import { shuffleTeams } from './utils/gameLogic';
@@ -285,9 +290,13 @@ const SetupView: React.FC = () => {
 };
 
 const MainView: React.FC = () => {
-  const { state, socket } = useAuction();
+  const { state, dispatch, socket } = useAuction();
   useSoundEffects(state);
-  const [activeTab, setActiveTab] = useState<'auction' | 'teams' | 'leaderboard'>('auction');
+  const [activeTab, setActiveTab] = useState<'auction' | 'teams' | 'analysis'>('auction');
+  const [selectedTeamForDetails, setSelectedTeamForDetails] = useState<any>(null);
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+
+  const userTeam = state.userTeamId ? state.teams.find((t: any) => t.id === state.userTeamId) : null;
 
   // If no players loaded, show setup
   if (state.players.length === 0) {
@@ -328,57 +337,114 @@ const MainView: React.FC = () => {
         </div>
       </header>
 
-      <main className="container" style={{ paddingTop: 'var(--spacing-lg)' }}>
-        {activeTab === 'auction' && <AuctionPanel />}
-
-        {activeTab === 'teams' && (
-          <div className="flex-col">
-            {state.teams.map((team: any) => (
-              <TeamPanel key={team.id} team={team} />
-            ))}
+      {/* GAME OVER STATE: Results & Reveal */}
+      {state.auctionStatus === 'COMPLETED' ? (
+        state.revealStep >= 4 ? (
+          <div className="container" style={{ height: 'calc(100vh - 100px)', paddingTop: '20px' }}>
+            <LeaderboardModal
+              teams={state.teams}
+              onClose={() => { }}
+              isGameOver={true}
+            />
           </div>
-        )}
+        ) : (
+          <WinnerRevealModal
+            teams={state.teams}
+            revealStep={state.revealStep}
+            isHost={state.isHost || false}
+            onNextReveal={() => dispatch({ type: 'NEXT_REVEAL' })}
+            onClose={() => dispatch({ type: 'NEXT_REVEAL' })}
+          />
+        )
+      ) : (
+        <>
+          <main className="container" style={{ paddingTop: 'var(--spacing-lg)' }}>
+            {activeTab === 'auction' && <AuctionPanel />}
 
-        {activeTab === 'leaderboard' && <LiveLeaderboard teams={state.teams} />}
-      </main>
+            {activeTab === 'teams' && (
+              <div className="flex-col">
+                {state.teams.map((team: any) => (
+                  <TeamPanel
+                    key={team.id}
+                    team={team}
+                    onClick={() => setSelectedTeamForDetails(team)}
+                  />
+                ))}
+              </div>
+            )}
 
-      {/* Mobile Bottom Nav */}
-      <div style={{
-        position: 'fixed', bottom: 0, left: 0, right: 0,
-        background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)',
-        display: 'flex', justifyContent: 'space-around', padding: 'var(--spacing-sm)', zIndex: 40
-      }}>
-        <button
-          style={{
-            flex: 1, border: 'none', background: 'transparent',
-            color: activeTab === 'auction' ? 'var(--color-primary)' : 'var(--color-text-muted)',
-            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
-          }}
-          onClick={() => setActiveTab('auction')}
-        >
-          Auction
-        </button>
-        <button
-          style={{
-            flex: 1, border: 'none', background: 'transparent',
-            color: activeTab === 'teams' ? 'var(--color-primary)' : 'var(--color-text-muted)',
-            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
-          }}
-          onClick={() => setActiveTab('teams')}
-        >
-          Teams
-        </button>
-        <button
-          style={{
-            flex: 1, border: 'none', background: 'transparent',
-            color: activeTab === 'leaderboard' ? 'var(--color-primary)' : 'var(--color-text-muted)',
-            flexDirection: 'column', gap: '4px', fontSize: 'var(--font-size-sm)'
-          }}
-          onClick={() => setActiveTab('leaderboard')}
-        >
-          Leaderboard
-        </button>
-      </div>
+            {activeTab === 'analysis' && (
+              <div className="flex-col gap-4">
+                {state.userTeamId ? (
+                  state.teams.filter((t: any) => t.id === state.userTeamId).map((team: any) => (
+                    <div key={team.id} className="flex flex-col gap-4">
+                      <MyTeamStats team={team} config={state.config} />
+                      <button
+                        onClick={() => setShowAnalysisModal(true)}
+                        className="w-full py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-bold shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center gap-2"
+                      >
+                        <span>✨</span> View Deep Squad Analysis
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="card text-center p-8">
+                    <p className="text-muted">You haven't selected a team yet.</p>
+                    <p className="text-sm">Go to the Auction tab to select your team.</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </main >
+
+          {selectedTeamForDetails && (
+            <TeamDetailModal
+              team={selectedTeamForDetails}
+              config={state.config}
+              onClose={() => setSelectedTeamForDetails(null)}
+            />
+          )}
+
+          {showAnalysisModal && userTeam && (
+            <TeamAnalysisModal
+              team={userTeam}
+              onClose={() => setShowAnalysisModal(false)}
+            />
+          )}
+
+          {/* Mobile Bottom Nav */}
+          <div style={{
+            position: 'fixed', bottom: 0, left: 0, right: 0,
+            background: 'var(--color-surface)', borderTop: '1px solid var(--color-border)',
+            display: 'flex', justifyContent: 'space-around', padding: 'var(--spacing-sm)', zIndex: 40
+          }}>
+            <button
+              className={`flex-1 flex flex-col items-center gap-1 text-sm ${activeTab === 'auction' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}
+              style={{ background: 'transparent', border: 'none' }}
+              onClick={() => setActiveTab('auction')}
+            >
+              <span>🔨</span>
+              Auction
+            </button>
+            <button
+              className={`flex-1 flex flex-col items-center gap-1 text-sm ${activeTab === 'teams' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}
+              style={{ background: 'transparent', border: 'none' }}
+              onClick={() => setActiveTab('teams')}
+            >
+              <span>👥</span>
+              Teams
+            </button>
+            <button
+              className={`flex-1 flex flex-col items-center gap-1 text-sm ${activeTab === 'analysis' ? 'text-blue-600 font-bold' : 'text-gray-500'}`}
+              style={{ background: 'transparent', border: 'none' }}
+              onClick={() => setActiveTab('analysis')}
+            >
+              <span>📊</span>
+              My Analysis
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

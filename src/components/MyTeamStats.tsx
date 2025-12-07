@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import type { Team, AuctionConfig } from '../types';
 import { getOverseasCount, getRoleCounts } from '../utils/gameLogic';
+import { analyzeTeam } from '../utils/scoringUtils';
 
 interface MyTeamStatsProps {
     team: Team;
@@ -15,6 +16,8 @@ const MyTeamStats: React.FC<MyTeamStatsProps> = ({ team, config, onSwitchTeam })
     const budgetUsed = team.totalSpent;
     const budgetPercent = (budgetUsed / config.budget) * 100;
     const squadPercent = (team.squad.length / config.maxPlayersPerTeam) * 100;
+
+    const analysis = useMemo(() => analyzeTeam(team), [team]);
 
     const formatMoney = (amount: number) => {
         if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(2)} Cr`;
@@ -94,6 +97,32 @@ const MyTeamStats: React.FC<MyTeamStatsProps> = ({ team, config, onSwitchTeam })
                         <div className="bg-gray-50 p-2 rounded">
                             <div className="text-xs text-muted">WK</div>
                             <div className="font-bold">{roleCounts.WK}</div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                        <h4 className="text-xs font-bold text-muted mb-2 uppercase">Power Analysis</h4>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                            <div className="flex justify-between">
+                                <span>Stadium:</span>
+                                <span className="font-bold">{analysis.totalStadiumScore.toFixed(0)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Efficiency:</span>
+                                <span className="font-bold text-green-600">+{analysis.efficiencyBonus.toFixed(0)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Balance:</span>
+                                <span className="font-bold text-purple-600">+{analysis.compositionBonus}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Chemistry:</span>
+                                <span className="font-bold text-blue-600">+{analysis.chemistryBonus}</span>
+                            </div>
+                        </div>
+                        <div className="flex justify-between items-center mt-2 pt-2 border-t border-dashed">
+                            <span className="font-bold text-gray-700">Total Score</span>
+                            <span className="font-bold text-xl text-primary">{analysis.totalScore.toFixed(1)}</span>
                         </div>
                     </div>
 

@@ -160,9 +160,23 @@ const AuctionPanel: React.FC = () => {
                         <button onClick={() => setIsPoolOpen(true)}>
                             View Player Pool
                         </button>
+
                     </div>
                     {state.roomId && !state.isHost && (
                         <p className="text-sm text-muted mt-2">Waiting for host to bring next player...</p>
+                    )}
+
+                    {(!state.roomId || state.isHost) && state.auctionStatus !== 'COMPLETED' && (
+                        <button
+                            className="w-full mt-4 bg-red-600 hover:bg-red-700 text-black font-bold text-xs py-2 rounded shadow-sm"
+                            onClick={() => {
+                                if (confirm('Are you sure you want to END the auction?')) {
+                                    dispatch({ type: 'END_AUCTION' });
+                                }
+                            }}
+                        >
+                            END AUCTION & REVEAL WINNERS
+                        </button>
                     )}
                 </div>
 
@@ -205,6 +219,8 @@ const AuctionPanel: React.FC = () => {
                         onClose={() => setIsPoolOpen(false)}
                     />
                 )}
+
+                {/* Leaderboard & Reveal - Removed, handled by App.tsx */}
             </div>
         );
     }

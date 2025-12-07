@@ -27,7 +27,8 @@ const INITIAL_STATE: AuctionState = {
     config: DEFAULT_CONFIG,
     // New field for server sync
     auctionEndTime: null,
-    serverTimeOffset: 0
+    serverTimeOffset: 0,
+    revealStep: 0
 };
 
 type Action =
@@ -43,7 +44,9 @@ type Action =
     | { type: 'CHANGE_SET'; payload: AuctionSet }
     | { type: 'JOIN_ROOM'; payload: { roomId: string; isHost: boolean; username: string; userTeamId?: string } }
     | { type: 'SET_USER_TEAM'; payload: string }
-    | { type: 'SET_OFFSET'; payload: number };
+    | { type: 'SET_OFFSET'; payload: number }
+    | { type: 'END_AUCTION' }
+    | { type: 'NEXT_REVEAL' };
 
 const auctionReducer = (state: any, action: Action): AuctionState => {
     switch (action.type) {
@@ -64,8 +67,13 @@ const auctionReducer = (state: any, action: Action): AuctionState => {
                 isHost: action.payload.isHost !== undefined ? action.payload.isHost : (state.isHost || false),
                 config: action.payload.config || state.config,
                 auctionEndTime: null,
-                serverTimeOffset: 0
+                serverTimeOffset: 0,
+                revealStep: 0
             };
+        case 'END_AUCTION':
+            return { ...state, auctionStatus: 'COMPLETED', revealStep: 0, currentPlayer: null, isTimerRunning: false, auctionEndTime: null };
+        case 'NEXT_REVEAL':
+            return { ...state, revealStep: state.revealStep + 1 };
         case 'SET_USER_TEAM':
             return { ...state, userTeamId: action.payload };
         case 'START_TIMER':
@@ -111,7 +119,7 @@ const auctionReducer = (state: any, action: Action): AuctionState => {
                     return {
                         ...team,
                         budget: team.budget - action.payload.amount,
-                        squad: [...team.squad, soldPlayer],
+                        squad: [...team.squad, { ...soldPlayer, soldPrice: action.payload.amount }],
                         totalSpent: team.totalSpent + action.payload.amount,
                     };
                 }
